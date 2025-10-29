@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine Links</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
+    <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
     <style>
         * {
             box-sizing: border-box;
@@ -183,7 +186,7 @@
 
     <div class="container">
         <div class="avatar">
-            <img src="https://raw.githubusercontent.com/piodeer/LinkTree/393f258aa26a502d4d7264636335e75c9fe09a98/media/logo.png" alt="piodeer logo">
+            <img src="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png" alt="piodeer logo">
         </div>
         <h1>piodeer</h1>
         <p>Innovative Maker | DIY Enthusiast | Tech & Design Explorer</p>
@@ -219,6 +222,63 @@
             © 2025 piodeer. All rights reserved.
         </footer>
     </div>
+
+    <script>
+        (function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            
+            // Weißen Kreis zeichnen
+            ctx.beginPath();
+            ctx.arc(32, 32, 30, 0, 2 * Math.PI);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            
+            // Logo laden und zeichnen
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function() {
+                // Logo proportional skalieren und zentrieren
+                const circleRadius = 30;
+                const padding = 8;
+                const maxWidth = (circleRadius - padding) * 2;
+                const maxHeight = (circleRadius - padding) * 2;
+                
+                // Seitenverhältnis beibehalten
+                let logoWidth = img.width;
+                let logoHeight = img.height;
+                const aspectRatio = logoWidth / logoHeight;
+                
+                if (logoWidth > maxWidth) {
+                    logoWidth = maxWidth;
+                    logoHeight = logoWidth / aspectRatio;
+                }
+                if (logoHeight > maxHeight) {
+                    logoHeight = maxHeight;
+                    logoWidth = logoHeight * aspectRatio;
+                }
+                
+                // Logo zentrieren im Kreis
+                const logoX = (64 - logoWidth) / 2;
+                const logoY = (64 - logoHeight) / 2 - 1; // Leicht nach oben
+                ctx.drawImage(img, logoX, logoY, logoWidth, logoHeight);
+                
+                // Favicon aktualisieren
+                const favicon = document.querySelector("link[rel*='icon']");
+                if (favicon) {
+                    favicon.href = canvas.toDataURL();
+                } else {
+                    const link = document.createElement('link');
+                    link.rel = 'icon';
+                    link.href = canvas.toDataURL();
+                    document.head.appendChild(link);
+                }
+            };
+            img.src = 'https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png';
+        })();
+    </script>
 
 </body>
 </html>

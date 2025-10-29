@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
     <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -777,48 +777,87 @@
             const qrClose = document.getElementById('qrClose');
             const qrCanvas = document.getElementById('qrCode');
             let qrGenerated = false;
+            let qrImage = null; // Store generated QR code image
             const targetUrl = 'https://piodeer.github.io/LinkTree/';
 
-            function generateQRCode() {
-                if (qrGenerated && qrCanvas.width > 0) return;
-                
-                // Check if QRCode library is loaded
-                if (typeof QRCode === 'undefined') {
-                    // Use API fallback
-                    generateQRCodeWithAPI();
+            function waitForQRCodeLib(callback, maxAttempts = 20) {
+                // Check immediately first
+                if (typeof QRCode !== 'undefined') {
+                    callback();
                     return;
                 }
+                
+                let attempts = 0;
+                const checkInterval = setInterval(function() {
+                    attempts++;
+                    if (typeof QRCode !== 'undefined') {
+                        clearInterval(checkInterval);
+                        callback();
+                    } else if (attempts >= maxAttempts) {
+                        clearInterval(checkInterval);
+                        console.warn('QRCode library failed to load, using API fallback');
+                        callback(true);
+                    }
+                }, 50); // Reduced from 100ms to 50ms
+            }
 
-                try {
-                    // Set canvas size explicitly
-                    qrCanvas.width = 250;
-                    qrCanvas.height = 250;
-                    
-                    QRCode.toCanvas(qrCanvas, targetUrl, {
-                        width: 250,
-                        margin: 2,
-                        color: {
-                            dark: '#000000',
-                            light: '#FFFFFF'
-                        },
-                        errorCorrectionLevel: 'M'
-                    }, function (error) {
-                        if (error) {
-                            console.error('QR Code Generation Error:', error);
-                            generateQRCodeWithAPI();
-                        } else {
-                            qrGenerated = true;
-                            console.log('QR Code generated successfully');
-                        }
-                    });
-                } catch (error) {
-                    console.error('QR Code Error:', error);
-                    generateQRCodeWithAPI();
+            function generateQRCode(useStored = false) {
+                // If already generated and stored, use it
+                if (useStored && qrImage && qrGenerated) {
+                    const container = qrCanvas.parentElement;
+                    container.innerHTML = '';
+                    container.appendChild(qrImage.cloneNode(true));
+                    return;
                 }
+                
+                waitForQRCodeLib(function(useFallback) {
+                    if (useFallback || typeof QRCode === 'undefined') {
+                        generateQRCodeWithAPI();
+                        return;
+                    }
+
+                    try {
+                        // Create hidden canvas for generation
+                        const tempCanvas = document.createElement('canvas');
+                        tempCanvas.width = 250;
+                        tempCanvas.height = 250;
+                        
+                        QRCode.toCanvas(tempCanvas, targetUrl, {
+                            width: 250,
+                            margin: 2,
+                            color: {
+                                dark: '#000000',
+                                light: '#FFFFFF'
+                            },
+                            errorCorrectionLevel: 'M'
+                        }, function (error) {
+                            if (error) {
+                                console.error('QR Code Generation Error:', error);
+                                generateQRCodeWithAPI();
+                            } else {
+                                // Store the canvas for reuse
+                                qrImage = tempCanvas;
+                                qrGenerated = true;
+                                
+                                // Display it
+                                const container = qrCanvas.parentElement;
+                                container.innerHTML = '';
+                                container.appendChild(tempCanvas.cloneNode(true));
+                                console.log('QR Code generated successfully');
+                            }
+                        });
+                    } catch (error) {
+                        console.error('QR Code Error:', error);
+                        generateQRCodeWithAPI();
+                    }
+                });
             }
 
             function generateQRCodeWithAPI() {
                 // Fallback: Use QR API service
+                const container = qrCanvas.parentElement;
+                container.innerHTML = '';
+                
                 const encodedUrl = encodeURIComponent(targetUrl);
                 const img = document.createElement('img');
                 img.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodedUrl}`;
@@ -828,32 +867,78 @@
                 img.style.height = 'auto';
                 
                 img.onload = function() {
-                    qrCanvas.parentElement.innerHTML = '';
-                    qrCanvas.parentElement.appendChild(img);
+                    container.appendChild(img);
+                    qrImage = img.cloneNode(true);
                     qrGenerated = true;
+                    console.log('QR Code generated via API');
                 };
                 
                 img.onerror = function() {
-                    qrCanvas.parentElement.innerHTML = '<p style="color: #666; padding: 20px; text-align: center;">QR Code could not be generated<br>Please try again later.</p>';
+                    container.innerHTML = '<p style="color: #fff; padding: 20px; text-align: center;">QR Code konnte nicht generiert werden<br>Bitte versuchen Sie es später erneut.</p>';
                 };
             }
 
             function handleQRClick() {
                 qrModal.classList.add('active');
-                setTimeout(function() {
-                    if (!qrGenerated) {
-                        generateQRCode();
+                
+                // If already generated, show immediately, otherwise generate
+                if (qrGenerated && qrImage) {
+                    generateQRCode(true);
+                } else {
+                    // Generate immediately without delay if not already done
+                    generateQRCode();
+                }
+            }
+
+            // Pre-generate QR code when page loads (in background)
+            function preloadQRCode() {
+                // Wait for QRCode library and then generate
+                waitForQRCodeLib(function(useFallback) {
+                    if (useFallback || typeof QRCode === 'undefined') {
+                        generateQRCodeWithAPI();
+                    } else {
+                        try {
+                            const tempCanvas = document.createElement('canvas');
+                            tempCanvas.width = 250;
+                            tempCanvas.height = 250;
+                            
+                            QRCode.toCanvas(tempCanvas, targetUrl, {
+                                width: 250,
+                                margin: 2,
+                                color: {
+                                    dark: '#000000',
+                                    light: '#FFFFFF'
+                                },
+                                errorCorrectionLevel: 'M'
+                            }, function (error) {
+                                if (error) {
+                                    console.error('QR Code Preload Error:', error);
+                                    generateQRCodeWithAPI();
+                                } else {
+                                    qrImage = tempCanvas;
+                                    qrGenerated = true;
+                                    console.log('QR Code preloaded successfully');
+                                }
+                            });
+                        } catch (error) {
+                            console.error('QR Code Preload Error:', error);
+                            generateQRCodeWithAPI();
+                        }
                     }
-                }, 300);
+                });
             }
 
             // Wait for page to be fully loaded
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
                     qrButton.addEventListener('click', handleQRClick);
+                    // Start preloading after a short delay to not block page load
+                    setTimeout(preloadQRCode, 100);
                 });
             } else {
                 qrButton.addEventListener('click', handleQRClick);
+                // Start preloading immediately
+                setTimeout(preloadQRCode, 100);
             }
 
             qrClose.addEventListener('click', function() {

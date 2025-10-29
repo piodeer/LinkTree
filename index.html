@@ -337,7 +337,15 @@
             text-align: left;
         }
 
-        .share-button {
+        footer {
+            margin-top: 40px;
+            font-size: 13px;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        /* Email Button */
+        .email-button {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -358,9 +366,10 @@
             opacity: 0.8;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             transform-style: preserve-3d;
+            text-decoration: none;
         }
 
-        .share-button:hover {
+        .email-button:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.25);
             opacity: 1;
@@ -369,26 +378,13 @@
                         0 0 20px rgba(100, 181, 246, 0.4);
         }
 
-        .share-button:active {
+        .email-button:active {
             transform: scale(0.95);
         }
 
-        .share-button span:last-child {
-            display: none;
-        }
-
-        .share-icon {
+        .email-button svg {
             width: 20px;
             height: 20px;
-            fill: #ffffff;
-            stroke: #ffffff;
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 13px;
-            opacity: 0.6;
-            font-weight: 400;
         }
 
         /* QR Code Button */
@@ -501,19 +497,58 @@
             justify-content: center;
             cursor: pointer;
             color: #ffffff;
-            font-size: 20px;
-            transition: all 0.3s ease;
+            padding: 0;
+            margin: 0;
+        }
+
+        .qr-modal-close svg {
+            width: 18px;
+            height: 18px;
         }
 
         .qr-modal-close:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
         }
 
         .qr-modal-content p {
             font-size: 14px;
             opacity: 0.8;
             margin-top: 15px;
+        }
+
+        /* Share Button in QR Modal */
+        .qr-modal-share-button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .qr-modal-share-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-modal-share-button:active {
+            transform: translateY(0);
+        }
+
+        .qr-modal-share-button svg {
+            width: 18px;
+            height: 18px;
         }
 
         /* Live Counter */
@@ -559,13 +594,13 @@
 <body>
 
     <div class="particles" id="particles"></div>
-    
-    <button class="share-button" id="shareButton">
-        <svg class="share-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+
+    <!-- Email Button -->
+    <a href="mailto:sales.piodeer@gmail.com?subject=Contact%20Request%20(...)&body=Type%20your%20request%20here..." class="email-button" title="Contact via Email">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
         </svg>
-        <span>Teilen</span>
-    </button>
+    </a>
 
     <div class="container">
         <div class="avatar">
@@ -626,12 +661,22 @@
     <!-- QR Code Modal -->
     <div class="qr-modal" id="qrModal">
         <div class="qr-modal-content">
-            <div class="qr-modal-close" id="qrClose">×</div>
-            <h3>QR Code for Events</h3>
+            <div class="qr-modal-close" id="qrClose">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3>QR Code for Sharing</h3>
             <div class="qr-code-container">
                 <canvas id="qrCode"></canvas>
             </div>
             <p>Scan the code to visit my links</p>
+            <button class="qr-modal-share-button" id="qrModalShareButton">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                </svg>
+                <span>Share</span>
+            </button>
         </div>
     </div>
 
@@ -710,65 +755,68 @@
             img.src = 'https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png';
         })();
 
-        // Share-Button Funktionalität
-        document.getElementById('shareButton').addEventListener('click', async function() {
-            const url = window.location.href;
-            const title = 'piodeer - Innovative Maker | DIY Enthusiast | Tech & Design Explorer';
-            
-            if (navigator.share) {
-                // Web Share API verwenden (mobile Geräte)
-                try {
-                    await navigator.share({
-                        title: title,
-                        text: 'Check out my links!',
-                        url: url
-                    });
-                } catch (err) {
-                    console.log('Fehler beim Teilen:', err);
-                }
-            } else {
-                // Fallback: Link in Zwischenablage kopieren
-                try {
-                    await navigator.clipboard.writeText(url);
-                    const button = document.getElementById('shareButton');
-                    const svg = button.querySelector('.share-icon');
-                    const originalPath = svg.querySelector('path').getAttribute('d');
-                    svg.querySelector('path').setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z');
-                    button.style.background = 'rgba(34, 197, 94, 0.2)';
-                    button.style.borderColor = 'rgba(34, 197, 94, 0.4)';
-                    setTimeout(() => {
-                        svg.querySelector('path').setAttribute('d', originalPath);
-                        button.style.background = '';
-                        button.style.borderColor = '';
-                    }, 2000);
-                } catch (err) {
-                    // Fallback: Text-Area-Methode
-                    const textArea = document.createElement('textarea');
-                    textArea.value = url;
-                    textArea.style.position = 'fixed';
-                    textArea.style.opacity = '0';
-                    document.body.appendChild(textArea);
-                    textArea.select();
+        // Share-Funktion (wiederverwendbar)
+        function handleShare(buttonElement, svgElement) {
+            return async function() {
+                const url = window.location.href;
+                const title = 'piodeer - Innovative Maker | DIY Enthusiast | Tech & Design Explorer';
+                
+                if (navigator.share) {
+                    // Web Share API verwenden (mobile Geräte)
                     try {
-                        document.execCommand('copy');
-                        const button = document.getElementById('shareButton');
-                        const svg = button.querySelector('.share-icon');
-                        const originalPath = svg.querySelector('path').getAttribute('d');
-                        svg.querySelector('path').setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z');
-                        button.style.background = 'rgba(34, 197, 94, 0.2)';
-                        button.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                        await navigator.share({
+                            title: title,
+                            text: 'Check out my links!',
+                            url: url
+                        });
+                    } catch (err) {
+                        console.log('Fehler beim Teilen:', err);
+                    }
+                } else {
+                    // Fallback: Link in Zwischenablage kopieren
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        const originalPath = svgElement.querySelector('path').getAttribute('d');
+                        svgElement.querySelector('path').setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z');
+                        buttonElement.style.background = 'rgba(34, 197, 94, 0.2)';
+                        buttonElement.style.borderColor = 'rgba(34, 197, 94, 0.4)';
                         setTimeout(() => {
-                            svg.querySelector('path').setAttribute('d', originalPath);
-                            button.style.background = '';
-                            button.style.borderColor = '';
+                            svgElement.querySelector('path').setAttribute('d', originalPath);
+                            buttonElement.style.background = '';
+                            buttonElement.style.borderColor = '';
                         }, 2000);
                     } catch (err) {
-                        alert('Link konnte nicht kopiert werden. Bitte manuell kopieren: ' + url);
+                        // Fallback: Text-Area-Methode
+                        const textArea = document.createElement('textarea');
+                        textArea.value = url;
+                        textArea.style.position = 'fixed';
+                        textArea.style.opacity = '0';
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        try {
+                            document.execCommand('copy');
+                            const originalPath = svgElement.querySelector('path').getAttribute('d');
+                            svgElement.querySelector('path').setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z');
+                            buttonElement.style.background = 'rgba(34, 197, 94, 0.2)';
+                            buttonElement.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                            setTimeout(() => {
+                                svgElement.querySelector('path').setAttribute('d', originalPath);
+                                buttonElement.style.background = '';
+                                buttonElement.style.borderColor = '';
+                            }, 2000);
+                        } catch (err) {
+                            alert('Link konnte nicht kopiert werden. Bitte manuell kopieren: ' + url);
+                        }
+                        document.body.removeChild(textArea);
                     }
-                    document.body.removeChild(textArea);
                 }
-            }
-        });
+            };
+        }
+
+        // Share-Button im QR Modal
+        const qrModalShareButton = document.getElementById('qrModalShareButton');
+        const qrModalShareIcon = qrModalShareButton.querySelector('svg');
+        qrModalShareButton.addEventListener('click', handleShare(qrModalShareButton, qrModalShareIcon));
 
         // QR Code Generator
         (function() {

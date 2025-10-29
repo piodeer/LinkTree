@@ -174,6 +174,50 @@
             text-align: left;
         }
 
+        .share-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            opacity: 0.8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .share-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .share-button:active {
+            transform: scale(0.95);
+        }
+
+        .share-button span:last-child {
+            display: none;
+        }
+
+        .share-icon {
+            width: 20px;
+            height: 20px;
+            fill: #ffffff;
+            stroke: #ffffff;
+        }
+
         footer {
             margin-top: 40px;
             font-size: 13px;
@@ -183,6 +227,13 @@
     </style>
 </head>
 <body>
+
+    <button class="share-button" id="shareButton">
+        <svg class="share-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+        </svg>
+        <span>Teilen</span>
+    </button>
 
     <div class="container">
         <div class="avatar">
@@ -278,6 +329,66 @@
             };
             img.src = 'https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png';
         })();
+
+        // Share-Button Funktionalität
+        document.getElementById('shareButton').addEventListener('click', async function() {
+            const url = window.location.href;
+            const title = 'piodeer - Innovative Maker | DIY Enthusiast | Tech & Design Explorer';
+            
+            if (navigator.share) {
+                // Web Share API verwenden (mobile Geräte)
+                try {
+                    await navigator.share({
+                        title: title,
+                        text: 'Schau dir meine Links an!',
+                        url: url
+                    });
+                } catch (err) {
+                    console.log('Fehler beim Teilen:', err);
+                }
+            } else {
+                // Fallback: Link in Zwischenablage kopieren
+                try {
+                    await navigator.clipboard.writeText(url);
+                    const button = document.getElementById('shareButton');
+                    const svg = button.querySelector('.share-icon');
+                    const originalPath = svg.querySelector('path').getAttribute('d');
+                    svg.querySelector('path').setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z');
+                    button.style.background = 'rgba(34, 197, 94, 0.2)';
+                    button.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                    setTimeout(() => {
+                        svg.querySelector('path').setAttribute('d', originalPath);
+                        button.style.background = '';
+                        button.style.borderColor = '';
+                    }, 2000);
+                } catch (err) {
+                    // Fallback: Text-Area-Methode
+                    const textArea = document.createElement('textarea');
+                    textArea.value = url;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        const button = document.getElementById('shareButton');
+                        const svg = button.querySelector('.share-icon');
+                        const originalPath = svg.querySelector('path').getAttribute('d');
+                        svg.querySelector('path').setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z');
+                        button.style.background = 'rgba(34, 197, 94, 0.2)';
+                        button.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                        setTimeout(() => {
+                            svg.querySelector('path').setAttribute('d', originalPath);
+                            button.style.background = '';
+                            button.style.borderColor = '';
+                        }, 2000);
+                    } catch (err) {
+                        alert('Link konnte nicht kopiert werden. Bitte manuell kopieren: ' + url);
+                    }
+                    document.body.removeChild(textArea);
+                }
+            }
+        });
     </script>
 
 </body>

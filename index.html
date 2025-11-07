@@ -206,6 +206,101 @@
             gap: 20px;
         }
 
+        .projects-section {
+            margin-top: 48px;
+            text-align: left;
+        }
+
+        .projects-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-card {
+            display: flex;
+            gap: 16px;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12);
+        }
+
+        .project-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .project-status {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            font-weight: 600;
+        }
+
+        .project-status--active {
+            color: #34d399;
+            opacity: 1;
+        }
+
+        .project-status--upcoming {
+            color: #f59e0b;
+            opacity: 1;
+        }
+
+        .project-description {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
         .link {
             display: flex;
             align-items: center;
@@ -636,6 +731,11 @@
             </a>
         </div>
 
+        <section class="projects-section" id="projectsSection" hidden>
+            <h2>Active Projects</h2>
+            <div class="projects-list" id="projectsList"></div>
+        </section>
+
         <footer>
             © 2025 piodeer. All rights reserved.
         </footer>
@@ -817,6 +917,122 @@
         const qrModalShareButton = document.getElementById('qrModalShareButton');
         const qrModalShareIcon = qrModalShareButton.querySelector('svg');
         qrModalShareButton.addEventListener('click', handleShare(qrModalShareButton, qrModalShareIcon));
+
+        // Aktive Projekte laden
+        (function() {
+            const projectsUrl = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/Projects.txt';
+            const projectsSection = document.getElementById('projectsSection');
+            const projectsList = document.getElementById('projectsList');
+
+            if (!projectsSection || !projectsList) {
+                return;
+            }
+
+            fetch(projectsUrl, { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Projektdaten konnten nicht geladen werden.');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0 && !line.startsWith('#'));
+
+                    if (lines.length === 0) {
+                        return;
+                    }
+
+                    const fragment = document.createDocumentFragment();
+
+                    lines.forEach(line => {
+                        const parts = line.split('|').map(part => part.trim());
+
+                        const [title = 'Projekt', link = '', status = '', description = '', icon = ''] = parts;
+
+                        const hasLink = link && /^https?:\/\//i.test(link);
+                        const card = document.createElement(hasLink ? 'a' : 'div');
+                        card.className = 'project-card';
+
+                        if (hasLink) {
+                            card.href = link;
+                            card.target = '_blank';
+                            card.rel = 'noopener noreferrer';
+                        }
+
+                        if (icon && /^https?:\/\//i.test(icon)) {
+                            const iconWrapper = document.createElement('div');
+                            iconWrapper.className = 'project-icon';
+                            const img = document.createElement('img');
+                            
+                            // Convert GitHub blob URLs to raw URLs
+                            let iconUrl = icon;
+                            if (iconUrl.includes('github.com') && iconUrl.includes('/blob/')) {
+                                iconUrl = iconUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                            }
+                            
+                            img.src = iconUrl;
+                            img.alt = '';
+                            img.onerror = function() {
+                                // Hide icon if image fails to load
+                                iconWrapper.style.display = 'none';
+                            };
+                            iconWrapper.appendChild(img);
+                            card.appendChild(iconWrapper);
+                        }
+
+                        const contentWrapper = document.createElement('div');
+                        contentWrapper.className = 'project-card-content';
+
+                        const titleEl = document.createElement('div');
+                        titleEl.className = 'project-title';
+                        titleEl.textContent = title || 'Projekt';
+                        contentWrapper.appendChild(titleEl);
+
+                        if (status) {
+                            const statusEl = document.createElement('div');
+                            statusEl.className = 'project-status';
+                            const normalizedStatus = status.toLowerCase();
+                            let statusText = status;
+
+                            if (['aktiv', 'active'].includes(normalizedStatus)) {
+                                statusText = 'Active';
+                                statusEl.classList.add('project-status--active');
+                            } else if (
+                                ['kommend', 'coming soon', 'in planung', 'in vorbereitung', 'upcoming'].some(label => normalizedStatus === label || normalizedStatus.includes(label))
+                            ) {
+                                statusText = 'Upcoming';
+                                statusEl.classList.add('project-status--upcoming');
+                            } else {
+                                statusText = status.charAt(0).toUpperCase() + status.slice(1);
+                            }
+
+                            statusEl.textContent = statusText;
+                            contentWrapper.appendChild(statusEl);
+                        }
+
+                        if (description) {
+                            const descriptionEl = document.createElement('div');
+                            descriptionEl.className = 'project-description';
+                            descriptionEl.textContent = description;
+                            contentWrapper.appendChild(descriptionEl);
+                        }
+
+                        card.appendChild(contentWrapper);
+
+                        fragment.appendChild(card);
+                    });
+
+                    if (fragment.childNodes.length > 0) {
+                        projectsList.appendChild(fragment);
+                        projectsSection.hidden = false;
+                    }
+                })
+                .catch(error => {
+                    console.warn(error.message);
+                });
+        })();
 
         // QR Code Generator
         (function() {

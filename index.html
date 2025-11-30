@@ -206,12 +206,12 @@
             gap: 20px;
         }
 
-        .projects-section {
+        .affiliate-section {
             margin-top: 48px;
             text-align: left;
         }
 
-        .projects-section h2 {
+        .affiliate-section h2 {
             font-size: 20px;
             font-weight: 600;
             margin: 0 0 16px;
@@ -220,31 +220,25 @@
             opacity: 0.85;
         }
 
-        .projects-list {
+        .affiliate-list {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        .projects-loading {
+        .affiliate-loading {
             text-align: center;
             padding: 20px;
             opacity: 0.7;
             font-size: 14px;
         }
 
-        .projects-loading::after {
+        .affiliate-loading::after {
             content: '...';
             animation: dots 1.5s steps(4, end) infinite;
         }
 
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-
-        .projects-error {
+        .affiliate-error {
             text-align: center;
             padding: 20px;
             opacity: 0.6;
@@ -252,7 +246,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .project-card {
+        .affiliate-card {
             display: flex;
             gap: 16px;
             padding: 18px 22px;
@@ -264,13 +258,13 @@
             text-decoration: none;
             color: inherit;
             opacity: 0;
-            animation: projectFadeIn 0.5s ease forwards;
+            animation: affiliateFadeIn 0.5s ease forwards;
             position: relative;
             overflow: hidden;
             cursor: pointer;
         }
 
-        .project-card::before {
+        .affiliate-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -281,19 +275,19 @@
             transition: left 0.5s ease;
         }
 
-        .project-card:hover::before {
+        .affiliate-card:hover::before {
             left: 100%;
         }
 
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.2s; }
-        .project-card:nth-child(3) { animation-delay: 0.3s; }
-        .project-card:nth-child(4) { animation-delay: 0.4s; }
-        .project-card:nth-child(5) { animation-delay: 0.5s; }
-        .project-card:nth-child(6) { animation-delay: 0.6s; }
-        .project-card:nth-child(n+7) { animation-delay: 0.7s; }
+        .affiliate-card:nth-child(1) { animation-delay: 0.1s; }
+        .affiliate-card:nth-child(2) { animation-delay: 0.2s; }
+        .affiliate-card:nth-child(3) { animation-delay: 0.3s; }
+        .affiliate-card:nth-child(4) { animation-delay: 0.4s; }
+        .affiliate-card:nth-child(5) { animation-delay: 0.5s; }
+        .affiliate-card:nth-child(6) { animation-delay: 0.6s; }
+        .affiliate-card:nth-child(n+7) { animation-delay: 0.7s; }
 
-        @keyframes projectFadeIn {
+        @keyframes affiliateFadeIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
@@ -304,13 +298,13 @@
             }
         }
 
-        .project-card-content {
+        .affiliate-card-content {
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
 
-        .project-card:hover {
+        .affiliate-card:hover {
             transform: translateY(-4px) scale(1.01);
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
@@ -319,16 +313,16 @@
                         inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .project-card:active {
+        .affiliate-card:active {
             transform: translateY(-2px) scale(0.99);
         }
 
-        .project-card:focus-visible {
+        .affiliate-card:focus-visible {
             outline: 2px solid rgba(100, 181, 246, 0.6);
             outline-offset: 2px;
         }
 
-        .project-title {
+        .affiliate-title {
             font-size: 16px;
             font-weight: 600;
             display: flex;
@@ -336,7 +330,7 @@
             gap: 10px;
         }
 
-        .project-icon {
+        .affiliate-icon {
             width: 48px;
             height: 48px;
             min-width: 48px;
@@ -351,24 +345,24 @@
             position: relative;
         }
 
-        .project-card:hover .project-icon {
+        .affiliate-card:hover .affiliate-icon {
             transform: scale(1.1) rotate(2deg);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
                         inset 0 1px 2px rgba(255, 255, 255, 0.2);
         }
 
-        .project-icon img {
+        .affiliate-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             transition: transform 0.3s ease;
         }
 
-        .project-card:hover .project-icon img {
+        .affiliate-card:hover .affiliate-icon img {
             transform: scale(1.05);
         }
 
-        .project-icon::after {
+        .affiliate-icon::after {
             content: '';
             position: absolute;
             top: 0;
@@ -380,59 +374,224 @@
             transition: opacity 0.3s ease;
         }
 
-        .project-card:hover .project-icon::after {
+        .affiliate-card:hover .affiliate-icon::after {
             opacity: 1;
         }
 
-        .project-status {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 700;
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            width: fit-content;
-            margin-top: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .project-status--active {
-            color: #10b981;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
-        }
-
-        .project-card:hover .project-status--active {
-            background: rgba(16, 185, 129, 0.2);
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .project-status--upcoming {
-            color: #f59e0b;
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
-        }
-
-        .project-card:hover .project-status--upcoming {
-            background: rgba(245, 158, 11, 0.2);
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
-        }
-
-        .project-description {
+        .affiliate-description {
             font-size: 14px;
             opacity: 0.8;
             line-height: 1.5;
             transition: opacity 0.3s ease;
         }
 
-        .project-card:hover .project-description {
+        .affiliate-card:hover .affiliate-description {
             opacity: 0.95;
         }
 
-        .project-icon-loading {
+        .affiliate-icon-loading {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .models-section {
+            margin-top: 48px;
+            text-align: left;
+        }
+
+        .models-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        .models-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .models-loading {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .models-loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        .models-error {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.6;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .model-card {
+            display: flex;
+            gap: 16px;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            opacity: 0;
+            animation: modelFadeIn 0.5s ease forwards;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .model-card:hover::before {
+            left: 100%;
+        }
+
+        .model-card:nth-child(1) { animation-delay: 0.1s; }
+        .model-card:nth-child(2) { animation-delay: 0.2s; }
+        .model-card:nth-child(3) { animation-delay: 0.3s; }
+        .model-card:nth-child(4) { animation-delay: 0.4s; }
+        .model-card:nth-child(5) { animation-delay: 0.5s; }
+        .model-card:nth-child(6) { animation-delay: 0.6s; }
+        .model-card:nth-child(n+7) { animation-delay: 0.7s; }
+
+        @keyframes modelFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .model-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .model-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 20px rgba(100, 181, 246, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .model-card:active {
+            transform: translateY(-2px) scale(0.99);
+        }
+
+        .model-card:focus-visible {
+            outline: 2px solid rgba(100, 181, 246, 0.6);
+            outline-offset: 2px;
+        }
+
+        .model-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .model-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .model-card:hover .model-icon {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .model-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .model-card:hover .model-icon img {
+            transform: scale(1.05);
+        }
+
+        .model-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .model-card:hover .model-icon::after {
+            opacity: 1;
+        }
+
+        .model-subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .model-card:hover .model-subtitle {
+            opacity: 0.95;
+        }
+
+        .model-icon-loading {
             width: 48px;
             height: 48px;
             min-width: 48px;
@@ -834,45 +993,75 @@
             margin-top: 4px;
         }
 
-        /* Responsive optimizations for project cards */
+        /* Responsive optimizations for affiliate cards */
         @media (max-width: 480px) {
-            .project-card {
+            .affiliate-card {
                 padding: 14px 18px;
                 gap: 12px;
             }
 
-            .project-icon {
+            .affiliate-icon {
                 width: 40px;
                 height: 40px;
                 min-width: 40px;
             }
 
-            .project-title {
+            .affiliate-title {
                 font-size: 15px;
             }
 
-            .project-description {
+            .affiliate-description {
                 font-size: 13px;
             }
+        }
 
-            .project-status {
-                font-size: 10px;
-                padding: 3px 8px;
+        /* Responsive optimizations for model cards */
+        @media (max-width: 480px) {
+            .model-card {
+                padding: 14px 18px;
+                gap: 12px;
+            }
+
+            .model-icon {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+            }
+
+            .model-title {
+                font-size: 15px;
+            }
+
+            .model-subtitle {
+                font-size: 13px;
             }
         }
 
         /* Reduce animations on devices with reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
-            .project-card {
+            .affiliate-card {
                 animation: none;
                 opacity: 1;
             }
 
-            .project-card:hover {
+            .affiliate-card:hover {
                 transform: none;
             }
 
-            .project-card:hover .project-icon {
+            .affiliate-card:hover .affiliate-icon {
+                transform: none;
+            }
+
+            .model-card {
+                animation: none;
+                opacity: 1;
+            }
+
+            .model-card:hover {
+                transform: none;
+            }
+
+            .model-card:hover .model-icon {
                 transform: none;
             }
         }
@@ -923,9 +1112,14 @@
             </a>
         </div>
 
-        <section class="projects-section" id="projectsSection" hidden>
-            <h2>Active Projects</h2>
-            <div class="projects-list" id="projectsList"></div>
+        <section class="affiliate-section" id="affiliateSection" hidden>
+            <h2>Affiliate Links</h2>
+            <div class="affiliate-list" id="affiliateList"></div>
+        </section>
+
+        <section class="models-section" id="modelsSection" hidden>
+            <h2>3D Model Files</h2>
+            <div class="models-list" id="modelsList"></div>
         </section>
 
         <footer>
@@ -1110,24 +1304,34 @@
         const qrModalShareIcon = qrModalShareButton.querySelector('svg');
         qrModalShareButton.addEventListener('click', handleShare(qrModalShareButton, qrModalShareIcon));
 
-        // Aktive Projekte laden
+        // Affiliate Links laden
         (function() {
-            const projectsUrl = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/Projects.txt';
-            const projectsSection = document.getElementById('projectsSection');
-            const projectsList = document.getElementById('projectsList');
+            // Convert GitHub blob URL to raw URL if needed
+            function convertToRawUrl(url) {
+                if (url.includes('github.com') && url.includes('/blob/')) {
+                    return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
 
-            if (!projectsSection || !projectsList) {
+            let affiliateUrl = 'https://github.com/piodeer/LinkTree/blob/5918fa4797c8dd790dcd8109bc19060ac5dd296e/AffiliateLinks.txt';
+            affiliateUrl = convertToRawUrl(affiliateUrl);
+            
+            const affiliateSection = document.getElementById('affiliateSection');
+            const affiliateList = document.getElementById('affiliateList');
+
+            if (!affiliateSection || !affiliateList) {
                 return;
             }
 
             // Show loading indicator
-            projectsSection.hidden = false;
-            projectsList.innerHTML = '<div class="projects-loading">Loading projects</div>';
+            affiliateSection.hidden = false;
+            affiliateList.innerHTML = '<div class="affiliate-loading">Loading affiliate links</div>';
 
-            fetch(projectsUrl, { cache: 'no-store' })
+            fetch(affiliateUrl, { cache: 'no-store' })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to load project data.');
+                        throw new Error('Failed to load affiliate data.');
                     }
                     return response.text();
                 })
@@ -1137,56 +1341,31 @@
                         .filter(line => line.length > 0 && !line.startsWith('#'));
 
                     if (lines.length === 0) {
-                        projectsList.innerHTML = '';
-                        projectsSection.hidden = true;
+                        affiliateList.innerHTML = '';
+                        affiliateSection.hidden = true;
                         return;
                     }
 
-                    // Parse and create project objects for sorting
-                    const projects = lines.map(line => {
+                    // Parse affiliate links: Format: title | description | link | icon (optional)
+                    const affiliates = lines.map(line => {
                         const parts = line.split('|').map(part => part.trim());
-                        const [title = 'Project', link = '', status = '', description = '', icon = ''] = parts;
+                        const [title = 'Link', description = '', link = '', icon = ''] = parts;
                         
-                        // Normalize status for sorting
-                        const normalizedStatus = status.toLowerCase();
-                        let statusType = 'other';
-                        let statusText = status;
-                        
-                        if (['aktiv', 'active'].includes(normalizedStatus)) {
-                            statusType = 'active';
-                            statusText = 'Active';
-                        } else if (
-                            ['kommend', 'coming soon', 'in planung', 'in vorbereitung', 'upcoming'].some(label => 
-                                normalizedStatus === label || normalizedStatus.includes(label)
-                            )
-                        ) {
-                            statusType = 'upcoming';
-                            statusText = 'Upcoming';
-                        } else if (status) {
-                            statusText = status.charAt(0).toUpperCase() + status.slice(1);
-                        }
-                        
-                        return { title, link, status: statusText, statusType, description, icon };
-                    });
-
-                    // Sort projects: Active first, then Upcoming, then others
-                    projects.sort((a, b) => {
-                        const order = { 'active': 0, 'upcoming': 1, 'other': 2 };
-                        return (order[a.statusType] || 2) - (order[b.statusType] || 2);
+                        return { title, description, link, icon };
                     });
 
                     // Clear loading indicator
-                    projectsList.innerHTML = '';
+                    affiliateList.innerHTML = '';
 
-                    // Create and append project cards
+                    // Create and append affiliate cards
                     const fragment = document.createDocumentFragment();
 
-                    projects.forEach((project, index) => {
-                        const { title, link, status, statusType, description, icon } = project;
+                    affiliates.forEach((affiliate, index) => {
+                        const { title, description, link, icon } = affiliate;
 
                         const hasLink = link && /^https?:\/\//i.test(link);
                         const card = document.createElement(hasLink ? 'a' : 'div');
-                        card.className = 'project-card';
+                        card.className = 'affiliate-card';
                         card.style.animationDelay = `${index * 0.1}s`;
 
                         if (hasLink) {
@@ -1198,7 +1377,7 @@
                         // Icon with lazy loading
                         if (icon && /^https?:\/\//i.test(icon)) {
                             const iconWrapper = document.createElement('div');
-                            iconWrapper.className = 'project-icon';
+                            iconWrapper.className = 'affiliate-icon';
                             const img = document.createElement('img');
                             
                             // Convert GitHub blob URLs to raw URLs
@@ -1209,7 +1388,7 @@
                             
                             img.loading = 'lazy';
                             img.src = iconUrl;
-                            img.alt = '';
+                            img.alt = title || 'Affiliate';
                             img.onerror = function() {
                                 // Hide icon if image fails to load
                                 iconWrapper.style.display = 'none';
@@ -1219,28 +1398,16 @@
                         }
 
                         const contentWrapper = document.createElement('div');
-                        contentWrapper.className = 'project-card-content';
+                        contentWrapper.className = 'affiliate-card-content';
 
                         const titleEl = document.createElement('div');
-                        titleEl.className = 'project-title';
-                        titleEl.textContent = title || 'Project';
+                        titleEl.className = 'affiliate-title';
+                        titleEl.textContent = title || 'Link';
                         contentWrapper.appendChild(titleEl);
-
-                        if (status) {
-                            const statusEl = document.createElement('div');
-                            statusEl.className = 'project-status';
-                            if (statusType === 'active') {
-                                statusEl.classList.add('project-status--active');
-                            } else if (statusType === 'upcoming') {
-                                statusEl.classList.add('project-status--upcoming');
-                            }
-                            statusEl.textContent = status;
-                            contentWrapper.appendChild(statusEl);
-                        }
 
                         if (description) {
                             const descriptionEl = document.createElement('div');
-                            descriptionEl.className = 'project-description';
+                            descriptionEl.className = 'affiliate-description';
                             descriptionEl.textContent = description;
                             contentWrapper.appendChild(descriptionEl);
                         }
@@ -1250,16 +1417,142 @@
                     });
 
                     if (fragment.childNodes.length > 0) {
-                        projectsList.appendChild(fragment);
-                        projectsSection.hidden = false;
+                        affiliateList.appendChild(fragment);
+                        affiliateSection.hidden = false;
                     } else {
-                        projectsSection.hidden = true;
+                        affiliateSection.hidden = true;
                     }
                 })
                 .catch(error => {
-                    console.warn('Projects loading error:', error);
-                    projectsList.innerHTML = '<div class="projects-error">Unable to load projects. Please try again later.</div>';
-                    projectsSection.hidden = false;
+                    console.warn('Affiliate links loading error:', error);
+                    affiliateList.innerHTML = '<div class="affiliate-error">Unable to load affiliate links. Please try again later.</div>';
+                    affiliateSection.hidden = false;
+                });
+        })();
+
+        // 3D Models laden
+        (function() {
+            // Convert GitHub blob URL to raw URL if needed
+            function convertToRawUrl(url) {
+                if (url.includes('github.com') && url.includes('/blob/')) {
+                    return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
+
+            let modelsUrl = 'https://github.com/piodeer/LinkTree/blob/d0ecdf3bffa9531639b31fc764a1f48c5754d150/Projects.txt';
+            modelsUrl = convertToRawUrl(modelsUrl);
+            
+            const modelsSection = document.getElementById('modelsSection');
+            const modelsList = document.getElementById('modelsList');
+
+            if (!modelsSection || !modelsList) {
+                return;
+            }
+
+            // Show loading indicator
+            modelsSection.hidden = false;
+            modelsList.innerHTML = '<div class="models-loading">Loading models</div>';
+
+            fetch(modelsUrl, { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load model data.');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0 && !line.startsWith('#'));
+
+                    if (lines.length === 0) {
+                        modelsList.innerHTML = '';
+                        modelsSection.hidden = true;
+                        return;
+                    }
+
+                    // Parse models: Format: title | subtitle | link | image
+                    const models = lines.map(line => {
+                        const parts = line.split('|').map(part => part.trim());
+                        const [title = 'Model', subtitle = '', link = '', image = ''] = parts;
+                        
+                        return { title, subtitle, link, image };
+                    });
+
+                    // Clear loading indicator
+                    modelsList.innerHTML = '';
+
+                    // Create and append model cards
+                    const fragment = document.createDocumentFragment();
+
+                    models.forEach((model, index) => {
+                        const { title, subtitle, link, image } = model;
+
+                        const hasLink = link && /^https?:\/\//i.test(link);
+                        const card = document.createElement(hasLink ? 'a' : 'div');
+                        card.className = 'model-card';
+                        card.style.animationDelay = `${index * 0.1}s`;
+
+                        if (hasLink) {
+                            card.href = link;
+                            card.target = '_blank';
+                            card.rel = 'noopener noreferrer';
+                        }
+
+                        // Image with lazy loading
+                        if (image && /^https?:\/\//i.test(image)) {
+                            const imageWrapper = document.createElement('div');
+                            imageWrapper.className = 'model-icon';
+                            const img = document.createElement('img');
+                            
+                            // Convert GitHub blob URLs to raw URLs
+                            let imageUrl = image;
+                            if (imageUrl.includes('github.com') && imageUrl.includes('/blob/')) {
+                                imageUrl = imageUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                            }
+                            
+                            img.loading = 'lazy';
+                            img.src = imageUrl;
+                            img.alt = title || 'Model';
+                            img.onerror = function() {
+                                // Hide icon if image fails to load
+                                imageWrapper.style.display = 'none';
+                            };
+                            imageWrapper.appendChild(img);
+                            card.appendChild(imageWrapper);
+                        }
+
+                        const contentWrapper = document.createElement('div');
+                        contentWrapper.className = 'model-card-content';
+
+                        const titleEl = document.createElement('div');
+                        titleEl.className = 'model-title';
+                        titleEl.textContent = title || 'Model';
+                        contentWrapper.appendChild(titleEl);
+
+                        if (subtitle) {
+                            const subtitleEl = document.createElement('div');
+                            subtitleEl.className = 'model-subtitle';
+                            subtitleEl.textContent = subtitle;
+                            contentWrapper.appendChild(subtitleEl);
+                        }
+
+                        card.appendChild(contentWrapper);
+                        fragment.appendChild(card);
+                    });
+
+                    if (fragment.childNodes.length > 0) {
+                        modelsList.appendChild(fragment);
+                        modelsSection.hidden = false;
+                    } else {
+                        modelsSection.hidden = true;
+                    }
+                })
+                .catch(error => {
+                    console.warn('Models loading error:', error);
+                    modelsList.innerHTML = '<div class="models-error">Unable to load models. Please try again later.</div>';
+                    modelsSection.hidden = false;
                 });
         })();
 

@@ -1,2 +1,3 @@
-JellyFish Crowdfunding | Dates will be announced soon. | https://makerworld.com/en/@piodeer | https://github.com/piodeer/LinkTree/blob/a045b10232ec753793d9e24a7cae0e39b5205f17/media/JellyFish.png
+Grinch Bowl | A cookie bowl shaped like the lower half of the Grinch | https://makerworld.com/en/models/1954328 | https://github.com/piodeer/LinkTree/blob/a045b10232ec753793d9e24a7cae0e39b5205f17/media/JellyFish.png
 Mein zweites Modell | Eine kurze Beschreibung | https://makerworld.com/en/@piodeer/model2 | https://github.com/piodeer/LinkTree/main/media/model2.png
+

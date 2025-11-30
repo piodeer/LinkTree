@@ -1,3 +1,2 @@
-JellyFish Crowdfunding | https://makerworld.com/en/@piodeer | In Vorbereitung | Dates will be announced soon. | https://github.com/piodeer/LinkTree/blob/a045b10232ec753793d9e24a7cae0e39b5205f17/media/JellyFish.png
-
-
+JellyFish Crowdfunding | Dates will be announced soon. | https://makerworld.com/en/@piodeer | https://github.com/piodeer/LinkTree/blob/a045b10232ec753793d9e24a7cae0e39b5205f17/media/JellyFish.png
+Mein zweites Modell | Eine kurze Beschreibung | https://makerworld.com/en/@piodeer/model2 | https://github.com/piodeer/LinkTree/main/media/model2.png

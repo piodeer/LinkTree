@@ -1,5 +1,6 @@
 Grinch Bowl | A cookie bowl shaped like the lower half of the Grinch | https://makerworld.com/en/models/1954328 | https://github.com/piodeer/LinkTree/blob/abb25e41efd7b799d771bf6970a5f6270c78cdac/media/grinchbowl.png
-Iris Ornament | The Iris Ornament is a festive eye-catcher and a sweet secret for your Christmas tree. | https://makerworld.com/en/models/2067699 | https://github.com/piodeer/LinkTree/blob/ba374eff3b03dcbaf7e828f31a292636a7486ed2/media/Iris%20Ornament.jpg
+Iris Ornament | Christmas tree bling with a sweet secret. | https://makerworld.com/en/models/2067699 | https://github.com/piodeer/LinkTree/blob/ba374eff3b03dcbaf7e828f31a292636a7486ed2/media/Iris%20Ornament.jpg
+
 
 
 

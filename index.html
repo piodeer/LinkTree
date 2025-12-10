@@ -752,42 +752,112 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 44px;
-            height: 44px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(100, 181, 246, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(100, 181, 246, 0.4);
             border-radius: 50%;
             color: #ffffff;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            opacity: 0.8;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            opacity: 1;
+            box-shadow: 0 4px 16px rgba(100, 181, 246, 0.3),
+                        0 0 30px rgba(100, 181, 246, 0.2);
             transform-style: preserve-3d;
             text-decoration: none;
+            animation: emailPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes emailPulse {
+            0%, 100% {
+                box-shadow: 0 4px 16px rgba(100, 181, 246, 0.3),
+                            0 0 30px rgba(100, 181, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 4px 16px rgba(100, 181, 246, 0.5),
+                            0 0 40px rgba(100, 181, 246, 0.4);
+            }
+        }
+
+
+        /* Dynamic Collaboration Indicator */
+        .collaboration-indicator {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 999;
+            pointer-events: none;
+            animation: pointToEmail 3s ease-in-out infinite;
+        }
+
+        .collaboration-indicator-content {
+            background: rgba(100, 181, 246, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 181, 246, 0.3);
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
+                        0 0 20px rgba(100, 181, 246, 0.2);
+        }
+
+        .collaboration-indicator-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #a0d2ff;
+            white-space: nowrap;
+        }
+
+        .collaboration-indicator-arrow {
+            width: 20px;
+            height: 20px;
+            color: #a0d2ff;
+            animation: bounceArrow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pointToEmail {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes bounceArrow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
 
         .email-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.25);
-            opacity: 1;
-            transform: translateZ(10px) rotateY(15deg) scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(100, 181, 246, 0.4);
+            background: rgba(100, 181, 246, 0.3);
+            border-color: rgba(100, 181, 246, 0.6);
+            transform: translateZ(10px) rotateY(15deg) scale(1.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
+                        0 0 40px rgba(100, 181, 246, 0.6);
         }
 
         .email-button:active {
-            transform: scale(0.95);
+            transform: scale(1.05);
         }
 
         .email-button svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
 
         /* QR Code Button */
@@ -954,6 +1024,153 @@
             height: 18px;
         }
 
+        /* Email Contact Modal */
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .email-modal.active {
+            display: flex;
+        }
+
+        .email-modal-content {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            animation: modalAppear 0.3s ease forwards;
+            position: relative;
+        }
+
+        .email-modal-content h3 {
+            margin: 0 0 24px 0;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffffff, #a0d2ff, #ffffff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-reasons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .contact-reason-button {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-reason-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .contact-reason-button:hover::before {
+            left: 100%;
+        }
+
+        .contact-reason-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(100, 181, 246, 0.4);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+                        0 0 20px rgba(100, 181, 246, 0.2);
+        }
+
+        .contact-reason-button:active {
+            transform: translateX(2px);
+        }
+
+        .contact-reason-button.featured {
+            background: rgba(100, 181, 246, 0.15);
+            border-color: rgba(100, 181, 246, 0.4);
+            box-shadow: 0 0 20px rgba(100, 181, 246, 0.2);
+        }
+
+        .contact-reason-button.featured:hover {
+            background: rgba(100, 181, 246, 0.25);
+            box-shadow: 0 0 30px rgba(100, 181, 246, 0.4);
+        }
+
+        .contact-reason-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ffffff;
+            padding: 0;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .email-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .email-modal-close svg {
+            width: 18px;
+            height: 18px;
+        }
+
         /* Live Counter */
         .live-counter {
             display: flex;
@@ -1035,6 +1252,46 @@
             .model-subtitle {
                 font-size: 13px;
             }
+
+            .email-button {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .collaboration-indicator {
+                top: 75px;
+                right: 15px;
+            }
+
+            .collaboration-indicator-content {
+                padding: 8px 12px;
+            }
+
+            .collaboration-indicator-text {
+                font-size: 11px;
+            }
+
+            .collaboration-indicator-arrow {
+                width: 16px;
+                height: 16px;
+            }
+
+            .email-modal-content {
+                padding: 24px 20px;
+                max-width: 95%;
+            }
+
+            .email-modal-content h3 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .contact-reason-button {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
         }
 
         /* Reduce animations on devices with reduced motion preference */
@@ -1064,6 +1321,18 @@
             .model-card:hover .model-icon {
                 transform: none;
             }
+
+            .email-button {
+                animation: none;
+            }
+
+            .email-button:hover {
+                transform: none;
+            }
+
+            .contact-reason-button:hover {
+                transform: none;
+            }
         }
     </style>
 </head>
@@ -1071,12 +1340,22 @@
 
     <div class="particles" id="particles"></div>
 
+    <!-- Collaboration Indicator -->
+    <div class="collaboration-indicator" id="collaborationIndicator">
+        <div class="collaboration-indicator-content">
+            <div class="collaboration-indicator-text">Also for Collaborations</div>
+            <svg class="collaboration-indicator-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" fill="currentColor"/>
+            </svg>
+        </div>
+    </div>
+
     <!-- Email Button -->
-    <a href="mailto:sales.piodeer@gmail.com?subject=Contact%20Request%20(...)&body=Type%20your%20request%20here..." class="email-button" title="Contact via Email">
+    <button class="email-button" id="emailButton" title="Contact for Collaborations">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
         </svg>
-    </a>
+    </button>
 
     <div class="container">
         <div class="avatar">
@@ -1163,6 +1442,65 @@
                 </svg>
                 <span>Share</span>
             </button>
+        </div>
+    </div>
+
+    <!-- Email Contact Modal -->
+    <div class="email-modal" id="emailModal">
+        <div class="email-modal-content">
+            <div class="email-modal-close" id="emailClose">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3>Get in Touch</h3>
+            <p style="margin-bottom: 24px; opacity: 0.8; font-size: 14px;">Please select the reason for your contact:</p>
+            <div class="contact-reasons">
+                <button class="contact-reason-button featured" data-reason="kooperationen">
+                    <div class="contact-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">Collaborations</div>
+                        <div style="font-size: 12px; opacity: 0.7; font-weight: 400;">Partnerships & Cooperation</div>
+                    </div>
+                </button>
+                <button class="contact-reason-button" data-reason="allgemein">
+                    <div class="contact-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">General Inquiry</div>
+                        <div style="font-size: 12px; opacity: 0.7; font-weight: 400;">Questions & Information</div>
+                    </div>
+                </button>
+                <button class="contact-reason-button" data-reason="support">
+                    <div class="contact-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">Support</div>
+                        <div style="font-size: 12px; opacity: 0.7; font-weight: 400;">Help & Assistance</div>
+                    </div>
+                </button>
+                <button class="contact-reason-button" data-reason="sonstiges">
+                    <div class="contact-reason-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">Other</div>
+                        <div style="font-size: 12px; opacity: 0.7; font-weight: 400;">Other Inquiries</div>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1742,6 +2080,112 @@
                 if (e.key === 'Escape' && qrModal.classList.contains('active')) {
                     qrModal.classList.remove('active');
                 }
+            });
+        })();
+
+        // Email Contact Modal
+        (function() {
+            const emailButton = document.getElementById('emailButton');
+            const emailModal = document.getElementById('emailModal');
+            const emailClose = document.getElementById('emailClose');
+            const contactReasonButtons = document.querySelectorAll('.contact-reason-button');
+            const emailAddress = 'sales.piodeer@gmail.com';
+
+            // Email templates for different contact reasons
+            const emailTemplates = {
+                kooperationen: {
+                    subject: 'Collaboration Inquiry',
+                    body: 'Hello piodeer,\n\nI am interested in a collaboration with you.\n\n[Please describe your collaboration idea here]\n\nBest regards,\n[Your Name]'
+                },
+                allgemein: {
+                    subject: 'General Inquiry',
+                    body: 'Hello piodeer,\n\nI have a general question:\n\n[Please describe your question here]\n\nBest regards,\n[Your Name]'
+                },
+                support: {
+                    subject: 'Support Request',
+                    body: 'Hello piodeer,\n\nI need assistance with:\n\n[Please describe your request here]\n\nBest regards,\n[Your Name]'
+                },
+                sonstiges: {
+                    subject: 'Contact Request',
+                    body: 'Hello piodeer,\n\n[Please describe your inquiry here]\n\nBest regards,\n[Your Name]'
+                }
+            };
+
+            function openEmailModal() {
+                emailModal.classList.add('active');
+            }
+
+            function closeEmailModal() {
+                emailModal.classList.remove('active');
+            }
+
+            function openEmailClient(reason) {
+                const template = emailTemplates[reason] || emailTemplates.sonstiges;
+                const subject = encodeURIComponent(template.subject);
+                const body = encodeURIComponent(template.body);
+                const mailtoLink = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+                
+                window.location.href = mailtoLink;
+                closeEmailModal();
+            }
+
+            // Event listeners
+            emailButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openEmailModal();
+            });
+
+            emailClose.addEventListener('click', closeEmailModal);
+
+            emailModal.addEventListener('click', function(e) {
+                if (e.target === emailModal) {
+                    closeEmailModal();
+                }
+            });
+
+            contactReasonButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const reason = this.getAttribute('data-reason');
+                    openEmailClient(reason);
+                });
+            });
+
+            // ESC key to close
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && emailModal.classList.contains('active')) {
+                    closeEmailModal();
+                }
+            });
+        })();
+
+        // Collaboration Indicator
+        (function() {
+            const collaborationIndicator = document.getElementById('collaborationIndicator');
+            const emailButton = document.getElementById('emailButton');
+            let indicatorHidden = false;
+
+            // Hide indicator after 30 seconds or when email button is clicked
+            function hideIndicator() {
+                if (!indicatorHidden) {
+                    indicatorHidden = true;
+                    collaborationIndicator.style.opacity = '0';
+                    collaborationIndicator.style.transform = 'translateY(-10px)';
+                    collaborationIndicator.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    setTimeout(() => {
+                        collaborationIndicator.style.display = 'none';
+                    }, 500);
+                }
+            }
+
+            // Hide after 30 seconds (increased from 10 seconds)
+            setTimeout(hideIndicator, 30000);
+
+            // Hide when email button is clicked
+            emailButton.addEventListener('click', hideIndicator);
+
+            // Hide when email button is hovered (user noticed it)
+            emailButton.addEventListener('mouseenter', function() {
+                setTimeout(hideIndicator, 2000);
             });
         })();
     </script>

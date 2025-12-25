@@ -2462,18 +2462,36 @@
             // KONFIGURATION - Hier kann das Video angepasst werden
             // ============================================
             const VIDEO_REEL_CONFIG = {
-                // Video URL - hier die URL zu deinem MP4 Video eintragen
-                // Optionen zum Hochladen:
-                // 1. GitHub: Lade das Video in dein LinkTree Repository hoch und verwende:
-                //    videoUrl: 'https://raw.githubusercontent.com/piodeer/LinkTree/main/media/reel.mp4'
-                // 2. Oder verwende einen anderen kostenlosen Hosting-Service
-                videoUrl: 'https://raw.githubusercontent.com/piodeer/LinkTree/caae986acf15305b32482d0021bdead660d097bf/media/chinesedragon%20(1).mp4',
+                // GitHub Repository Konfiguration
+                githubUser: 'piodeer',
+                githubRepo: 'LinkTree',
+                githubBranch: 'main', // Oder 'master' - wird automatisch probiert
+                
+                // Dateiname im media-Ordner (ohne Pfad, nur Dateiname)
+                // Einfach hier den Dateinamen ändern, wenn du das Video austauschen möchtest
+                videoFileName: 'chinesedragon (1).mp4',
+                
                 // Soll das Widget automatisch beim Laden der Seite angezeigt werden?
                 autoShow: true,
                 // Verzögerung in Millisekunden bevor das Widget angezeigt wird
                 showDelay: 1000
             };
             // ============================================
+            
+            // Automatische URL-Generierung basierend auf Dateiname
+            function getVideoUrl() {
+                const fileName = encodeURIComponent(VIDEO_REEL_CONFIG.videoFileName);
+                const branches = [VIDEO_REEL_CONFIG.githubBranch, 'master', 'main'];
+                
+                // Versuche verschiedene Branches (für Kompatibilität)
+                for (const branch of branches) {
+                    const url = `https://raw.githubusercontent.com/${VIDEO_REEL_CONFIG.githubUser}/${VIDEO_REEL_CONFIG.githubRepo}/${branch}/media/${fileName}`;
+                    return url; // Verwende den ersten Branch (normalerweise funktioniert dieser)
+                }
+            }
+            
+            // Video URL wird automatisch generiert
+            const VIDEO_URL = getVideoUrl();
 
             // Prüfe ob es ein Desktop/PC ist (nicht Mobile)
             function isDesktop() {
@@ -2557,13 +2575,13 @@
                     return;
                 }
 
-                if (!VIDEO_REEL_CONFIG.videoUrl) {
-                    console.warn('Keine Video-URL konfiguriert. Bitte trage die Video-URL in VIDEO_REEL_CONFIG.videoUrl ein.');
+                if (!VIDEO_URL || !VIDEO_REEL_CONFIG.videoFileName) {
+                    console.warn('Keine Video-Datei konfiguriert. Bitte trage den Dateinamen in VIDEO_REEL_CONFIG.videoFileName ein.');
                     return;
                 }
 
-                // Video-URL setzen
-                videoElement.src = VIDEO_REEL_CONFIG.videoUrl;
+                // Video-URL setzen (automatisch generiert)
+                videoElement.src = VIDEO_URL;
                 
                 // Video-Einstellungen
                 videoElement.autoplay = true;
@@ -2574,7 +2592,8 @@
                 // Error Handler für Video-Lade-Probleme
                 videoElement.addEventListener('error', function(e) {
                     console.error('Video konnte nicht geladen werden:', e);
-                    console.error('Video URL:', VIDEO_REEL_CONFIG.videoUrl);
+                    console.error('Video Dateiname:', VIDEO_REEL_CONFIG.videoFileName);
+                    console.error('Video URL:', VIDEO_URL);
                 });
                 
                 videoElement.addEventListener('loadeddata', function() {

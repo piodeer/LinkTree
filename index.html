@@ -2045,8 +2045,8 @@
                 return url;
             }
 
-            let modelsUrl = 'https://github.com/piodeer/LinkTree/blob/f351410f016df2c7c0f35859f4a7bfd9a2cd7035/Projects.txt';
-            modelsUrl = convertToRawUrl(modelsUrl);
+            // Lade Projects.txt direkt aus dem Repository (ohne Commit-Hash)
+            let modelsUrl = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/Projects.txt';
             
             const modelsSection = document.getElementById('modelsSection');
             const modelsList = document.getElementById('modelsList');

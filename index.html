@@ -2769,6 +2769,14 @@
                 widget.style.visibility = 'visible';
                 widget.classList.add('active');
                 widget.classList.remove('hidden');
+                
+                // Stelle sicher, dass Video abgespielt wird
+                const videoEl = document.getElementById('videoReel');
+                if (videoEl && videoEl.paused) {
+                    videoEl.play().catch(function(error) {
+                        console.warn('Video konnte nicht abgespielt werden:', error);
+                    });
+                }
             }
 
             // Event Handler entfernen (wenn Widget geschlossen wird)
@@ -2807,14 +2815,12 @@
                     return;
                 }
 
-                // Video-URL setzen (automatisch generiert)
-                videoElement.src = VIDEO_URL;
-                
-                // Video-Einstellungen
+                // Video-Einstellungen VOR dem Setzen der URL
                 videoElement.autoplay = true;
                 videoElement.loop = true;
                 videoElement.muted = true;
                 videoElement.playsInline = true;
+                videoElement.preload = 'auto';
                 
                 // Error Handler für Video-Lade-Probleme
                 videoElement.addEventListener('error', function(e) {
@@ -2823,8 +2829,28 @@
                     console.error('Video URL:', VIDEO_URL);
                 });
                 
+                // Video abspielen, sobald es geladen ist
                 videoElement.addEventListener('loadeddata', function() {
                     console.log('Video erfolgreich geladen');
+                    // Versuche Video abzuspielen
+                    videoElement.play().catch(function(error) {
+                        console.warn('Autoplay wurde blockiert:', error);
+                    });
+                });
+                
+                // Zusätzlich: Video abspielen, sobald es genug Daten hat
+                videoElement.addEventListener('canplay', function() {
+                    videoElement.play().catch(function(error) {
+                        console.warn('Autoplay wurde blockiert:', error);
+                    });
+                });
+                
+                // Video-URL setzen (automatisch generiert) - NACH den Event Listenern
+                videoElement.src = VIDEO_URL;
+                
+                // Versuche sofort abzuspielen
+                videoElement.play().catch(function(error) {
+                    console.warn('Autoplay wurde blockiert, wird beim Laden versucht:', error);
                 });
                 
                 // Initiale Position berechnen
@@ -2868,6 +2894,13 @@
                             } else {
                                 // Button ist sichtbar - Widget anzeigen
                                 requestAnimationFrame(updateWidgetPosition);
+                                // Stelle sicher, dass Video abgespielt wird
+                                const videoEl = document.getElementById('videoReel');
+                                if (videoEl && videoEl.paused) {
+                                    videoEl.play().catch(function(error) {
+                                        console.warn('Video konnte nicht abgespielt werden:', error);
+                                    });
+                                }
                             }
                         });
                     }, {

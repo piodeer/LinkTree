@@ -611,6 +611,152 @@
             100% { background-position: 200% 0; }
         }
 
+        /* Model Card Badge */
+        .model-card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, rgba(100, 181, 246, 0.9), rgba(100, 181, 246, 0.7));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 181, 246, 0.5);
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(100, 181, 246, 0.3),
+                        0 0 12px rgba(100, 181, 246, 0.2);
+            z-index: 10;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .model-card.has-badge {
+            border-color: rgba(100, 181, 246, 0.3);
+            box-shadow: 0 0 0 1px rgba(100, 181, 246, 0.2),
+                        inset 0 0 20px rgba(100, 181, 246, 0.05);
+        }
+
+        .model-card.has-badge:hover {
+            border-color: rgba(100, 181, 246, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(100, 181, 246, 0.3),
+                        inset 0 0 20px rgba(100, 181, 246, 0.1);
+        }
+
+        .model-card.has-badge:hover .model-card-badge {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(100, 181, 246, 0.4),
+                        0 0 16px rgba(100, 181, 246, 0.3);
+        }
+
+        /* Badge Varianten - POPULAR (Gold/Gelb) */
+        .model-card-badge.popular {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.9), rgba(255, 193, 7, 0.7));
+            border-color: rgba(255, 193, 7, 0.5);
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3),
+                        0 0 12px rgba(255, 193, 7, 0.2);
+        }
+
+        .model-card.has-badge.popular {
+            border-color: rgba(255, 193, 7, 0.3);
+            box-shadow: 0 0 0 1px rgba(255, 193, 7, 0.2),
+                        inset 0 0 20px rgba(255, 193, 7, 0.05);
+        }
+
+        .model-card.has-badge.popular:hover {
+            border-color: rgba(255, 193, 7, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(255, 193, 7, 0.3),
+                        inset 0 0 20px rgba(255, 193, 7, 0.1);
+        }
+
+        .model-card.has-badge.popular:hover .model-card-badge {
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4),
+                        0 0 16px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Badge Varianten - NEW (Grün) */
+        .model-card-badge.new {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(76, 175, 80, 0.7));
+            border-color: rgba(76, 175, 80, 0.5);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3),
+                        0 0 12px rgba(76, 175, 80, 0.2);
+        }
+
+        .model-card.has-badge.new {
+            border-color: rgba(76, 175, 80, 0.3);
+            box-shadow: 0 0 0 1px rgba(76, 175, 80, 0.2),
+                        inset 0 0 20px rgba(76, 175, 80, 0.05);
+        }
+
+        .model-card.has-badge.new:hover {
+            border-color: rgba(76, 175, 80, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(76, 175, 80, 0.3),
+                        inset 0 0 20px rgba(76, 175, 80, 0.1);
+        }
+
+        .model-card.has-badge.new:hover .model-card-badge {
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4),
+                        0 0 16px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Badge Varianten - FEATURED (Lila/Purple) */
+        .model-card-badge.featured {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(156, 39, 176, 0.7));
+            border-color: rgba(156, 39, 176, 0.5);
+            box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3),
+                        0 0 12px rgba(156, 39, 176, 0.2);
+        }
+
+        .model-card.has-badge.featured {
+            border-color: rgba(156, 39, 176, 0.3);
+            box-shadow: 0 0 0 1px rgba(156, 39, 176, 0.2),
+                        inset 0 0 20px rgba(156, 39, 176, 0.05);
+        }
+
+        .model-card.has-badge.featured:hover {
+            border-color: rgba(156, 39, 176, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(156, 39, 176, 0.3),
+                        inset 0 0 20px rgba(156, 39, 176, 0.1);
+        }
+
+        .model-card.has-badge.featured:hover .model-card-badge {
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4),
+                        0 0 16px rgba(156, 39, 176, 0.3);
+        }
+
+        /* Badge Varianten - HOT (Rot/Orange) */
+        .model-card-badge.hot {
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.9), rgba(255, 87, 34, 0.7));
+            border-color: rgba(255, 87, 34, 0.5);
+            box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3),
+                        0 0 12px rgba(255, 87, 34, 0.2);
+        }
+
+        .model-card.has-badge.hot {
+            border-color: rgba(255, 87, 34, 0.3);
+            box-shadow: 0 0 0 1px rgba(255, 87, 34, 0.2),
+                        inset 0 0 20px rgba(255, 87, 34, 0.05);
+        }
+
+        .model-card.has-badge.hot:hover {
+            border-color: rgba(255, 87, 34, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 30px rgba(255, 87, 34, 0.3),
+                        inset 0 0 20px rgba(255, 87, 34, 0.1);
+        }
+
+        .model-card.has-badge.hot:hover .model-card-badge {
+            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4),
+                        0 0 16px rgba(255, 87, 34, 0.3);
+        }
+
         .link {
             display: flex;
             align-items: center;
@@ -1341,11 +1487,13 @@
         .video-reel-widget {
             display: none;
             position: fixed;
+            left: 0;
+            top: 0;
             width: 150px;
             z-index: 100;
-            animation: slideInLeft 0.4s ease forwards;
             pointer-events: auto;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.1s ease-out;
+            will-change: transform;
         }
 
         .video-reel-widget.active {
@@ -2045,9 +2193,6 @@
                 return url;
             }
 
-            // Lade Projects.txt direkt aus dem Repository (ohne Commit-Hash)
-            let modelsUrl = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/Projects.txt';
-            
             const modelsSection = document.getElementById('modelsSection');
             const modelsList = document.getElementById('modelsList');
 
@@ -2055,14 +2200,38 @@
                 return;
             }
 
-            // Show loading indicator
-            modelsSection.hidden = false;
-            modelsList.innerHTML = '<div class="models-loading">Loading models</div>';
+            // Funktion zum Laden der Models (wiederverwendbar)
+            function loadModels(forceReload = false) {
+                // Base URL ohne Parameter
+                let modelsUrl = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/Projects.txt';
+                
+                // Aggressives Cache-Busting: Mehrere eindeutige Parameter
+                const timestamp = Date.now();
+                const random = Math.floor(Math.random() * 1000000);
+                const sessionId = sessionStorage.getItem('modelsSessionId') || Math.floor(Math.random() * 1000000);
+                sessionStorage.setItem('modelsSessionId', sessionId);
+                
+                // Bei Force Reload: Neue Session ID generieren
+                if (forceReload) {
+                    const newSessionId = Math.floor(Math.random() * 1000000);
+                    sessionStorage.setItem('modelsSessionId', newSessionId);
+                    modelsUrl += '?t=' + timestamp + '&r=' + random + '&s=' + newSessionId + '&force=' + Date.now();
+                } else {
+                    modelsUrl += '?t=' + timestamp + '&r=' + random + '&s=' + sessionId;
+                }
 
-            fetch(modelsUrl, { cache: 'no-store' })
+                // Show loading indicator
+                modelsSection.hidden = false;
+                modelsList.innerHTML = '<div class="models-loading">Loading models</div>';
+
+                // Fetch mit mehreren Cache-Busting-Optionen
+                return fetch(modelsUrl, { 
+                    cache: 'no-store',
+                    method: 'GET'
+                })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to load model data.');
+                        throw new Error(`Failed to load model data. Status: ${response.status} ${response.statusText}`);
                     }
                     return response.text();
                 })
@@ -2077,12 +2246,25 @@
                         return;
                     }
 
-                    // Parse models: Format: title | subtitle | link | image
-                    const models = lines.map(line => {
+                    // Parse models: Format: title | subtitle | link | image | badge (optional)
+                    const models = lines.map((line, lineIndex) => {
+                        // Split by | and trim each part, but keep empty parts for correct indexing
                         const parts = line.split('|').map(part => part.trim());
-                        const [title = 'Model', subtitle = '', link = '', image = ''] = parts;
                         
-                        return { title, subtitle, link, image };
+                        // Extract parts (allow up to 5 parts: title, subtitle, link, image, badge)
+                        const title = parts[0] || 'Model';
+                        const subtitle = parts[1] || '';
+                        const link = parts[2] || '';
+                        const image = parts[3] || '';
+                        // Badge can be in parts[4] or later if there are extra pipes
+                        const badge = parts.length > 4 ? parts.slice(4).join('|').trim() : '';
+                        
+                        // Debug log for troubleshooting
+                        if (badge) {
+                            console.log(`Model "${title}" has badge: "${badge}"`);
+                        }
+                        
+                        return { title, subtitle, link, image, badge };
                     });
 
                     // Clear loading indicator
@@ -2092,17 +2274,38 @@
                     const fragment = document.createDocumentFragment();
 
                     models.forEach((model, index) => {
-                        const { title, subtitle, link, image } = model;
+                        const { title, subtitle, link, image, badge } = model;
 
                         const hasLink = link && /^https?:\/\//i.test(link);
                         const card = document.createElement(hasLink ? 'a' : 'div');
                         card.className = 'model-card';
                         card.style.animationDelay = `${index * 0.1}s`;
 
+                        // Add badge class if badge exists and is not empty
+                        if (badge && badge.trim().length > 0) {
+                            const badgeText = badge.trim();
+                            card.classList.add('has-badge');
+                            // Add specific badge type class (lowercase)
+                            const badgeType = badgeText.toLowerCase();
+                            card.classList.add(badgeType);
+                        }
+
                         if (hasLink) {
                             card.href = link;
                             card.target = '_blank';
                             card.rel = 'noopener noreferrer';
+                        }
+
+                        // Badge (oben rechts)
+                        if (badge && badge.trim().length > 0) {
+                            const badgeText = badge.trim();
+                            const badgeEl = document.createElement('div');
+                            badgeEl.className = 'model-card-badge';
+                            badgeEl.textContent = badgeText;
+                            // Add specific badge type class for styling
+                            const badgeType = badgeText.toLowerCase();
+                            badgeEl.classList.add(badgeType);
+                            card.appendChild(badgeEl);
                         }
 
                         // Image with lazy loading
@@ -2155,10 +2358,14 @@
                     }
                 })
                 .catch(error => {
-                    console.warn('Models loading error:', error);
-                    modelsList.innerHTML = '<div class="models-error">Unable to load models. Please try again later.</div>';
+                    console.error('Models loading error:', error);
+                    modelsList.innerHTML = '<div class="models-error">Unable to load models. Please try again later.<br><small style="opacity: 0.6; font-size: 12px;">Check console for details</small></div>';
                     modelsSection.hidden = false;
                 });
+            }
+
+            // Initiales Laden beim Seitenaufruf - immer mit Force Reload für frische Daten
+            loadModels(true);
         })();
 
         // QR Code Generator
@@ -2478,6 +2685,12 @@
             };
             // ============================================
             
+            // State Management
+            let widgetClosed = false; // Widget wurde geschlossen (bleibt geschlossen bis Reload)
+            let scrollObserver = null; // IntersectionObserver Referenz
+            let scrollHandler = null; // Scroll Event Handler Referenz
+            let resizeHandler = null; // Resize Event Handler Referenz
+            
             // Automatische URL-Generierung basierend auf Dateiname
             function getVideoUrl() {
                 const fileName = encodeURIComponent(VIDEO_REEL_CONFIG.videoFileName);
@@ -2498,10 +2711,14 @@
                 return window.innerWidth > 768 && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             }
 
-            // Position des Widgets basierend auf Instagram Button berechnen
+            // Position des Widgets basierend auf Instagram Button berechnen (optimiert für Performance)
             function updateWidgetPosition() {
+                // Wenn Widget geschlossen wurde, nichts tun
+                if (widgetClosed) {
+                    return;
+                }
+                
                 const widget = document.getElementById('videoReelWidget');
-                const arrow = document.getElementById('videoReelArrow');
                 const instagramLink = document.querySelector('a.instagram-link');
                 
                 if (!widget || !instagramLink) {
@@ -2513,7 +2730,6 @@
                 const viewportWidth = window.innerWidth;
                 
                 // Prüfe ob der Instagram Button sichtbar ist (teilweise reicht aus)
-                // Button muss mindestens teilweise im Viewport sein
                 const isVisible = linkRect.top < viewportHeight && 
                                  linkRect.bottom > 0 &&
                                  linkRect.left < viewportWidth &&
@@ -2523,7 +2739,6 @@
                 
                 if (!isVisible) {
                     // Button ist nicht sichtbar - Widget vollständig ausblenden
-                    widget.classList.add('hidden');
                     widget.style.display = 'none';
                     widget.style.opacity = '0';
                     widget.style.visibility = 'hidden';
@@ -2531,39 +2746,51 @@
                 }
                 
                 // Button ist sichtbar - Widget anzeigen und positionieren
-                widget.classList.remove('hidden');
-                widget.classList.add('active');
-                widget.style.display = 'block';
-                widget.style.opacity = '1';
-                widget.style.visibility = 'visible';
-                
-                // Positioniere Widget links vom Instagram Button
+                // Berechne Position links vom Instagram Button
                 const widgetTop = linkRect.top + (linkRect.height / 2);
                 const containerRect = document.querySelector('.container')?.getBoundingClientRect();
                 
                 // Widget links vom Button positionieren
                 const widgetWidth = 150; // Widget Breite
-                const spacing = 40; // Abstand zwischen Widget und Button (erhöht von 20 auf 40)
+                const spacing = 40; // Abstand zwischen Widget und Button
                 
                 // Berechne Position links vom Container/Button
                 const containerLeft = containerRect ? containerRect.left : (viewportWidth / 2 - 210);
                 const widgetLeft = containerLeft - widgetWidth - spacing;
                 
-                widget.style.left = widgetLeft + 'px';
-                widget.style.top = widgetTop + 'px';
-                widget.style.transform = 'translateY(-50%)';
+                // Verwende transform für bessere Performance (GPU-beschleunigt)
+                widget.style.transform = `translate(${widgetLeft}px, ${widgetTop}px) translateY(-50%)`;
+                widget.style.left = '0';
+                widget.style.top = '0';
                 
-                // Pfeil Position anpassen (falls vorhanden)
-                if (arrow) {
-                    // Pfeil zeigt zum Instagram Button (rechts)
-                    arrow.style.top = '50%';
+                // Widget anzeigen
+                widget.style.display = 'block';
+                widget.style.opacity = '1';
+                widget.style.visibility = 'visible';
+                widget.classList.add('active');
+                widget.classList.remove('hidden');
+            }
+
+            // Event Handler entfernen (wenn Widget geschlossen wird)
+            function removeEventHandlers() {
+                if (scrollHandler) {
+                    window.removeEventListener('scroll', scrollHandler, { passive: true });
+                    scrollHandler = null;
+                }
+                if (resizeHandler) {
+                    window.removeEventListener('resize', resizeHandler, { passive: true });
+                    resizeHandler = null;
+                }
+                if (scrollObserver) {
+                    scrollObserver.disconnect();
+                    scrollObserver = null;
                 }
             }
 
             // Widget anzeigen
             function showReelWidget() {
-                if (!isDesktop()) {
-                    return; // Nicht auf Mobile anzeigen
+                if (!isDesktop() || widgetClosed) {
+                    return; // Nicht auf Mobile anzeigen oder wenn geschlossen
                 }
 
                 const widget = document.getElementById('videoReelWidget');
@@ -2575,7 +2802,7 @@
                     return;
                 }
 
-                if (!VIDEO_URL || !VIDEO_REEL_CONFIG.videoFileName) {
+                if (!VIDEO_URL && !VIDEO_REEL_CONFIG.videoFileName) {
                     console.warn('Keine Video-Datei konfiguriert. Bitte trage den Dateinamen in VIDEO_REEL_CONFIG.videoFileName ein.');
                     return;
                 }
@@ -2600,85 +2827,68 @@
                     console.log('Video erfolgreich geladen');
                 });
                 
-                // Position berechnen und Sichtbarkeit prüfen
+                // Initiale Position berechnen
                 updateWidgetPosition();
                 
-                // Widget anzeigen (Sichtbarkeitsprüfung erfolgt in updateWidgetPosition)
-                // Alle Display-Eigenschaften zurücksetzen, damit Widget sichtbar ist
-                widget.classList.add('active');
-                widget.classList.remove('hidden');
-                widget.style.display = 'block';
-                widget.style.opacity = '1';
-                widget.style.visibility = 'visible';
+                // Optimierte Scroll/Resize Handler mit requestAnimationFrame
+                let lastUpdateTime = 0;
+                const throttleDelay = 16; // ~60fps
                 
-                // updateWidgetPosition wird die finale Sichtbarkeit prüfen
-                
-                // Position bei Scroll und Resize aktualisieren (mit Throttling für bessere Performance)
-                let ticking = false;
-                function requestUpdate() {
-                    if (!ticking) {
-                        window.requestAnimationFrame(function() {
-                            updateWidgetPosition();
-                            
-                            // Zusätzliche Prüfung: Widget selbst aus dem Viewport?
-                            if (widget.classList.contains('active')) {
-                                const widgetRect = widget.getBoundingClientRect();
-                                const isWidgetVisible = widgetRect.top < window.innerHeight && 
-                                                       widgetRect.bottom > 0 &&
-                                                       widgetRect.left < window.innerWidth &&
-                                                       widgetRect.right > 0;
-                                
-                                if (!isWidgetVisible) {
-                                    widget.classList.add('hidden');
-                                    widget.style.display = 'none';
-                                }
-                            }
-                            
-                            ticking = false;
-                        });
-                        ticking = true;
+                scrollHandler = function() {
+                    const now = performance.now();
+                    if (now - lastUpdateTime >= throttleDelay) {
+                        lastUpdateTime = now;
+                        requestAnimationFrame(updateWidgetPosition);
                     }
-                }
+                };
                 
-                window.addEventListener('scroll', requestUpdate, { passive: true });
-                window.addEventListener('resize', requestUpdate, { passive: true });
+                resizeHandler = function() {
+                    requestAnimationFrame(updateWidgetPosition);
+                };
+                
+                window.addEventListener('scroll', scrollHandler, { passive: true });
+                window.addEventListener('resize', resizeHandler, { passive: true });
                 
                 // Intersection Observer für bessere Sichtbarkeitsprüfung
-                if ('IntersectionObserver' in window) {
-                    const observer = new IntersectionObserver(function(entries) {
+                if ('IntersectionObserver' in window && instagramLink) {
+                    scrollObserver = new IntersectionObserver(function(entries) {
+                        // Wenn Widget geschlossen wurde, nichts tun
+                        if (widgetClosed) {
+                            return;
+                        }
+                        
                         entries.forEach(entry => {
                             if (!entry.isIntersecting || entry.intersectionRatio === 0) {
                                 // Button ist nicht sichtbar - Widget vollständig ausblenden
-                                widget.classList.add('hidden');
                                 widget.style.display = 'none';
                                 widget.style.opacity = '0';
                                 widget.style.visibility = 'hidden';
+                                widget.classList.add('hidden');
+                                widget.classList.remove('active');
                             } else {
                                 // Button ist sichtbar - Widget anzeigen
-                                widget.classList.remove('hidden');
-                                widget.classList.add('active');
-                                widget.style.display = 'block';
-                                widget.style.opacity = '1';
-                                widget.style.visibility = 'visible';
-                                updateWidgetPosition();
+                                requestAnimationFrame(updateWidgetPosition);
                             }
                         });
                     }, {
                         root: null,
                         rootMargin: '0px',
-                        threshold: [0, 0.01, 0.1, 0.5, 1.0] // Mehrere Thresholds für bessere Erkennung
+                        threshold: [0, 0.01, 0.1, 0.5, 1.0]
                     });
                     
-                    observer.observe(instagramLink);
+                    scrollObserver.observe(instagramLink);
                 }
                 
                 console.log('Video Widget aktiviert');
             }
 
-            // Widget schließen
+            // Widget schließen (permanent bis Reload)
             function closeReelWidget() {
                 const widget = document.getElementById('videoReelWidget');
                 const videoElement = document.getElementById('videoReel');
+                
+                // Markiere als geschlossen
+                widgetClosed = true;
                 
                 if (widget) {
                     widget.classList.remove('active');
@@ -2692,6 +2902,11 @@
                     videoElement.pause();
                     videoElement.src = '';
                 }
+                
+                // Alle Event Handler entfernen
+                removeEventHandlers();
+                
+                console.log('Video Widget geschlossen (bleibt geschlossen bis Reload)');
             }
 
             // Event Listeners

@@ -418,6 +418,32 @@
             opacity: 0.85;
         }
 
+        .models-search {
+            margin-bottom: 12px;
+        }
+
+        .models-search input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.25);
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .models-search input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .models-search input:focus {
+            border-color: rgba(100, 181, 246, 0.7);
+            box-shadow: 0 0 0 1px rgba(100, 181, 246, 0.4);
+            background: rgba(0, 0, 0, 0.35);
+        }
+
         .models-list {
             display: flex;
             flex-direction: column;
@@ -1780,6 +1806,16 @@
 
         <section class="models-section" id="modelsSection" hidden>
             <h2>3D Model Files</h2>
+
+            <div class="models-search">
+                <input
+                    type="text"
+                    id="modelsSearchInput"
+                    placeholder="Search 3D models (name, description, status)…"
+                    autocomplete="off"
+                />
+            </div>
+
             <div class="models-list" id="modelsList"></div>
         </section>
 
@@ -2189,189 +2225,171 @@
                 });
         })();
 
-        // 3D Models laden
-        (function() {
-            // Convert GitHub blob URL to raw URL if needed
-            function convertToRawUrl(url) {
-                if (url.includes('github.com') && url.includes('/blob/')) {
-                    return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                }
-                return url;
-            }
-
+        // 3D Models laden (Google Sheets) + Suche
+        (function () {
             const modelsSection = document.getElementById('modelsSection');
             const modelsList = document.getElementById('modelsList');
+            const modelsSearchInput = document.getElementById('modelsSearchInput');
 
-            if (!modelsSection || !modelsList) {
-                return;
-            }
+            if (!modelsSection || !modelsList) return;
 
-            // Funktion zum Laden der Models (wiederverwendbar)
-            function loadModels(forceReload = false) {
-                // Base URL ohne Parameter
-                let modelsUrl = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/Projects.txt';
-                
-                // Aggressives Cache-Busting: Mehrere eindeutige Parameter
-                const timestamp = Date.now();
-                const random = Math.floor(Math.random() * 1000000);
-                const sessionId = sessionStorage.getItem('modelsSessionId') || Math.floor(Math.random() * 1000000);
-                sessionStorage.setItem('modelsSessionId', sessionId);
-                
-                // Bei Force Reload: Neue Session ID generieren
-                if (forceReload) {
-                    const newSessionId = Math.floor(Math.random() * 1000000);
-                    sessionStorage.setItem('modelsSessionId', newSessionId);
-                    modelsUrl += '?t=' + timestamp + '&r=' + random + '&s=' + newSessionId + '&force=' + Date.now();
-                } else {
-                    modelsUrl += '?t=' + timestamp + '&r=' + random + '&s=' + sessionId;
+            // Web-App-URL aus Google Apps Script
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwY_GABTeHCYt7REnJzRAQcxDBweX2HVlD3sAMKgpHu0yxmC5x41-jx2QbQmeMqpwHK/exec';
+
+            let allModels = [];
+
+            function renderModels(models) {
+                modelsList.innerHTML = '';
+
+                if (!models || models.length === 0) {
+                    modelsList.innerHTML = '<div class="models-error">No models found.</div>';
+                    return;
                 }
 
-                // Show loading indicator
+                const fragment = document.createDocumentFragment();
+
+                models.forEach((model, index) => {
+                    const { title, subtitle, link, image, badge } = model;
+
+                    const hasLink = link && /^https?:\/\//i.test(link);
+                    const card = document.createElement(hasLink ? 'a' : 'div');
+                    card.className = 'model-card';
+                    card.style.animationDelay = (index * 0.1) + 's';
+
+                    // Badge
+                    if (badge && badge.trim().length > 0) {
+                        const badgeText = badge.trim();
+                        const badgeType = badgeText.toLowerCase();
+
+                        card.classList.add('has-badge');
+                        card.classList.add(badgeType);
+
+                        const badgeEl = document.createElement('div');
+                        badgeEl.className = 'model-card-badge ' + badgeType;
+                        badgeEl.textContent = badgeText;
+                        card.appendChild(badgeEl);
+                    }
+
+                    if (hasLink) {
+                        card.href = link;
+                        card.target = '_blank';
+                        card.rel = 'noopener noreferrer';
+                    }
+
+                    // Bild
+                    if (image && /^https?:\/\//i.test(image)) {
+                        const imageWrapper = document.createElement('div');
+                        imageWrapper.className = 'model-icon';
+                        const img = document.createElement('img');
+
+                        let imageUrl = image;
+                        if (imageUrl.includes('github.com') && imageUrl.includes('/blob/')) {
+                            imageUrl = imageUrl
+                                .replace('github.com', 'raw.githubusercontent.com')
+                                .replace('/blob/', '/');
+                        }
+
+                        img.loading = 'lazy';
+                        img.src = imageUrl;
+                        img.alt = title || 'Model';
+                        img.onerror = function () {
+                            imageWrapper.style.display = 'none';
+                        };
+
+                        imageWrapper.appendChild(img);
+                        card.appendChild(imageWrapper);
+                    }
+
+                    const contentWrapper = document.createElement('div');
+                    contentWrapper.className = 'model-card-content';
+
+                    const titleEl = document.createElement('div');
+                    titleEl.className = 'model-title';
+                    titleEl.textContent = title || 'Model';
+                    contentWrapper.appendChild(titleEl);
+
+                    if (subtitle) {
+                        const subtitleEl = document.createElement('div');
+                        subtitleEl.className = 'model-subtitle';
+                        subtitleEl.textContent = subtitle;
+                        contentWrapper.appendChild(subtitleEl);
+                    }
+
+                    card.appendChild(contentWrapper);
+                    fragment.appendChild(card);
+                });
+
+                modelsList.appendChild(fragment);
+                modelsSection.hidden = false;
+            }
+
+            function applyModelFilter() {
+                if (!allModels || allModels.length === 0) {
+                    renderModels([]);
+                    return;
+                }
+
+                const query = (modelsSearchInput && modelsSearchInput.value || '').toLowerCase().trim();
+
+                if (!query) {
+                    renderModels(allModels);
+                    return;
+                }
+
+                const filtered = allModels.filter(model => {
+                    const text =
+                        (model.title || '') + ' ' +
+                        (model.subtitle || '') + ' ' +
+                        (model.badge || '');
+                    return text.toLowerCase().includes(query);
+                });
+
+                renderModels(filtered);
+            }
+
+            function loadModels() {
                 modelsSection.hidden = false;
                 modelsList.innerHTML = '<div class="models-loading">Loading models</div>';
 
-                // Fetch mit mehreren Cache-Busting-Optionen
-                return fetch(modelsUrl, { 
-                    cache: 'no-store',
-                    method: 'GET'
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Failed to load model data. Status: ${response.status} ${response.statusText}`);
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    const lines = text.split('\n')
-                        .map(line => line.trim())
-                        .filter(line => line.length > 0 && !line.startsWith('#'));
+                const cacheBuster = 't=' + Date.now();
+                const url = WEB_APP_URL + (WEB_APP_URL.indexOf('?') === -1 ? '?' : '&') + cacheBuster;
 
-                    if (lines.length === 0) {
-                        modelsList.innerHTML = '';
-                        modelsSection.hidden = true;
-                        return;
-                    }
-
-                    // Parse models: Format: title | subtitle | link | image | badge (optional)
-                    const models = lines.map((line, lineIndex) => {
-                        // Split by | and trim each part, but keep empty parts for correct indexing
-                        const parts = line.split('|').map(part => part.trim());
-                        
-                        // Extract parts (allow up to 5 parts: title, subtitle, link, image, badge)
-                        const title = parts[0] || 'Model';
-                        const subtitle = parts[1] || '';
-                        const link = parts[2] || '';
-                        const image = parts[3] || '';
-                        // Badge can be in parts[4] or later if there are extra pipes
-                        const badge = parts.length > 4 ? parts.slice(4).join('|').trim() : '';
-                        
-                        // Debug log for troubleshooting
-                        if (badge) {
-                            console.log(`Model "${title}" has badge: "${badge}"`);
+                fetch(url, { method: 'GET' })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to load model data: ' + response.status);
                         }
-                        
-                        return { title, subtitle, link, image, badge };
-                    });
+                        return response.json();
+                    })
+                    .then(rows => {
+                        allModels = (rows || []).map(row => ({
+                            title: row.name || 'Model',
+                            subtitle: row.description || '',
+                            link: row.modelUrl || '',
+                            image: row.imageUrl || '',
+                            badge: row.status || ''
+                        }));
 
-                    // Clear loading indicator
-                    modelsList.innerHTML = '';
-
-                    // Create and append model cards
-                    const fragment = document.createDocumentFragment();
-
-                    models.forEach((model, index) => {
-                        const { title, subtitle, link, image, badge } = model;
-
-                        const hasLink = link && /^https?:\/\//i.test(link);
-                        const card = document.createElement(hasLink ? 'a' : 'div');
-                        card.className = 'model-card';
-                        card.style.animationDelay = `${index * 0.1}s`;
-
-                        // Add badge class if badge exists and is not empty
-                        if (badge && badge.trim().length > 0) {
-                            const badgeText = badge.trim();
-                            card.classList.add('has-badge');
-                            // Add specific badge type class (lowercase)
-                            const badgeType = badgeText.toLowerCase();
-                            card.classList.add(badgeType);
+                        if (modelsSearchInput) {
+                            applyModelFilter();
+                        } else {
+                            renderModels(allModels);
                         }
-
-                        if (hasLink) {
-                            card.href = link;
-                            card.target = '_blank';
-                            card.rel = 'noopener noreferrer';
-                        }
-
-                        // Badge (oben rechts)
-                        if (badge && badge.trim().length > 0) {
-                            const badgeText = badge.trim();
-                            const badgeEl = document.createElement('div');
-                            badgeEl.className = 'model-card-badge';
-                            badgeEl.textContent = badgeText;
-                            // Add specific badge type class for styling
-                            const badgeType = badgeText.toLowerCase();
-                            badgeEl.classList.add(badgeType);
-                            card.appendChild(badgeEl);
-                        }
-
-                        // Image with lazy loading
-                        if (image && /^https?:\/\//i.test(image)) {
-                            const imageWrapper = document.createElement('div');
-                            imageWrapper.className = 'model-icon';
-                            const img = document.createElement('img');
-                            
-                            // Convert GitHub blob URLs to raw URLs
-                            let imageUrl = image;
-                            if (imageUrl.includes('github.com') && imageUrl.includes('/blob/')) {
-                                imageUrl = imageUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                            }
-                            
-                            img.loading = 'lazy';
-                            img.src = imageUrl;
-                            img.alt = title || 'Model';
-                            img.onerror = function() {
-                                // Hide icon if image fails to load
-                                imageWrapper.style.display = 'none';
-                            };
-                            imageWrapper.appendChild(img);
-                            card.appendChild(imageWrapper);
-                        }
-
-                        const contentWrapper = document.createElement('div');
-                        contentWrapper.className = 'model-card-content';
-
-                        const titleEl = document.createElement('div');
-                        titleEl.className = 'model-title';
-                        titleEl.textContent = title || 'Model';
-                        contentWrapper.appendChild(titleEl);
-
-                        if (subtitle) {
-                            const subtitleEl = document.createElement('div');
-                            subtitleEl.className = 'model-subtitle';
-                            subtitleEl.textContent = subtitle;
-                            contentWrapper.appendChild(subtitleEl);
-                        }
-
-                        card.appendChild(contentWrapper);
-                        fragment.appendChild(card);
-                    });
-
-                    if (fragment.childNodes.length > 0) {
-                        modelsList.appendChild(fragment);
+                    })
+                    .catch(error => {
+                        console.error('Models loading error:', error);
+                        modelsList.innerHTML =
+                            '<div class="models-error">Unable to load models. Please try again later.</div>';
                         modelsSection.hidden = false;
-                    } else {
-                        modelsSection.hidden = true;
-                    }
-                })
-                .catch(error => {
-                    console.error('Models loading error:', error);
-                    modelsList.innerHTML = '<div class="models-error">Unable to load models. Please try again later.<br><small style="opacity: 0.6; font-size: 12px;">Check console for details</small></div>';
-                    modelsSection.hidden = false;
-                });
+                    });
             }
 
-            // Initiales Laden beim Seitenaufruf - immer mit Force Reload für frische Daten
-            loadModels(true);
+            if (modelsSearchInput) {
+                modelsSearchInput.addEventListener('input', applyModelFilter);
+            }
+
+            // Initiales Laden
+            loadModels();
         })();
 
         // QR Code Generator

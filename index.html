@@ -16,10 +16,10 @@
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #16213e);
+            background: #EFE4D6;
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
-            color: #ffffff;
+            color: #6B4F3A;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,10 +30,26 @@
             overflow-x: hidden;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(139, 97, 46, 0.15) 50%, 
+                transparent);
+            pointer-events: none;
+            animation: glossShine 10s ease-in-out infinite;
+            z-index: 9998;
+        }
+
+        @keyframes glossShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
         }
 
         /* Floating Particles Background */
@@ -51,7 +67,7 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(107, 79, 58, 0.05);
             animation: float 20s infinite ease-in-out;
             opacity: 0;
         }
@@ -98,11 +114,11 @@
             height: 115px;
             margin: 0 auto 24px;
             border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.2);
+            border: 4px solid rgba(107, 79, 58, 0.2);
             background: #ffffff;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(100, 181, 246, 0.3),
-                        0 0 0 8px rgba(255, 255, 255, 0.05),
-                        0 0 0 12px rgba(255, 255, 255, 0.03);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(139, 97, 46, 0.3),
+                        0 0 0 8px rgba(107, 79, 58, 0.05),
+                        0 0 0 12px rgba(107, 79, 58, 0.03);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             position: relative;
@@ -116,10 +132,10 @@
 
         @keyframes gentlePulse {
             0%, 100% {
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(100, 181, 246, 0.3);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(139, 97, 46, 0.3);
             }
             50% {
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(100, 181, 246, 0.5);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(139, 97, 46, 0.5);
             }
         }
 
@@ -134,9 +150,9 @@
         .avatar:hover {
             transform: translateZ(20px) scale(1.1);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
-                        0 0 100px rgba(100, 181, 246, 0.8),
-                        0 0 0 8px rgba(255, 255, 255, 0.1),
-                        0 0 0 16px rgba(255, 255, 255, 0.05);
+                        0 0 100px rgba(139, 97, 46, 0.8),
+                        0 0 0 8px rgba(107, 79, 58, 0.1),
+                        0 0 0 16px rgba(107, 79, 58, 0.05);
         }
 
         .avatar:hover img {
@@ -153,9 +169,9 @@
             bottom: 0;
             background: linear-gradient(to bottom, 
                 transparent 0%, 
-                rgba(100, 181, 246, 0.1) 30%,
-                rgba(100, 181, 246, 0.2) 50%,
-                rgba(100, 181, 246, 0.1) 70%,
+                rgba(139, 97, 46, 0.1) 30%,
+                rgba(139, 97, 46, 0.2) 50%,
+                rgba(139, 97, 46, 0.1) 70%,
                 transparent 100%);
             border-radius: 50%;
             opacity: 0;
@@ -179,7 +195,7 @@
             margin-bottom: 8px;
             font-weight: 700;
             letter-spacing: -0.5px;
-            background: linear-gradient(45deg, #ffffff, #a0d2ff, #ffffff);
+            background: linear-gradient(45deg, #6B4F3A, #8B6130, #6B4F3A);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -252,8 +268,8 @@
             display: flex;
             gap: 16px;
             padding: 18px 22px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(107, 79, 58, 0.08);
+            border: 1px solid rgba(107, 79, 58, 0.12);
             border-radius: 16px;
             backdrop-filter: blur(12px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -273,7 +289,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(107, 79, 58, 0.1), transparent);
             transition: left 0.5s ease;
         }
 
@@ -308,11 +324,11 @@
 
         .affiliate-card:hover {
             transform: translateY(-4px) scale(1.01);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(107, 79, 58, 0.15);
+            border-color: rgba(107, 79, 58, 0.3);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(100, 181, 246, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                        0 0 20px rgba(139, 97, 46, 0.2),
+                        inset 0 1px 0 rgba(107, 79, 58, 0.2);
         }
 
         .affiliate-card:active {
@@ -320,7 +336,7 @@
         }
 
         .affiliate-card:focus-visible {
-            outline: 2px solid rgba(100, 181, 246, 0.6);
+            outline: 2px solid rgba(139, 97, 46, 0.6);
             outline-offset: 2px;
         }
 
@@ -337,12 +353,12 @@
             height: 48px;
             min-width: 48px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(107, 79, 58, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 1px 2px rgba(107, 79, 58, 0.12);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
@@ -350,7 +366,7 @@
         .affiliate-card:hover .affiliate-icon {
             transform: scale(1.1) rotate(2deg);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+                        inset 0 1px 2px rgba(107, 79, 58, 0.2);
         }
 
         .affiliate-icon img {
@@ -371,7 +387,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(135deg, rgba(107, 79, 58, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -397,9 +413,9 @@
             min-width: 48px;
             border-radius: 12px;
             background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                rgba(255, 255, 255, 0.1) 100%);
+                rgba(107, 79, 58, 0.1) 0%, 
+                rgba(107, 79, 58, 0.2) 50%, 
+                rgba(107, 79, 58, 0.1) 100%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
         }
@@ -418,6 +434,209 @@
             opacity: 0.85;
         }
 
+        .crowdfunding-section {
+            margin-top: 48px;
+            text-align: left;
+        }
+
+        .crowdfunding-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        .section-description {
+            font-size: 14px;
+            opacity: 0.7;
+            margin: 0 0 20px 0;
+            font-style: italic;
+        }
+
+        .crowdfunding-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .crowdfunding-loading {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .crowdfunding-loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        .crowdfunding-error {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.6;
+            font-size: 14px;
+            color: rgba(107, 79, 58, 0.7);
+        }
+
+        .crowdfunding-card {
+            display: flex;
+            gap: 16px;
+            padding: 18px 22px;
+            background: rgba(107, 79, 58, 0.08);
+            border: 1px solid rgba(107, 79, 58, 0.12);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            opacity: 0;
+            animation: crowdfundingFadeIn 0.5s ease forwards;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .crowdfunding-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(107, 79, 58, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .crowdfunding-card:hover::before {
+            left: 100%;
+        }
+
+        .crowdfunding-card:nth-child(1) { animation-delay: 0.1s; }
+        .crowdfunding-card:nth-child(2) { animation-delay: 0.2s; }
+        .crowdfunding-card:nth-child(3) { animation-delay: 0.3s; }
+        .crowdfunding-card:nth-child(4) { animation-delay: 0.4s; }
+        .crowdfunding-card:nth-child(5) { animation-delay: 0.5s; }
+        .crowdfunding-card:nth-child(6) { animation-delay: 0.6s; }
+        .crowdfunding-card:nth-child(n+7) { animation-delay: 0.7s; }
+
+        @keyframes crowdfundingFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .crowdfunding-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .crowdfunding-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            background: rgba(107, 79, 58, 0.15);
+            border-color: rgba(107, 79, 58, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+                        0 0 20px rgba(139, 97, 46, 0.2),
+                        inset 0 1px 0 rgba(107, 79, 58, 0.2);
+        }
+
+        .crowdfunding-card:active {
+            transform: translateY(-2px) scale(0.99);
+        }
+
+        .crowdfunding-card:focus-visible {
+            outline: 2px solid rgba(139, 97, 46, 0.6);
+            outline-offset: 2px;
+        }
+
+        .crowdfunding-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .crowdfunding-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: rgba(107, 79, 58, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(107, 79, 58, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .crowdfunding-card:hover .crowdfunding-icon {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 2px rgba(107, 79, 58, 0.2);
+        }
+
+        .crowdfunding-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .crowdfunding-card:hover .crowdfunding-icon img {
+            transform: scale(1.05);
+        }
+
+        .crowdfunding-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(107, 79, 58, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .crowdfunding-card:hover .crowdfunding-icon::after {
+            opacity: 1;
+        }
+
+        .crowdfunding-description {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .crowdfunding-card:hover .crowdfunding-description {
+            opacity: 0.95;
+        }
+
+        .crowdfunding-icon-loading {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, 
+                rgba(107, 79, 58, 0.1) 0%, 
+                rgba(107, 79, 58, 0.2) 50%, 
+                rgba(107, 79, 58, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
         .models-search {
             margin-bottom: 12px;
         }
@@ -426,22 +645,22 @@
             width: 100%;
             padding: 10px 12px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.25);
-            color: #ffffff;
+            border: 1px solid rgba(107, 79, 58, 0.2);
+            background: rgba(0, 0, 0, 0.08);
+            color: #6B4F3A;
             font-size: 14px;
             outline: none;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
         .models-search input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(107, 79, 58, 0.6);
         }
 
         .models-search input:focus {
-            border-color: rgba(100, 181, 246, 0.7);
-            box-shadow: 0 0 0 1px rgba(100, 181, 246, 0.4);
-            background: rgba(0, 0, 0, 0.35);
+            border-color: rgba(139, 97, 46, 0.7);
+            box-shadow: 0 0 0 1px rgba(139, 97, 46, 0.4);
+            background: rgba(0, 0, 0, 0.12);
         }
 
         .models-list {
@@ -480,8 +699,8 @@
             display: flex;
             gap: 16px;
             padding: 18px 22px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(107, 79, 58, 0.08);
+            border: 1px solid rgba(107, 79, 58, 0.12);
             border-radius: 16px;
             backdrop-filter: blur(12px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -501,7 +720,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(107, 79, 58, 0.1), transparent);
             transition: left 0.5s ease;
         }
 
@@ -536,11 +755,11 @@
 
         .model-card:hover {
             transform: translateY(-4px) scale(1.01);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(107, 79, 58, 0.15);
+            border-color: rgba(107, 79, 58, 0.3);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(100, 181, 246, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                        0 0 20px rgba(139, 97, 46, 0.2),
+                        inset 0 1px 0 rgba(107, 79, 58, 0.2);
         }
 
         .model-card:active {
@@ -548,7 +767,7 @@
         }
 
         .model-card:focus-visible {
-            outline: 2px solid rgba(100, 181, 246, 0.6);
+            outline: 2px solid rgba(139, 97, 46, 0.6);
             outline-offset: 2px;
         }
 
@@ -565,12 +784,12 @@
             height: 48px;
             min-width: 48px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(107, 79, 58, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 1px 2px rgba(107, 79, 58, 0.12);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
@@ -578,7 +797,7 @@
         .model-card:hover .model-icon {
             transform: scale(1.1) rotate(2deg);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+                        inset 0 1px 2px rgba(107, 79, 58, 0.2);
         }
 
         .model-icon img {
@@ -599,7 +818,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(135deg, rgba(107, 79, 58, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -625,9 +844,9 @@
             min-width: 48px;
             border-radius: 12px;
             background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                rgba(255, 255, 255, 0.1) 100%);
+                rgba(107, 79, 58, 0.1) 0%, 
+                rgba(107, 79, 58, 0.2) 50%, 
+                rgba(107, 79, 58, 0.1) 100%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
         }
@@ -643,144 +862,144 @@
             top: 12px;
             right: 12px;
             padding: 4px 10px;
-            background: linear-gradient(135deg, rgba(100, 181, 246, 0.9), rgba(100, 181, 246, 0.7));
+            background: linear-gradient(135deg, rgba(139, 97, 46, 0.9), rgba(139, 97, 46, 0.7));
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(100, 181, 246, 0.5);
+            border: 1px solid rgba(139, 97, 46, 0.5);
             border-radius: 12px;
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #ffffff;
+            color: #EFE4D6;
             z-index: 10;
-            box-shadow: 0 2px 8px rgba(100, 181, 246, 0.3),
-                        0 0 12px rgba(100, 181, 246, 0.2);
+            box-shadow: 0 2px 8px rgba(139, 97, 46, 0.3),
+                        0 0 12px rgba(139, 97, 46, 0.2);
             z-index: 10;
             white-space: nowrap;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .model-card.has-badge {
-            border-color: rgba(100, 181, 246, 0.3);
-            box-shadow: 0 0 0 1px rgba(100, 181, 246, 0.2),
-                        inset 0 0 20px rgba(100, 181, 246, 0.05);
+            border-color: rgba(139, 97, 46, 0.3);
+            box-shadow: 0 0 0 1px rgba(139, 97, 46, 0.2),
+                        inset 0 0 20px rgba(139, 97, 46, 0.05);
         }
 
         .model-card.has-badge:hover {
-            border-color: rgba(100, 181, 246, 0.5);
+            border-color: rgba(139, 97, 46, 0.5);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(100, 181, 246, 0.3),
-                        inset 0 0 20px rgba(100, 181, 246, 0.1);
+                        0 0 30px rgba(139, 97, 46, 0.3),
+                        inset 0 0 20px rgba(139, 97, 46, 0.1);
         }
 
         .model-card.has-badge:hover .model-card-badge {
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(100, 181, 246, 0.4),
-                        0 0 16px rgba(100, 181, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(139, 97, 46, 0.4),
+                        0 0 16px rgba(139, 97, 46, 0.3);
         }
 
         /* Badge Varianten - POPULAR (Gold/Gelb) */
         .model-card-badge.popular {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.9), rgba(255, 193, 7, 0.7));
-            border-color: rgba(255, 193, 7, 0.5);
-            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3),
-                        0 0 12px rgba(255, 193, 7, 0.2);
+            background: linear-gradient(135deg, rgba(255, 165, 0, 0.95), rgba(255, 140, 0, 0.85));
+            border-color: rgba(255, 165, 0, 0.8);
+            box-shadow: 0 2px 8px rgba(255, 165, 0, 0.6),
+                        0 0 20px rgba(255, 165, 0, 0.4);
         }
 
         .model-card.has-badge.popular {
-            border-color: rgba(255, 193, 7, 0.3);
-            box-shadow: 0 0 0 1px rgba(255, 193, 7, 0.2),
-                        inset 0 0 20px rgba(255, 193, 7, 0.05);
+            border-color: rgba(255, 165, 0, 0.6);
+            box-shadow: 0 0 0 1px rgba(255, 165, 0, 0.4),
+                        inset 0 0 20px rgba(255, 165, 0, 0.1);
         }
 
         .model-card.has-badge.popular:hover {
-            border-color: rgba(255, 193, 7, 0.5);
+            border-color: rgba(255, 165, 0, 0.8);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(255, 193, 7, 0.3),
-                        inset 0 0 20px rgba(255, 193, 7, 0.1);
+                        0 0 40px rgba(255, 165, 0, 0.6),
+                        inset 0 0 20px rgba(255, 165, 0, 0.2);
         }
 
         .model-card.has-badge.popular:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4),
-                        0 0 16px rgba(255, 193, 7, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.7),
+                        0 0 24px rgba(255, 165, 0, 0.5);
         }
 
         /* Badge Varianten - NEW (Grün) */
         .model-card-badge.new {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(76, 175, 80, 0.7));
-            border-color: rgba(76, 175, 80, 0.5);
-            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3),
-                        0 0 12px rgba(76, 175, 80, 0.2);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(16, 185, 129, 0.85));
+            border-color: rgba(34, 197, 94, 0.8);
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.6),
+                        0 0 20px rgba(34, 197, 94, 0.4);
         }
 
         .model-card.has-badge.new {
-            border-color: rgba(76, 175, 80, 0.3);
-            box-shadow: 0 0 0 1px rgba(76, 175, 80, 0.2),
-                        inset 0 0 20px rgba(76, 175, 80, 0.05);
+            border-color: rgba(34, 197, 94, 0.6);
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4),
+                        inset 0 0 20px rgba(34, 197, 94, 0.1);
         }
 
         .model-card.has-badge.new:hover {
-            border-color: rgba(76, 175, 80, 0.5);
+            border-color: rgba(34, 197, 94, 0.8);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(76, 175, 80, 0.3),
-                        inset 0 0 20px rgba(76, 175, 80, 0.1);
+                        0 0 40px rgba(34, 197, 94, 0.6),
+                        inset 0 0 20px rgba(34, 197, 94, 0.2);
         }
 
         .model-card.has-badge.new:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4),
-                        0 0 16px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.7),
+                        0 0 24px rgba(34, 197, 94, 0.5);
         }
 
         /* Badge Varianten - FEATURED (Lila/Purple) */
         .model-card-badge.featured {
-            background: linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(156, 39, 176, 0.7));
-            border-color: rgba(156, 39, 176, 0.5);
-            box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3),
-                        0 0 12px rgba(156, 39, 176, 0.2);
+            background: linear-gradient(135deg, rgba(128, 73, 91, 0.9), rgba(128, 73, 91, 0.7));
+            border-color: rgba(128, 73, 91, 0.5);
+            box-shadow: 0 2px 8px rgba(128, 73, 91, 0.3),
+                        0 0 12px rgba(128, 73, 91, 0.2);
         }
 
         .model-card.has-badge.featured {
-            border-color: rgba(156, 39, 176, 0.3);
-            box-shadow: 0 0 0 1px rgba(156, 39, 176, 0.2),
-                        inset 0 0 20px rgba(156, 39, 176, 0.05);
+            border-color: rgba(128, 73, 91, 0.3);
+            box-shadow: 0 0 0 1px rgba(128, 73, 91, 0.2),
+                        inset 0 0 20px rgba(128, 73, 91, 0.05);
         }
 
         .model-card.has-badge.featured:hover {
-            border-color: rgba(156, 39, 176, 0.5);
+            border-color: rgba(128, 73, 91, 0.5);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(156, 39, 176, 0.3),
-                        inset 0 0 20px rgba(156, 39, 176, 0.1);
+                        0 0 30px rgba(128, 73, 91, 0.3),
+                        inset 0 0 20px rgba(128, 73, 91, 0.1);
         }
 
         .model-card.has-badge.featured:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4),
-                        0 0 16px rgba(156, 39, 176, 0.3);
+            box-shadow: 0 4px 12px rgba(128, 73, 91, 0.4),
+                        0 0 16px rgba(128, 73, 91, 0.3);
         }
 
         /* Badge Varianten - HOT (Rot/Orange) */
         .model-card-badge.hot {
-            background: linear-gradient(135deg, rgba(255, 87, 34, 0.9), rgba(255, 87, 34, 0.7));
-            border-color: rgba(255, 87, 34, 0.5);
-            box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3),
-                        0 0 12px rgba(255, 87, 34, 0.2);
+            background: linear-gradient(135deg, rgba(194, 83, 30, 0.9), rgba(194, 83, 30, 0.7));
+            border-color: rgba(194, 83, 30, 0.5);
+            box-shadow: 0 2px 8px rgba(194, 83, 30, 0.3),
+                        0 0 12px rgba(194, 83, 30, 0.2);
         }
 
         .model-card.has-badge.hot {
-            border-color: rgba(255, 87, 34, 0.3);
-            box-shadow: 0 0 0 1px rgba(255, 87, 34, 0.2),
-                        inset 0 0 20px rgba(255, 87, 34, 0.05);
+            border-color: rgba(194, 83, 30, 0.3);
+            box-shadow: 0 0 0 1px rgba(194, 83, 30, 0.2),
+                        inset 0 0 20px rgba(194, 83, 30, 0.05);
         }
 
         .model-card.has-badge.hot:hover {
-            border-color: rgba(255, 87, 34, 0.5);
+            border-color: rgba(194, 83, 30, 0.5);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(255, 87, 34, 0.3),
-                        inset 0 0 20px rgba(255, 87, 34, 0.1);
+                        0 0 30px rgba(194, 83, 30, 0.3),
+                        inset 0 0 20px rgba(194, 83, 30, 0.1);
         }
 
         .model-card.has-badge.hot:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4),
-                        0 0 16px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 12px rgba(194, 83, 30, 0.4),
+                        0 0 16px rgba(194, 83, 30, 0.3);
         }
 
         .link {
@@ -790,12 +1009,12 @@
             width: 100%;
             min-height: 64px;
             padding: 16px 24px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(107, 79, 58, 0.08);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(107, 79, 58, 0.1);
             border-radius: 16px;
             text-decoration: none;
-            color: #ffffff;
+            color: #6B4F3A;
             font-weight: 600;
             font-size: 16px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -829,7 +1048,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(107, 79, 58, 0.1), transparent);
             transition: left 0.5s;
         }
 
@@ -839,11 +1058,11 @@
 
         .link:hover {
             transform: translateY(-4px) translateZ(15px) rotateX(3deg);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(107, 79, 58, 0.15);
+            border-color: rgba(107, 79, 58, 0.3);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 
-                        0 0 12px rgba(100, 181, 246, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                        0 0 12px rgba(139, 97, 46, 0.3),
+                        inset 0 1px 0 rgba(107, 79, 58, 0.2);
         }
 
         .link:hover .link-icon {
@@ -860,7 +1079,7 @@
             height: 2px;
             background: linear-gradient(90deg, 
                 transparent, 
-                rgba(100, 181, 246, 0.5), 
+                rgba(139, 97, 46, 0.5), 
                 transparent);
             transform: translateX(-100%);
             transition: transform 0.6s ease;
@@ -919,6 +1138,7 @@
             font-size: 13px;
             opacity: 0.6;
             font-weight: 400;
+            color: #6B4F3A;
         }
 
         /* Email Button */
@@ -931,18 +1151,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(100, 181, 246, 0.2);
+            background: rgba(139, 97, 46, 0.2);
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(100, 181, 246, 0.4);
+            border: 2px solid rgba(139, 97, 46, 0.4);
             border-radius: 50%;
-            color: #ffffff;
+            color: #6B4F3A;
             font-size: 20px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 9999;
             opacity: 1;
-            box-shadow: 0 4px 16px rgba(100, 181, 246, 0.3),
-                        0 0 30px rgba(100, 181, 246, 0.2);
+            box-shadow: 0 4px 16px rgba(139, 97, 46, 0.3),
+                        0 0 30px rgba(139, 97, 46, 0.2);
             transform-style: preserve-3d;
             text-decoration: none;
             animation: emailPulse 2s ease-in-out infinite;
@@ -950,12 +1170,12 @@
 
         @keyframes emailPulse {
             0%, 100% {
-                box-shadow: 0 4px 16px rgba(100, 181, 246, 0.3),
-                            0 0 30px rgba(100, 181, 246, 0.2);
+                box-shadow: 0 4px 16px rgba(139, 97, 46, 0.3),
+                            0 0 30px rgba(139, 97, 46, 0.2);
             }
             50% {
-                box-shadow: 0 4px 16px rgba(100, 181, 246, 0.5),
-                            0 0 40px rgba(100, 181, 246, 0.4);
+                box-shadow: 0 4px 16px rgba(139, 97, 46, 0.5),
+                            0 0 40px rgba(139, 97, 46, 0.4);
             }
         }
 
@@ -971,29 +1191,29 @@
         }
 
         .collaboration-indicator-content {
-            background: rgba(100, 181, 246, 0.15);
+            background: rgba(139, 97, 46, 0.15);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(100, 181, 246, 0.3);
+            border: 1px solid rgba(139, 97, 46, 0.3);
             border-radius: 12px;
             padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(100, 181, 246, 0.2);
+                        0 0 20px rgba(139, 97, 46, 0.2);
         }
 
         .collaboration-indicator-text {
             font-size: 13px;
             font-weight: 600;
-            color: #a0d2ff;
+            color: #8B6130;
             white-space: nowrap;
         }
 
         .collaboration-indicator-arrow {
             width: 20px;
             height: 20px;
-            color: #a0d2ff;
+            color: #8B6130;
             animation: bounceArrow 1.5s ease-in-out infinite;
         }
 
@@ -1018,11 +1238,11 @@
         }
 
         .email-button:hover {
-            background: rgba(100, 181, 246, 0.3);
-            border-color: rgba(100, 181, 246, 0.6);
+            background: rgba(139, 97, 46, 0.3);
+            border-color: rgba(139, 97, 46, 0.6);
             transform: translateZ(10px) rotateY(15deg) scale(1.15);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
-                        0 0 40px rgba(100, 181, 246, 0.6);
+                        0 0 40px rgba(139, 97, 46, 0.6);
         }
 
         .email-button:active {
@@ -1044,11 +1264,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(107, 79, 58, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(107, 79, 58, 0.15);
             border-radius: 50%;
-            color: #ffffff;
+            color: #6B4F3A;
             font-size: 18px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1059,12 +1279,12 @@
         }
 
         .qr-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(107, 79, 58, 0.15);
+            border-color: rgba(107, 79, 58, 0.25);
             opacity: 1;
             transform: translateZ(10px) rotateY(15deg) scale(1.1);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(100, 181, 246, 0.4);
+                        0 0 20px rgba(139, 97, 46, 0.4);
         }
 
         /* QR Code Modal */
@@ -1088,9 +1308,9 @@
         }
 
         .qr-modal-content {
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(239, 228, 214, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(107, 79, 58, 0.2);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
@@ -1111,6 +1331,7 @@
             margin: 0 0 20px 0;
             font-size: 20px;
             font-weight: 700;
+            color: #6B4F3A;
         }
 
         .qr-code-container {
@@ -1134,8 +1355,8 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(107, 79, 58, 0.1);
+            border: 1px solid rgba(107, 79, 58, 0.2);
             border-radius: 50%;
             width: 32px;
             height: 32px;
@@ -1143,7 +1364,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: #ffffff;
+            color: #6B4F3A;
             padding: 0;
             margin: 0;
         }
@@ -1154,24 +1375,25 @@
         }
 
         .qr-modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(107, 79, 58, 0.2);
         }
 
         .qr-modal-content p {
             font-size: 14px;
             opacity: 0.8;
             margin-top: 15px;
+            color: #6B4F3A;
         }
 
         /* Share Button in QR Modal */
         .qr-modal-share-button {
             margin-top: 20px;
             padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(139, 97, 46, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(139, 97, 46, 0.2);
             border-radius: 12px;
-            color: #ffffff;
+            color: #6B4F3A;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
@@ -1183,8 +1405,8 @@
         }
 
         .qr-modal-share-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(139, 97, 46, 0.15);
+            border-color: rgba(139, 97, 46, 0.3);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -1219,9 +1441,9 @@
         }
 
         .email-modal-content {
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(239, 228, 214, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(107, 79, 58, 0.2);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
@@ -1237,7 +1459,7 @@
             margin: 0 0 24px 0;
             font-size: 22px;
             font-weight: 700;
-            background: linear-gradient(45deg, #ffffff, #a0d2ff, #ffffff);
+            background: linear-gradient(45deg, #6B4F3A, #8B6130, #6B4F3A);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1253,11 +1475,11 @@
 
         .contact-reason-button {
             padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(107, 79, 58, 0.08);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(107, 79, 58, 0.15);
             border-radius: 12px;
-            color: #ffffff;
+            color: #6B4F3A;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
@@ -1277,7 +1499,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(139, 97, 46, 0.2), transparent);
             transition: left 0.5s ease;
         }
 
@@ -1286,11 +1508,11 @@
         }
 
         .contact-reason-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(100, 181, 246, 0.4);
+            background: rgba(107, 79, 58, 0.15);
+            border-color: rgba(139, 97, 46, 0.4);
             transform: translateX(4px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(100, 181, 246, 0.2);
+                        0 0 20px rgba(139, 97, 46, 0.2);
         }
 
         .contact-reason-button:active {
@@ -1298,14 +1520,14 @@
         }
 
         .contact-reason-button.featured {
-            background: rgba(100, 181, 246, 0.15);
-            border-color: rgba(100, 181, 246, 0.4);
-            box-shadow: 0 0 20px rgba(100, 181, 246, 0.2);
+            background: rgba(139, 97, 46, 0.15);
+            border-color: rgba(139, 97, 46, 0.4);
+            box-shadow: 0 0 20px rgba(139, 97, 46, 0.2);
         }
 
         .contact-reason-button.featured:hover {
-            background: rgba(100, 181, 246, 0.25);
-            box-shadow: 0 0 30px rgba(100, 181, 246, 0.4);
+            background: rgba(139, 97, 46, 0.25);
+            box-shadow: 0 0 30px rgba(139, 97, 46, 0.4);
         }
 
         .contact-reason-icon {
@@ -1321,8 +1543,8 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(107, 79, 58, 0.1);
+            border: 1px solid rgba(107, 79, 58, 0.2);
             border-radius: 50%;
             width: 32px;
             height: 32px;
@@ -1330,14 +1552,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: #ffffff;
+            color: #6B4F3A;
             padding: 0;
             margin: 0;
             transition: all 0.3s ease;
         }
 
         .email-modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(107, 79, 58, 0.2);
         }
 
         .email-modal-close svg {
@@ -1355,9 +1577,9 @@
         }
 
         .counter-item {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(107, 79, 58, 0.08);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(107, 79, 58, 0.1);
             border-radius: 12px;
             padding: 12px 20px;
             min-width: 100px;
@@ -1365,14 +1587,14 @@
         }
 
         .counter-item:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(107, 79, 58, 0.12);
             transform: translateY(-2px);
         }
 
         .counter-number {
             font-size: 24px;
             font-weight: 700;
-            color: #a0d2ff;
+            color: #8B6130;
             line-height: 1.2;
         }
 
@@ -1382,6 +1604,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 4px;
+            color: #6B4F3A;
         }
 
         /* Responsive optimizations for affiliate cards */
@@ -1544,9 +1767,9 @@
         }
 
         .video-reel-widget-content {
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(239, 228, 214, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(107, 79, 58, 0.2);
             border-radius: 10px;
             padding: 6px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -1557,8 +1780,8 @@
             position: absolute;
             top: 8px;
             right: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(107, 79, 58, 0.1);
+            border: 1px solid rgba(107, 79, 58, 0.2);
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -1566,7 +1789,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: #ffffff;
+            color: #6B4F3A;
             padding: 0;
             margin: 0;
             transition: all 0.3s ease;
@@ -1574,7 +1797,7 @@
         }
 
         .video-reel-widget-close:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(107, 79, 58, 0.2);
             transform: rotate(90deg);
         }
 
@@ -1588,7 +1811,7 @@
             position: relative;
             border-radius: 8px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(107, 79, 58, 0.05);
         }
 
         .video-reel-container video {
@@ -1610,9 +1833,9 @@
             height: 32px;
             z-index: 101;
             animation: arrowPulse 2s ease-in-out infinite;
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(107, 79, 58, 0.6);
             border-radius: 50%;
-            background: rgba(26, 26, 46, 0.8);
+            background: rgba(239, 228, 214, 0.8);
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
@@ -1625,19 +1848,19 @@
             0%, 100% {
                 transform: translateY(-50%) translateX(0) scale(1);
                 opacity: 1;
-                border-color: rgba(255, 255, 255, 0.6);
+                border-color: rgba(107, 79, 58, 0.6);
             }
             50% {
                 transform: translateY(-50%) translateX(5px) scale(1.1);
                 opacity: 0.8;
-                border-color: rgba(100, 181, 246, 0.8);
+                border-color: rgba(139, 97, 46, 0.8);
             }
         }
 
         .video-reel-arrow svg {
             width: 18px;
             height: 18px;
-            fill: rgba(255, 255, 255, 0.9);
+            fill: rgba(107, 79, 58, 0.9);
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
         }
 
@@ -1669,7 +1892,7 @@
             width: 16px;
             height: 16px;
             border-radius: 3px;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             padding: 1.5px;
             display: flex;
             align-items: center;
@@ -1683,10 +1906,9 @@
         }
 
         .video-reel-branding-text {
-            color: #ffffff;
+            color: #000000;
             font-size: 9px;
             font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
             letter-spacing: 0.2px;
         }
 
@@ -1697,7 +1919,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(239, 228, 214, 0.85);
             backdrop-filter: blur(4px);
             padding: 4px 8px;
             border-radius: 12px;
@@ -1708,11 +1930,11 @@
         .video-reel-instagram-badge svg {
             width: 12px;
             height: 12px;
-            fill: #ffffff;
+            fill: #EFE4D6;
         }
 
         .video-reel-instagram-badge-text {
-            color: #ffffff;
+            color: #6B4F3A;
             font-size: 9px;
             font-weight: 500;
             text-transform: uppercase;
@@ -1791,13 +2013,19 @@
                 </div>
                 <span>Instagram</span>
             </a>
-            <a class="link" href="#" style="opacity: 0.5; cursor: not-allowed;">
+            <a class="link" href="https://www.youtube.com/@piodeer" target="_blank" rel="noopener noreferrer">
                 <div class="link-icon youtube">
                     <img src="https://raw.githubusercontent.com/piodeer/LinkTree/617ae4a1b1cf0ec26a53b5bc4e337ed3a169e284/media/youtube.png" alt="YouTube">
                 </div>
-                <span>YouTube (Coming Soon)</span>
+                <span>YouTube</span>
             </a>
         </div>
+
+        <section class="crowdfunding-section" id="crowdfundingSection">
+            <h2>Crowdfunding</h2>
+            <p class="section-description">More information coming soon, stay tuned!</p>
+            <div class="crowdfunding-list" id="crowdfundingList"></div>
+        </section>
 
         <section class="affiliate-section" id="affiliateSection" hidden>
             <h2>Affiliate Links</h2>
@@ -2098,6 +2326,129 @@
         const qrModalShareButton = document.getElementById('qrModalShareButton');
         const qrModalShareIcon = qrModalShareButton.querySelector('svg');
         qrModalShareButton.addEventListener('click', handleShare(qrModalShareButton, qrModalShareIcon));
+
+        // Crowdfunding Links laden
+        (function() {
+            // Convert GitHub blob URL to raw URL if needed
+            function convertToRawUrl(url) {
+                if (url.includes('github.com') && url.includes('/blob/')) {
+                    return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return url;
+            }
+
+            let crowdfundingUrl = 'https://github.com/piodeer/LinkTree/blob/main/Crowdfunding.txt';
+            crowdfundingUrl = convertToRawUrl(crowdfundingUrl);
+            
+            const crowdfundingSection = document.getElementById('crowdfundingSection');
+            const crowdfundingList = document.getElementById('crowdfundingList');
+
+            if (!crowdfundingSection || !crowdfundingList) {
+                return;
+            }
+
+            // Show loading indicator
+            crowdfundingList.innerHTML = '<div class="crowdfunding-loading">Loading crowdfunding projects</div>';
+
+            fetch(crowdfundingUrl, { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load crowdfunding data.');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0 && !line.startsWith('#'));
+
+                    if (lines.length === 0) {
+                        crowdfundingList.innerHTML = '';
+                        crowdfundingSection.hidden = true;
+                        return;
+                    }
+
+                    // Parse crowdfunding links: Format: title | description | link | icon (optional)
+                    const crowdfunding = lines.map(line => {
+                        const parts = line.split('|').map(part => part.trim());
+                        const [title = 'Project', description = '', link = '', icon = ''] = parts;
+                        
+                        return { title, description, link, icon };
+                    });
+
+                    // Clear loading indicator
+                    crowdfundingList.innerHTML = '';
+
+                    // Create and append crowdfunding cards
+                    const fragment = document.createDocumentFragment();
+
+                    crowdfunding.forEach((item, index) => {
+                        const { title, description, link, icon } = item;
+
+                        const hasLink = link && /^https?:\/\//i.test(link);
+                        const card = document.createElement(hasLink ? 'a' : 'div');
+                        card.className = 'crowdfunding-card';
+                        card.style.animationDelay = `${index * 0.1}s`;
+
+                        if (hasLink) {
+                            card.href = link;
+                            card.target = '_blank';
+                            card.rel = 'noopener noreferrer';
+                        }
+
+                        // Icon with lazy loading
+                        if (icon && /^https?:\/\//i.test(icon)) {
+                            const iconWrapper = document.createElement('div');
+                            iconWrapper.className = 'crowdfunding-icon';
+                            const img = document.createElement('img');
+                            
+                            // Convert GitHub blob URLs to raw URLs
+                            let iconUrl = icon;
+                            if (iconUrl.includes('github.com') && iconUrl.includes('/blob/')) {
+                                iconUrl = iconUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                            }
+                            
+                            img.loading = 'lazy';
+                            img.src = iconUrl;
+                            img.alt = title || 'Project';
+                            img.onerror = function() {
+                                iconWrapper.innerHTML = '';
+                            };
+                            iconWrapper.appendChild(img);
+                            card.appendChild(iconWrapper);
+                        }
+
+                        const contentWrapper = document.createElement('div');
+                        contentWrapper.className = 'crowdfunding-card-content';
+
+                        const titleEl = document.createElement('div');
+                        titleEl.className = 'crowdfunding-title';
+                        titleEl.textContent = title || 'Project';
+                        contentWrapper.appendChild(titleEl);
+
+                        if (description) {
+                            const descEl = document.createElement('div');
+                            descEl.className = 'crowdfunding-description';
+                            descEl.textContent = description;
+                            contentWrapper.appendChild(descEl);
+                        }
+
+                        card.appendChild(contentWrapper);
+                        fragment.appendChild(card);
+                    });
+
+                    if (fragment.childNodes.length > 0) {
+                        crowdfundingList.appendChild(fragment);
+                        crowdfundingSection.hidden = false;
+                    } else {
+                        crowdfundingSection.hidden = true;
+                    }
+                })
+                .catch(error => {
+                    console.warn('Crowdfunding loading error:', error);
+                    crowdfundingList.innerHTML = '';
+                });
+        })();
 
         // Affiliate Links laden
         (function() {

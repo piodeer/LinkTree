@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>piodeer</title>
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
-    <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png">
+    <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         * {
@@ -115,7 +115,7 @@
             margin: 0 auto 24px;
             border-radius: 50%;
             border: 4px solid rgba(107, 79, 58, 0.2);
-            background: #ffffff;
+            background: transparent;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(139, 97, 46, 0.3),
                         0 0 0 8px rgba(107, 79, 58, 0.05),
                         0 0 0 12px rgba(107, 79, 58, 0.03);
@@ -123,9 +123,8 @@
             overflow: hidden;
             position: relative;
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
-            padding-bottom: 8px;
             animation: gentlePulse 3s ease-in-out infinite;
             transform-style: preserve-3d;
         }
@@ -140,15 +139,14 @@
         }
 
         .avatar img {
-            width: 85%;
-            height: 85%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
             transition: transform 0.3s ease;
         }
 
         .avatar:hover {
-            transform: translateZ(20px) scale(1.1);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
                         0 0 100px rgba(139, 97, 46, 0.8),
                         0 0 0 8px rgba(107, 79, 58, 0.1),
@@ -156,7 +154,7 @@
         }
 
         .avatar:hover img {
-            transform: scale(1.05);
+            transform: none;
         }
 
         /* 3D Printing Layer Effect */
@@ -1983,7 +1981,7 @@
 
     <div class="container">
         <div class="avatar">
-            <img src="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png" alt="piodeer logo">
+            <img src="https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png" alt="piodeer logo">
         </div>
         <h1>piodeer</h1>
         <p>Innovative Maker | DIY Enthusiast | Tech & Design Explorer</p>
@@ -2075,7 +2073,7 @@
                 <!-- Branding oben links -->
                 <div class="video-reel-branding">
                     <div class="video-reel-branding-logo">
-                        <img src="https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png" alt="piodeer">
+                        <img src="https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png" alt="piodeer">
                     </div>
                     <div class="video-reel-branding-text">piodeer</div>
                 </div>
@@ -2261,7 +2259,7 @@
                     document.head.appendChild(link);
                 }
             };
-            img.src = 'https://raw.githubusercontent.com/piodeer/LinkTree/392c8bf5eb91d04289f23203c18cde1a75bd345f/media/logo.png';
+            img.src = 'https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png';
         })();
 
         // Share-Funktion (wiederverwendbar)

@@ -692,6 +692,33 @@
             }
         }
 
+        .crowdfunding-badge {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6B4F3A;
+            margin: 20px 0;
+        }
+
+        .bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #888; /* Grau für Launching */
+            flex-shrink: 0;
+        }
+
+        .bullet.live {
+            background: #28a745; /* Grün für Live */
+        }
+
         .models-error {
             text-align: center;
             padding: 20px;
@@ -2033,6 +2060,11 @@
             </a>
         </section>
 
+        <div class="status-indicator">
+            <span class="bullet" id="bullet"></span>
+            <span class="status-text" id="status-text">Launching soon - write yourself on the notification list.</span>
+        </div>
+
         <section class="affiliate-section" id="affiliateSection" hidden>
             <h2>Affiliate Links</h2>
             <div class="affiliate-list" id="affiliateList"></div>
@@ -3368,6 +3400,24 @@
                     }, VIDEO_REEL_CONFIG.showDelay);
                 }
             });
+        })();
+
+        // Crowdfunding Status Badge
+        (function() {
+            const bullet = document.getElementById('bullet');
+            const statusText = document.getElementById('status-text');
+            if (!bullet || !statusText) return;
+
+            // Ändere hier den Status: 'launching' oder 'live'
+            const status = 'launching'; // Ändere zu 'live' für Live-Modus
+
+            if (status === 'live') {
+                bullet.classList.add('live');
+                statusText.textContent = 'live';
+            } else {
+                bullet.classList.remove('live');
+                statusText.textContent = 'Launching soon - write yourself on the notification list.';
+            }
         })();
     </script>
 

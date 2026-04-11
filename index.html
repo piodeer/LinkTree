@@ -564,10 +564,10 @@
         }
 
         .crowdfunding-icon {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 12px;
+            width: 282px;
+            height: 120px;
+            min-width: 282px;
+            border-radius: 16px;
             background: rgba(107, 79, 58, 0.12);
             display: flex;
             align-items: center;
@@ -623,10 +623,10 @@
         }
 
         .crowdfunding-icon-loading {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 12px;
+            width: 282px;
+            height: 120px;
+            min-width: 282px;
+            border-radius: 16px;
             background: linear-gradient(90deg, 
                 rgba(107, 79, 58, 0.1) 0%, 
                 rgba(107, 79, 58, 0.2) 50%, 
@@ -679,10 +679,17 @@
             animation: dots 1.5s steps(4, end) infinite;
         }
 
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
+        .crowdfunding-banner {
+            animation: bannerGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes bannerGlow {
+            0%, 100% {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(107, 79, 58, 0.2);
+            }
+            50% {
+                box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), 0 0 30px rgba(107, 79, 58, 0.6), 0 0 50px rgba(139, 97, 46, 0.4);
+            }
         }
 
         .models-error {
@@ -2021,8 +2028,9 @@
 
         <section class="crowdfunding-section" id="crowdfundingSection">
             <h2>Crowdfunding</h2>
-            <p class="section-description">More information coming soon, stay tuned!</p>
-            <div class="crowdfunding-list" id="crowdfundingList"></div>
+            <a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer">
+                <img src="https://raw.githubusercontent.com/piodeer/LinkTree/f45a412bb86a69be06ee1bc1a80b9dc7ff4b6ab7/media/crowdfundingbanner.jpg" alt="Orbio The Rotating Table" class="crowdfunding-banner" style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 16px;">
+            </a>
         </section>
 
         <section class="affiliate-section" id="affiliateSection" hidden>
@@ -2361,8 +2369,11 @@
                         .filter(line => line.length > 0 && !line.startsWith('#'));
 
                     if (lines.length === 0) {
-                        crowdfundingList.innerHTML = '';
-                        crowdfundingSection.hidden = true;
+                        if (crowdfundingList.children.length === 0) {
+                            crowdfundingSection.hidden = true;
+                        } else {
+                            crowdfundingSection.hidden = false;
+                        }
                         return;
                     }
 

@@ -6,10 +6,8 @@ export default async function handler(req, res) {
       }
     });
     const html = await response.text();
-    const match = html.match(/Join (\d+) followers already waiting for its launch/);
-    const followerCount = match ? parseInt(match[1]) : 0;
-    // Debug: Gib match zurück
-    res.status(200).json({ followerCount, match: match ? match[0] : null });
+    // Debug: Gib HTML-Snippet zurück
+    res.status(200).json({ htmlSnippet: html.substring(0, 2000) });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
   }

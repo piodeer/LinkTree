@@ -2,8 +2,8 @@ name: Fetch MakerWorld Waitlist Count
 
 on:
   schedule:
-    - cron: '0 * * * *'   # jede Stunde
-  workflow_dispatch:        # auch manuell startbar
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   fetch:
@@ -14,62 +14,56 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Playwright
-        run: |
-          pip install playwright --break-system-packages
-          playwright install chromium --with-deps
-
-      - name: Fetch waitlist count
+      - name: Fetch waitlist count via API
         run: |
           python3 - <<'EOF'
-          import json, datetime
-          from playwright.sync_api import sync_playwright
+          import urllib.request, json, datetime
 
-          URL = "https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table"
+          endpoints = [
+              "https://makerworld.com/api/v1/crowdfunding/campaign/256",
+              "https://makerworld.com/api/v1/crowdfunding/256",
+              "https://makerworld.com/api/crowdfunding/256",
+              "https://makerworld.com/api/v1/campaign/256",
+          ]
+
+          headers = {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+              "Accept": "application/json, text/plain, */*",
+              "Accept-Language": "en-US,en;q=0.9",
+              "Referer": "https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table",
+              "Origin": "https://makerworld.com",
+          }
 
           waitlist = "?"
-          with sync_playwright() as p:
-              browser = p.chromium.launch(headless=True)
-              page = browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+          for url in endpoints:
               try:
-                  page.goto(URL, wait_until="networkidle", timeout=30000)
-                  page.wait_for_timeout(4000)
-                  
-                  # Gesamten Text der Seite ausgeben (zum Debuggen)
-                  text = page.inner_text("body")
-                  print("=== SEITENTEXT (erste 2000 Zeichen) ===")
-                  print(text[:2000])
-                  print("========================================")
-
-                  import re
-                  # Suche nach Zahlen neben Wörtern wie "waitlist", "notification", "watcher"
-                  patterns = [
-                      r'(\d[\d,]*)\s*(?:people\s*on\s*the\s*(?:wait)?list|waitlist|watchers?|notification)',
-                      r'(?:waitlist|watchers?|notification)[^\d]*(\d[\d,]*)',
-                      r'(\d[\d,]*)\s*(?:Personen|Interessenten)',
-                  ]
-                  for pattern in patterns:
-                      match = re.search(pattern, text, re.IGNORECASE)
-                      if match:
-                          waitlist = match.group(1).replace(',', '')
-                          print(f"Gefunden mit Pattern '{pattern}': {waitlist}")
+                  req = urllib.request.Request(url, headers=headers)
+                  with urllib.request.urlopen(req, timeout=15) as r:
+                      raw = r.read().decode()
+                      print(f"\n=== {url} ===")
+                      print(raw[:1000])
+                      data_raw = json.loads(raw)
+                      
+                      for field in ["watcherCount", "watchers", "waitlist", "waitlistCount", 
+                                    "followerCount", "followers", "notificationCount",
+                                    "interestedCount", "subscriberCount", "backerCount"]:
+                          if field in data_raw:
+                              waitlist = str(data_raw[field])
+                              print(f"Gefunden: {field} = {waitlist}")
+                              break
+                      
+                      if waitlist != "?":
                           break
-                  
-                  if waitlist == "?":
-                      print("Kein Match gefunden – bitte Log prüfen und Pattern anpassen")
-
               except Exception as e:
-                  print(f"Fehler: {e}")
-              finally:
-                  browser.close()
+                  print(f"Fehler {url}: {e}")
 
-          data = {
+          result = {
               "waitlist": waitlist,
-              "updated": datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+              "updated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
           }
           with open("data.json", "w") as f:
-              json.dump(data, f, indent=2)
-          print(f"Gespeichert: {json.dumps(data)}")
+              json.dump(result, f, indent=2)
+          print(f"Gespeichert: {result}")
           EOF
 
       - name: Commit data.json

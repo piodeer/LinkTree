@@ -2062,7 +2062,7 @@
 
         <div class="status-indicator">
             <span class="bullet" id="bullet"></span>
-            <span class="status-text" id="status-text">Launching soon - write yourself on the notification list.</span>
+            <span class="status-text" id="status-text">Launching soon · 31 people on the list — join them!</span>
         </div>
 
         <section class="affiliate-section" id="affiliateSection" hidden>
@@ -3416,7 +3416,19 @@
                 statusText.textContent = 'live';
             } else {
                 bullet.classList.remove('live');
-                statusText.textContent = 'Launching soon - write yourself on the notification list.';
+                // Wartelisten-Zahl aus data.json laden
+                // Neuer Code für Vercel API
+                fetch('/api/followers')
+                    .then(response => response.json())
+                    .then(data => {
+                        const count = data.followerCount;
+                        statusText.innerHTML = 'Launching soon · <strong>' + count + ' people</strong> on the list — <a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">join them!</a>';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching followers:', error);
+                        // Fallback: Statischer Text
+                        statusText.innerHTML = 'Launching soon — <a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">write yourself on the notification list.</a>';
+                    });
             }
         })();
     </script>

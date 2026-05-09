@@ -2062,7 +2062,7 @@
 
         <div class="status-indicator">
             <span class="bullet" id="bullet"></span>
-            <span class="status-text" id="status-text">Launching soon · 31 people on the list — join them!</span>
+            <span class="status-text" id="status-text">Live · …</span>
         </div>
 
         <section class="affiliate-section" id="affiliateSection" hidden>
@@ -3409,11 +3409,37 @@
             if (!bullet || !statusText) return;
 
             // Ändere hier den Status: 'launching' oder 'live'
-            const status = 'launching'; // Ändere zu 'live' für Live-Modus
+            const status = 'live'; // 'live' = green bullet + countdown to campaignEndDate
+
+            /** Campaign end date (local): Friday, July 3, 2026 */
+            const campaignEndDate = new Date(2026, 6, 3);
+
+            function daysRemainingUntil(endDate) {
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+                var end = new Date(endDate.getTime());
+                end.setHours(0, 0, 0, 0);
+                return Math.round((end - today) / (1000 * 60 * 60 * 24));
+            }
+
+            function liveStatusHtml(daysLeft) {
+                var link =
+                    '<a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">View campaign</a>';
+                if (daysLeft < 0) {
+                    return 'Live · Campaign ended · ' + link;
+                }
+                if (daysLeft === 0) {
+                    return 'Live · Last day (July 3, 2026) · ' + link;
+                }
+                if (daysLeft === 1) {
+                    return 'Live · <strong>1 day</strong> left until July 3, 2026 · ' + link;
+                }
+                return 'Live · <strong>' + daysLeft + ' days</strong> left until July 3, 2026 · ' + link;
+            }
 
             if (status === 'live') {
                 bullet.classList.add('live');
-                statusText.textContent = 'live';
+                statusText.innerHTML = liveStatusHtml(daysRemainingUntil(campaignEndDate));
             } else {
                 bullet.classList.remove('live');
                 // Wartelisten-Zahl aus data.json laden

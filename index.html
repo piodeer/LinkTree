@@ -432,209 +432,6 @@
             opacity: 0.85;
         }
 
-        .crowdfunding-section {
-            margin-top: 48px;
-            text-align: left;
-        }
-
-        .crowdfunding-section h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0 0 16px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            opacity: 0.85;
-        }
-
-        .section-description {
-            font-size: 14px;
-            opacity: 0.7;
-            margin: 0 0 20px 0;
-            font-style: italic;
-        }
-
-        .crowdfunding-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .crowdfunding-loading {
-            text-align: center;
-            padding: 20px;
-            opacity: 0.7;
-            font-size: 14px;
-        }
-
-        .crowdfunding-loading::after {
-            content: '...';
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-
-        .crowdfunding-error {
-            text-align: center;
-            padding: 20px;
-            opacity: 0.6;
-            font-size: 14px;
-            color: rgba(107, 79, 58, 0.7);
-        }
-
-        .crowdfunding-card {
-            display: flex;
-            gap: 16px;
-            padding: 18px 22px;
-            background: rgba(107, 79, 58, 0.08);
-            border: 1px solid rgba(107, 79, 58, 0.12);
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: inherit;
-            opacity: 0;
-            animation: crowdfundingFadeIn 0.5s ease forwards;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .crowdfunding-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(107, 79, 58, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .crowdfunding-card:hover::before {
-            left: 100%;
-        }
-
-        .crowdfunding-card:nth-child(1) { animation-delay: 0.1s; }
-        .crowdfunding-card:nth-child(2) { animation-delay: 0.2s; }
-        .crowdfunding-card:nth-child(3) { animation-delay: 0.3s; }
-        .crowdfunding-card:nth-child(4) { animation-delay: 0.4s; }
-        .crowdfunding-card:nth-child(5) { animation-delay: 0.5s; }
-        .crowdfunding-card:nth-child(6) { animation-delay: 0.6s; }
-        .crowdfunding-card:nth-child(n+7) { animation-delay: 0.7s; }
-
-        @keyframes crowdfundingFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .crowdfunding-card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .crowdfunding-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            background: rgba(107, 79, 58, 0.15);
-            border-color: rgba(107, 79, 58, 0.3);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(139, 97, 46, 0.2),
-                        inset 0 1px 0 rgba(107, 79, 58, 0.2);
-        }
-
-        .crowdfunding-card:active {
-            transform: translateY(-2px) scale(0.99);
-        }
-
-        .crowdfunding-card:focus-visible {
-            outline: 2px solid rgba(139, 97, 46, 0.6);
-            outline-offset: 2px;
-        }
-
-        .crowdfunding-title {
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .crowdfunding-icon {
-            width: 282px;
-            height: 120px;
-            min-width: 282px;
-            border-radius: 16px;
-            background: rgba(107, 79, 58, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: inset 0 1px 2px rgba(107, 79, 58, 0.12);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .crowdfunding-card:hover .crowdfunding-icon {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 2px rgba(107, 79, 58, 0.2);
-        }
-
-        .crowdfunding-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .crowdfunding-card:hover .crowdfunding-icon img {
-            transform: scale(1.05);
-        }
-
-        .crowdfunding-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(107, 79, 58, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .crowdfunding-card:hover .crowdfunding-icon::after {
-            opacity: 1;
-        }
-
-        .crowdfunding-description {
-            font-size: 14px;
-            opacity: 0.8;
-            line-height: 1.5;
-            transition: opacity 0.3s ease;
-        }
-
-        .crowdfunding-card:hover .crowdfunding-description {
-            opacity: 0.95;
-        }
-
-        .crowdfunding-icon-loading {
-            width: 282px;
-            height: 120px;
-            min-width: 282px;
-            border-radius: 16px;
-            background: linear-gradient(90deg, 
-                rgba(107, 79, 58, 0.1) 0%, 
-                rgba(107, 79, 58, 0.2) 50%, 
-                rgba(107, 79, 58, 0.1) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-
         .models-search {
             margin-bottom: 12px;
         }
@@ -679,7 +476,7 @@
             animation: dots 1.5s steps(4, end) infinite;
         }
 
-        .crowdfunding-banner {
+        .affiliate-banner {
             animation: bannerGlow 3s ease-in-out infinite;
         }
 
@@ -690,33 +487,6 @@
             50% {
                 box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), 0 0 30px rgba(107, 79, 58, 0.6), 0 0 50px rgba(139, 97, 46, 0.4);
             }
-        }
-
-        .crowdfunding-badge {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #6B4F3A;
-            margin: 20px 0;
-        }
-
-        .bullet {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #888; /* Grau für Launching */
-            flex-shrink: 0;
-        }
-
-        .bullet.live {
-            background: #28a745; /* Grün für Live */
         }
 
         .models-error {
@@ -2053,22 +1823,10 @@
             </a>
         </div>
 
-        <section class="crowdfunding-section" id="crowdfundingSection">
-            <h2>Crowdfunding</h2>
-            <a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer">
-                <img src="https://raw.githubusercontent.com/piodeer/LinkTree/f45a412bb86a69be06ee1bc1a80b9dc7ff4b6ab7/media/crowdfundingbanner.jpg" alt="Orbio The Rotating Table" class="crowdfunding-banner" style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 16px;">
-            </a>
-        </section>
-
-        <div class="status-indicator">
-            <span class="bullet" id="bullet"></span>
-            <span class="status-text" id="status-text">Live · …</span>
-        </div>
-
         <section class="affiliate-section" id="affiliateSection" hidden>
             <h2>Affiliate Links</h2>
             <a href="https://www.meshy.ai/?via=piodeerstl&utm_source=instagram&utm_medium=influencer&utm_content=piodeerstl&utm_campaign=meshy-july-26-campaign" target="_blank" rel="noopener noreferrer">
-                <img src="https://raw.githubusercontent.com/piodeer/LinkTree/main/media/meshybanner.jpg" alt="Meshy" class="crowdfunding-banner" style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 16px; margin-bottom: 16px;">
+                <img src="https://raw.githubusercontent.com/piodeer/LinkTree/main/media/meshybanner.jpg" alt="Meshy" class="affiliate-banner" style="width: 100%; height: auto; max-height: 180px; object-fit: contain; border-radius: 16px; margin-bottom: 16px;">
             </a>
             <div class="affiliate-list" id="affiliateList"></div>
         </section>
@@ -2368,132 +2126,6 @@
         const qrModalShareIcon = qrModalShareButton.querySelector('svg');
         qrModalShareButton.addEventListener('click', handleShare(qrModalShareButton, qrModalShareIcon));
 
-        // Crowdfunding Links laden
-        (function() {
-            // Convert GitHub blob URL to raw URL if needed
-            function convertToRawUrl(url) {
-                if (url.includes('github.com') && url.includes('/blob/')) {
-                    return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                }
-                return url;
-            }
-
-            let crowdfundingUrl = 'https://github.com/piodeer/LinkTree/blob/main/Crowdfunding.txt';
-            crowdfundingUrl = convertToRawUrl(crowdfundingUrl);
-            
-            const crowdfundingSection = document.getElementById('crowdfundingSection');
-            const crowdfundingList = document.getElementById('crowdfundingList');
-
-            if (!crowdfundingSection || !crowdfundingList) {
-                return;
-            }
-
-            // Show loading indicator
-            crowdfundingList.innerHTML = '<div class="crowdfunding-loading">Loading crowdfunding projects</div>';
-
-            fetch(crowdfundingUrl, { cache: 'no-store' })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to load crowdfunding data.');
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    const lines = text.split('\n')
-                        .map(line => line.trim())
-                        .filter(line => line.length > 0 && !line.startsWith('#'));
-
-                    if (lines.length === 0) {
-                        if (crowdfundingList.children.length === 0) {
-                            crowdfundingSection.hidden = true;
-                        } else {
-                            crowdfundingSection.hidden = false;
-                        }
-                        return;
-                    }
-
-                    // Parse crowdfunding links: Format: title | description | link | icon (optional)
-                    const crowdfunding = lines.map(line => {
-                        const parts = line.split('|').map(part => part.trim());
-                        const [title = 'Project', description = '', link = '', icon = ''] = parts;
-                        
-                        return { title, description, link, icon };
-                    });
-
-                    // Clear loading indicator
-                    crowdfundingList.innerHTML = '';
-
-                    // Create and append crowdfunding cards
-                    const fragment = document.createDocumentFragment();
-
-                    crowdfunding.forEach((item, index) => {
-                        const { title, description, link, icon } = item;
-
-                        const hasLink = link && /^https?:\/\//i.test(link);
-                        const card = document.createElement(hasLink ? 'a' : 'div');
-                        card.className = 'crowdfunding-card';
-                        card.style.animationDelay = `${index * 0.1}s`;
-
-                        if (hasLink) {
-                            card.href = link;
-                            card.target = '_blank';
-                            card.rel = 'noopener noreferrer';
-                        }
-
-                        // Icon with lazy loading
-                        if (icon && /^https?:\/\//i.test(icon)) {
-                            const iconWrapper = document.createElement('div');
-                            iconWrapper.className = 'crowdfunding-icon';
-                            const img = document.createElement('img');
-                            
-                            // Convert GitHub blob URLs to raw URLs
-                            let iconUrl = icon;
-                            if (iconUrl.includes('github.com') && iconUrl.includes('/blob/')) {
-                                iconUrl = iconUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-                            }
-                            
-                            img.loading = 'lazy';
-                            img.src = iconUrl;
-                            img.alt = title || 'Project';
-                            img.onerror = function() {
-                                iconWrapper.innerHTML = '';
-                            };
-                            iconWrapper.appendChild(img);
-                            card.appendChild(iconWrapper);
-                        }
-
-                        const contentWrapper = document.createElement('div');
-                        contentWrapper.className = 'crowdfunding-card-content';
-
-                        const titleEl = document.createElement('div');
-                        titleEl.className = 'crowdfunding-title';
-                        titleEl.textContent = title || 'Project';
-                        contentWrapper.appendChild(titleEl);
-
-                        if (description) {
-                            const descEl = document.createElement('div');
-                            descEl.className = 'crowdfunding-description';
-                            descEl.textContent = description;
-                            contentWrapper.appendChild(descEl);
-                        }
-
-                        card.appendChild(contentWrapper);
-                        fragment.appendChild(card);
-                    });
-
-                    if (fragment.childNodes.length > 0) {
-                        crowdfundingList.appendChild(fragment);
-                        crowdfundingSection.hidden = false;
-                    } else {
-                        crowdfundingSection.hidden = true;
-                    }
-                })
-                .catch(error => {
-                    console.warn('Crowdfunding loading error:', error);
-                    crowdfundingList.innerHTML = '';
-                });
-        })();
-
         // Affiliate Links laden
         (function() {
             // Convert GitHub blob URL to raw URL if needed
@@ -2528,11 +2160,10 @@
                 .then(text => {
                     const lines = text.split('\n')
                         .map(line => line.trim())
-                        .filter(line => line.length > 0 && !line.startsWith('#'));
+                        .filter(line => line.length > 0 && !line.startsWith('#') && !/anycubic/i.test(line));
 
                     if (lines.length === 0) {
                         affiliateList.innerHTML = '';
-                        affiliateSection.hidden = true;
                         return;
                     }
 
@@ -2608,9 +2239,6 @@
 
                     if (fragment.childNodes.length > 0) {
                         affiliateList.appendChild(fragment);
-                        affiliateSection.hidden = false;
-                    } else {
-                        affiliateSection.hidden = true;
                     }
                 })
                 .catch(error => {
@@ -2652,9 +2280,9 @@
                     card.style.animationDelay = (index * 0.1) + 's';
 
                     // Badge
-                    if (badge && badge.trim().length > 0) {
-                        const badgeText = badge.trim();
-                        const badgeType = badgeText.toLowerCase();
+                    if (badge !== null && badge !== undefined && String(badge).trim().length > 0) {
+                        const badgeText = String(badge).trim();
+                        const badgeType = badgeText.toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
 
                         card.classList.add('has-badge');
                         card.classList.add(badgeType);
@@ -3405,61 +3033,6 @@
             });
         })();
 
-        // Crowdfunding Status Badge
-        (function() {
-            const bullet = document.getElementById('bullet');
-            const statusText = document.getElementById('status-text');
-            if (!bullet || !statusText) return;
-
-            // Ändere hier den Status: 'launching' oder 'live'
-            const status = 'live'; // 'live' = green bullet + countdown to campaignEndDate
-
-            /** Campaign end date (local): Friday, July 3, 2026 */
-            const campaignEndDate = new Date(2026, 6, 4);
-
-            function daysRemainingUntil(endDate) {
-                var today = new Date();
-                today.setHours(0, 0, 0, 0);
-                var end = new Date(endDate.getTime());
-                end.setHours(0, 0, 0, 0);
-                return Math.round((end - today) / (1000 * 60 * 60 * 24));
-            }
-
-            function liveStatusHtml(daysLeft) {
-                var link =
-                    '<a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">View campaign</a>';
-                if (daysLeft < 0) {
-                    return 'Live · Campaign ended · ' + link;
-                }
-                if (daysLeft === 0) {
-                    return 'Live · Last day (July 3, 2026) · ' + link;
-                }
-                if (daysLeft === 1) {
-                    return 'Live · <strong>1 day</strong> left until July 4, 2026 · ' + link;
-                }
-                return 'Live · <strong>' + daysLeft + ' days</strong> left until July 4, 2026 · ' + link;
-            }
-
-            if (status === 'live') {
-                bullet.classList.add('live');
-                statusText.innerHTML = liveStatusHtml(daysRemainingUntil(campaignEndDate));
-            } else {
-                bullet.classList.remove('live');
-                // Wartelisten-Zahl aus data.json laden
-                // Neuer Code für Vercel API
-                fetch('/api/followers')
-                    .then(response => response.json())
-                    .then(data => {
-                        const count = data.followerCount;
-                        statusText.innerHTML = 'Launching soon · <strong>' + count + ' people</strong> on the list — <a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">join them!</a>';
-                    })
-                    .catch(error => {
-                        console.error('Error fetching followers:', error);
-                        // Fallback: Statischer Text
-                        statusText.innerHTML = 'Launching soon — <a href="https://makerworld.com/en/crowdfunding/256-orbio-the-rotating-table" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">write yourself on the notification list.</a>';
-                    });
-            }
-        })();
     </script>
 
 </body>

@@ -333,11 +333,6 @@
             transform: translateY(-2px) scale(0.99);
         }
 
-        .affiliate-card:focus-visible {
-            outline: 2px solid rgba(139, 97, 46, 0.6);
-            outline-offset: 2px;
-        }
-
         .affiliate-title {
             font-size: 16px;
             font-weight: 600;
@@ -378,22 +373,6 @@
             transform: scale(1.05);
         }
 
-        .affiliate-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(107, 79, 58, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .affiliate-card:hover .affiliate-icon::after {
-            opacity: 1;
-        }
-
         .affiliate-description {
             font-size: 14px;
             opacity: 0.8;
@@ -403,19 +382,6 @@
 
         .affiliate-card:hover .affiliate-description {
             opacity: 0.95;
-        }
-
-        .affiliate-icon-loading {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 12px;
-            background: linear-gradient(90deg, 
-                rgba(107, 79, 58, 0.1) 0%, 
-                rgba(107, 79, 58, 0.2) 50%, 
-                rgba(107, 79, 58, 0.1) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
         }
 
         .models-section {
@@ -434,6 +400,7 @@
 
         .models-search {
             margin-bottom: 12px;
+            position: relative;
         }
 
         .models-search input {
@@ -458,10 +425,32 @@
             background: rgba(0, 0, 0, 0.12);
         }
 
+        .back-button {
+            background: rgba(139, 97, 46, 0.1);
+            border: 1px solid rgba(139, 97, 46, 0.3);
+            color: #6B4F3A;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(139, 97, 46, 0.2);
+            transform: translateX(-4px);
+        }
+
+        /* GRID LAYOUT (9:16 für Reels, 1:1 für Modelle im Ordner) */
         .models-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
         .models-loading {
@@ -469,24 +458,12 @@
             padding: 20px;
             opacity: 0.7;
             font-size: 14px;
+            grid-column: 1 / -1;
         }
 
         .models-loading::after {
             content: '...';
             animation: dots 1.5s steps(4, end) infinite;
-        }
-
-        .affiliate-banner {
-            animation: bannerGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes bannerGlow {
-            0%, 100% {
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(107, 79, 58, 0.2);
-            }
-            50% {
-                box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), 0 0 30px rgba(107, 79, 58, 0.6), 0 0 50px rgba(139, 97, 46, 0.4);
-            }
         }
 
         .models-error {
@@ -495,39 +472,29 @@
             opacity: 0.6;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
+            grid-column: 1 / -1;
         }
 
         .model-card {
-            display: flex;
-            gap: 16px;
-            padding: 18px 22px;
+            display: block;
+            aspect-ratio: 9 / 16; /* Default (Reels) */
             background: rgba(107, 79, 58, 0.08);
             border: 1px solid rgba(107, 79, 58, 0.12);
             border-radius: 16px;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            color: inherit;
             opacity: 0;
             animation: modelFadeIn 0.5s ease forwards;
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .model-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(107, 79, 58, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .model-card:hover::before {
-            left: 100%;
+        /* Quadratisches Format für Einzelmodelle in Ordnern */
+        .model-card.square-card {
+            aspect-ratio: 1 / 1;
         }
 
         .model-card:nth-child(1) { animation-delay: 0.1s; }
@@ -539,270 +506,125 @@
         .model-card:nth-child(n+7) { animation-delay: 0.7s; }
 
         @keyframes modelFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .model-card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .model-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            background: rgba(107, 79, 58, 0.15);
-            border-color: rgba(107, 79, 58, 0.3);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(139, 97, 46, 0.2),
-                        inset 0 1px 0 rgba(107, 79, 58, 0.2);
-        }
-
-        .model-card:active {
-            transform: translateY(-2px) scale(0.99);
-        }
-
-        .model-card:focus-visible {
-            outline: 2px solid rgba(139, 97, 46, 0.6);
-            outline-offset: 2px;
-        }
-
-        .model-title {
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(139, 97, 46, 0.4);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25),
+                        0 0 20px rgba(139, 97, 46, 0.2);
         }
 
         .model-icon {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             background: rgba(107, 79, 58, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: inset 0 1px 2px rgba(107, 79, 58, 0.12);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .model-card:hover .model-icon {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 2px rgba(107, 79, 58, 0.2);
         }
 
         .model-icon img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
         .model-card:hover .model-icon img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
-        .model-icon::after {
-            content: '';
+        .model-card-content {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(107, 79, 58, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            left: 0;
+            width: 100%;
+            padding: 40px 12px 12px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: flex-start;
         }
 
-        .model-card:hover .model-icon::after {
-            opacity: 1;
+        /* Preview Bubble für Reels (Bis zu 4 Bilder) */
+        .reel-preview-bubble {
+            display: flex;
+            gap: 3px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 3px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            max-width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .reel-preview-thumb {
+            width: 55px;
+            height: 55px;
+            border-radius: 4px;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .reel-preview-more {
+            width: 55px;
+            height: 55px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .model-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            text-align: left;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .model-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
-            line-height: 1.5;
-            transition: opacity 0.3s ease;
+            font-size: 11px;
+            opacity: 0.9;
+            color: rgba(239, 228, 214, 0.8);
+            text-align: left;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
-        .model-card:hover .model-subtitle {
-            opacity: 0.95;
-        }
-
-        .model-icon-loading {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 12px;
-            background: linear-gradient(90deg, 
-                rgba(107, 79, 58, 0.1) 0%, 
-                rgba(107, 79, 58, 0.2) 50%, 
-                rgba(107, 79, 58, 0.1) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        /* Model Card Badge */
+        /* Model Card Badge Adjustment für Grid */
         .model-card-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 4px 10px;
-            background: linear-gradient(135deg, rgba(139, 97, 46, 0.9), rgba(139, 97, 46, 0.7));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(139, 97, 46, 0.5);
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #EFE4D6;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 9px;
             z-index: 10;
-            box-shadow: 0 2px 8px rgba(139, 97, 46, 0.3),
-                        0 0 12px rgba(139, 97, 46, 0.2);
-            z-index: 10;
-            white-space: nowrap;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .model-card.has-badge {
-            border-color: rgba(139, 97, 46, 0.3);
-            box-shadow: 0 0 0 1px rgba(139, 97, 46, 0.2),
-                        inset 0 0 20px rgba(139, 97, 46, 0.05);
-        }
-
-        .model-card.has-badge:hover {
-            border-color: rgba(139, 97, 46, 0.5);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(139, 97, 46, 0.3),
-                        inset 0 0 20px rgba(139, 97, 46, 0.1);
-        }
-
-        .model-card.has-badge:hover .model-card-badge {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(139, 97, 46, 0.4),
-                        0 0 16px rgba(139, 97, 46, 0.3);
-        }
-
-        /* Badge Varianten - POPULAR (Gold/Gelb) */
-        .model-card-badge.popular {
-            background: linear-gradient(135deg, rgba(255, 165, 0, 0.95), rgba(255, 140, 0, 0.85));
-            border-color: rgba(255, 165, 0, 0.8);
-            box-shadow: 0 2px 8px rgba(255, 165, 0, 0.6),
-                        0 0 20px rgba(255, 165, 0, 0.4);
-        }
-
-        .model-card.has-badge.popular {
-            border-color: rgba(255, 165, 0, 0.6);
-            box-shadow: 0 0 0 1px rgba(255, 165, 0, 0.4),
-                        inset 0 0 20px rgba(255, 165, 0, 0.1);
-        }
-
-        .model-card.has-badge.popular:hover {
-            border-color: rgba(255, 165, 0, 0.8);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 40px rgba(255, 165, 0, 0.6),
-                        inset 0 0 20px rgba(255, 165, 0, 0.2);
-        }
-
-        .model-card.has-badge.popular:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.7),
-                        0 0 24px rgba(255, 165, 0, 0.5);
-        }
-
-        /* Badge Varianten - NEW (Grün) */
-        .model-card-badge.new {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(16, 185, 129, 0.85));
-            border-color: rgba(34, 197, 94, 0.8);
-            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.6),
-                        0 0 20px rgba(34, 197, 94, 0.4);
-        }
-
-        .model-card.has-badge.new {
-            border-color: rgba(34, 197, 94, 0.6);
-            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4),
-                        inset 0 0 20px rgba(34, 197, 94, 0.1);
-        }
-
-        .model-card.has-badge.new:hover {
-            border-color: rgba(34, 197, 94, 0.8);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 40px rgba(34, 197, 94, 0.6),
-                        inset 0 0 20px rgba(34, 197, 94, 0.2);
-        }
-
-        .model-card.has-badge.new:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.7),
-                        0 0 24px rgba(34, 197, 94, 0.5);
-        }
-
-        /* Badge Varianten - FEATURED (Lila/Purple) */
-        .model-card-badge.featured {
-            background: linear-gradient(135deg, rgba(128, 73, 91, 0.9), rgba(128, 73, 91, 0.7));
-            border-color: rgba(128, 73, 91, 0.5);
-            box-shadow: 0 2px 8px rgba(128, 73, 91, 0.3),
-                        0 0 12px rgba(128, 73, 91, 0.2);
-        }
-
-        .model-card.has-badge.featured {
-            border-color: rgba(128, 73, 91, 0.3);
-            box-shadow: 0 0 0 1px rgba(128, 73, 91, 0.2),
-                        inset 0 0 20px rgba(128, 73, 91, 0.05);
-        }
-
-        .model-card.has-badge.featured:hover {
-            border-color: rgba(128, 73, 91, 0.5);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(128, 73, 91, 0.3),
-                        inset 0 0 20px rgba(128, 73, 91, 0.1);
-        }
-
-        .model-card.has-badge.featured:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(128, 73, 91, 0.4),
-                        0 0 16px rgba(128, 73, 91, 0.3);
-        }
-
-        /* Badge Varianten - HOT (Rot/Orange) */
-        .model-card-badge.hot {
-            background: linear-gradient(135deg, rgba(194, 83, 30, 0.9), rgba(194, 83, 30, 0.7));
-            border-color: rgba(194, 83, 30, 0.5);
-            box-shadow: 0 2px 8px rgba(194, 83, 30, 0.3),
-                        0 0 12px rgba(194, 83, 30, 0.2);
-        }
-
-        .model-card.has-badge.hot {
-            border-color: rgba(194, 83, 30, 0.3);
-            box-shadow: 0 0 0 1px rgba(194, 83, 30, 0.2),
-                        inset 0 0 20px rgba(194, 83, 30, 0.05);
-        }
-
-        .model-card.has-badge.hot:hover {
-            border-color: rgba(194, 83, 30, 0.5);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
-                        0 0 30px rgba(194, 83, 30, 0.3),
-                        inset 0 0 20px rgba(194, 83, 30, 0.1);
-        }
-
-        .model-card.has-badge.hot:hover .model-card-badge {
-            box-shadow: 0 4px 12px rgba(194, 83, 30, 0.4),
-                        0 0 16px rgba(194, 83, 30, 0.3);
-        }
+        /* Badge Varianten */
+        .model-card-badge.popular { background: rgba(255, 165, 0, 0.9); border: 1px solid rgba(255,165,0,0.5); color: #fff;}
+        .model-card-badge.new { background: rgba(34, 197, 94, 0.9); border: 1px solid rgba(34,197,94,0.5); color: #fff;}
+        .model-card-badge.featured { background: rgba(128, 73, 91, 0.9); border: 1px solid rgba(128,73,91,0.5); color: #fff;}
+        .model-card-badge.hot { background: rgba(194, 83, 30, 0.9); border: 1px solid rgba(194,83,30,0.5); color: #fff;}
+        .model-card-badge.reel { background: rgba(236, 72, 153, 0.9); border: 1px solid rgba(236,72,153,0.5); color: #fff;}
 
         .link {
             display: flex;
@@ -980,7 +802,6 @@
                             0 0 40px rgba(139, 97, 46, 0.4);
             }
         }
-
 
         /* Dynamic Collaboration Indicator */
         .collaboration-indicator {
@@ -1369,169 +1190,31 @@
             height: 18px;
         }
 
-        /* Live Counter */
-        .live-counter {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
-        .counter-item {
-            background: rgba(107, 79, 58, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(107, 79, 58, 0.1);
-            border-radius: 12px;
-            padding: 12px 20px;
-            min-width: 100px;
-            transition: all 0.3s ease;
-        }
-
-        .counter-item:hover {
-            background: rgba(107, 79, 58, 0.12);
-            transform: translateY(-2px);
-        }
-
-        .counter-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #8B6130;
-            line-height: 1.2;
-        }
-
-        .counter-label {
-            font-size: 11px;
-            opacity: 0.7;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 4px;
-            color: #6B4F3A;
-        }
-
-        /* Responsive optimizations for affiliate cards */
+        /* Responsive optimizations */
         @media (max-width: 480px) {
-            .affiliate-card {
-                padding: 14px 18px;
-                gap: 12px;
-            }
-
-            .affiliate-icon {
-                width: 40px;
-                height: 40px;
-                min-width: 40px;
-            }
-
-            .affiliate-title {
-                font-size: 15px;
-            }
-
-            .affiliate-description {
-                font-size: 13px;
-            }
-        }
-
-        /* Responsive optimizations for model cards */
-        @media (max-width: 480px) {
-            .model-card {
-                padding: 14px 18px;
-                gap: 12px;
-            }
-
-            .model-icon {
-                width: 40px;
-                height: 40px;
-                min-width: 40px;
-            }
-
-            .model-title {
-                font-size: 15px;
-            }
-
-            .model-subtitle {
-                font-size: 13px;
-            }
-
-            .email-button {
-                width: 50px;
-                height: 50px;
-                top: 15px;
-                right: 15px;
-            }
-
-            .collaboration-indicator {
-                top: 75px;
-                right: 15px;
-            }
-
-            .collaboration-indicator-content {
-                padding: 8px 12px;
-            }
-
-            .collaboration-indicator-text {
-                font-size: 11px;
-            }
-
-            .collaboration-indicator-arrow {
-                width: 16px;
-                height: 16px;
-            }
-
-            .email-modal-content {
-                padding: 24px 20px;
-                max-width: 95%;
-            }
-
-            .email-modal-content h3 {
-                font-size: 20px;
-                margin-bottom: 20px;
-            }
-
-            .contact-reason-button {
-                padding: 14px 16px;
-                font-size: 14px;
-            }
+            .affiliate-card { padding: 14px 18px; gap: 12px; }
+            .affiliate-icon { width: 40px; height: 40px; min-width: 40px; }
+            .affiliate-title { font-size: 15px; }
+            .affiliate-description { font-size: 13px; }
+            
+            .email-button { width: 50px; height: 50px; top: 15px; right: 15px; }
+            .collaboration-indicator { top: 75px; right: 15px; }
+            .collaboration-indicator-content { padding: 8px 12px; }
+            .collaboration-indicator-text { font-size: 11px; }
+            .collaboration-indicator-arrow { width: 16px; height: 16px; }
+            
+            .email-modal-content { padding: 24px 20px; max-width: 95%; }
+            .email-modal-content h3 { font-size: 20px; margin-bottom: 20px; }
+            .contact-reason-button { padding: 14px 16px; font-size: 14px; }
+            
+            .models-list { grid-template-columns: repeat(2, 1fr); gap: 8px; }
         }
 
         /* Reduce animations on devices with reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
-            .affiliate-card {
-                animation: none;
-                opacity: 1;
-            }
-
-            .affiliate-card:hover {
-                transform: none;
-            }
-
-            .affiliate-card:hover .affiliate-icon {
-                transform: none;
-            }
-
-            .model-card {
-                animation: none;
-                opacity: 1;
-            }
-
-            .model-card:hover {
-                transform: none;
-            }
-
-            .model-card:hover .model-icon {
-                transform: none;
-            }
-
-            .email-button {
-                animation: none;
-            }
-
-            .email-button:hover {
-                transform: none;
-            }
-
-            .contact-reason-button:hover {
-                transform: none;
-            }
+            .affiliate-card, .model-card, .email-button { animation: none; opacity: 1; }
+            .affiliate-card:hover, .model-card:hover, .email-button:hover, .contact-reason-button:hover { transform: none; }
+            .model-card:hover .model-icon img { transform: none; }
         }
 
         /* Video Widget - komplett separat vom Button */
@@ -1558,14 +1241,8 @@
         }
 
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateY(-50%) translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(-50%) translateX(0);
-            }
+            from { opacity: 0; transform: translateY(-50%) translateX(-10px); }
+            to { opacity: 1; transform: translateY(-50%) translateX(0); }
         }
 
         .video-reel-widget-content {
@@ -1603,10 +1280,7 @@
             transform: rotate(90deg);
         }
 
-        .video-reel-widget-close svg {
-            width: 14px;
-            height: 14px;
-        }
+        .video-reel-widget-close svg { width: 14px; height: 14px; }
 
         .video-reel-container {
             width: 100%;
@@ -1647,16 +1321,8 @@
         }
 
         @keyframes arrowPulse {
-            0%, 100% {
-                transform: translateY(-50%) translateX(0) scale(1);
-                opacity: 1;
-                border-color: rgba(107, 79, 58, 0.6);
-            }
-            50% {
-                transform: translateY(-50%) translateX(5px) scale(1.1);
-                opacity: 0.8;
-                border-color: rgba(139, 97, 46, 0.8);
-            }
+            0%, 100% { transform: translateY(-50%) translateX(0) scale(1); opacity: 1; border-color: rgba(107, 79, 58, 0.6); }
+            50% { transform: translateY(-50%) translateX(5px) scale(1.1); opacity: 0.8; border-color: rgba(139, 97, 46, 0.8); }
         }
 
         .video-reel-arrow svg {
@@ -1701,18 +1367,9 @@
             justify-content: center;
         }
 
-        .video-reel-branding-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .video-reel-branding-logo img { width: 100%; height: 100%; object-fit: contain; }
 
-        .video-reel-branding-text {
-            color: #000000;
-            font-size: 9px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-        }
+        .video-reel-branding-text { color: #000000; font-size: 9px; font-weight: 600; letter-spacing: 0.2px; }
 
         .video-reel-instagram-badge {
             position: absolute;
@@ -1729,37 +1386,13 @@
             pointer-events: none;
         }
 
-        .video-reel-instagram-badge svg {
-            width: 12px;
-            height: 12px;
-            fill: #EFE4D6;
-        }
+        .video-reel-instagram-badge svg { width: 12px; height: 12px; fill: #EFE4D6; }
 
-        .video-reel-instagram-badge-text {
-            color: #6B4F3A;
-            font-size: 9px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .video-reel-instagram-badge-text { color: #6B4F3A; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        @media (max-width: 768px) {
-            .video-reel-widget {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .video-reel-widget {
-                width: 140px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .video-reel-widget {
-                width: 130px;
-            }
-        }
+        @media (max-width: 768px) { .video-reel-widget { display: none !important; } }
+        @media (max-width: 1200px) { .video-reel-widget { width: 140px; } }
+        @media (max-width: 900px) { .video-reel-widget { width: 130px; } }
     </style>
 </head>
 <body>
@@ -1823,6 +1456,7 @@
             </a>
         </div>
 
+        <!-- Affiliate Links temporarily disabled.
         <section class="affiliate-section" id="affiliateSection" hidden>
             <h2>Affiliate Links</h2>
             <a href="https://www.meshy.ai/?via=piodeerstl&utm_source=instagram&utm_medium=influencer&utm_content=piodeerstl&utm_campaign=meshy-july-26-campaign" target="_blank" rel="noopener noreferrer">
@@ -1830,6 +1464,7 @@
             </a>
             <div class="affiliate-list" id="affiliateList"></div>
         </section>
+        -->
 
         <section class="models-section" id="modelsSection" hidden>
             <h2>3D Model Files</h2>
@@ -1987,7 +1622,6 @@
         </div>
     </div>
 
-
     <script>
         // Floating Particles Animation
         (function() {
@@ -2024,13 +1658,11 @@
             const img = new Image();
             img.crossOrigin = 'anonymous';
             img.onload = function() {
-                // Logo proportional skalieren und zentrieren
                 const circleRadius = 30;
                 const padding = 8;
                 const maxWidth = (circleRadius - padding) * 2;
                 const maxHeight = (circleRadius - padding) * 2;
                 
-                // Seitenverhältnis beibehalten
                 let logoWidth = img.width;
                 let logoHeight = img.height;
                 const aspectRatio = logoWidth / logoHeight;
@@ -2044,12 +1676,10 @@
                     logoWidth = logoHeight * aspectRatio;
                 }
                 
-                // Logo zentrieren im Kreis
                 const logoX = (64 - logoWidth) / 2;
-                const logoY = (64 - logoHeight) / 2 - 1; // Leicht nach oben
+                const logoY = (64 - logoHeight) / 2 - 1; 
                 ctx.drawImage(img, logoX, logoY, logoWidth, logoHeight);
                 
-                // Favicon aktualisieren
                 const favicon = document.querySelector("link[rel*='icon']");
                 if (favicon) {
                     favicon.href = canvas.toDataURL();
@@ -2063,14 +1693,13 @@
             img.src = 'https://raw.githubusercontent.com/piodeer/LinkTree/123f2c662ee69c1d3352d1f69be6b601eb3a88ca/media/logo.png';
         })();
 
-        // Share-Funktion (wiederverwendbar)
+        // Share-Funktion
         function handleShare(buttonElement, svgElement) {
             return async function() {
                 const url = window.location.href;
                 const title = 'piodeer - Innovative Maker | DIY Enthusiast | Tech & Design Explorer';
                 
                 if (navigator.share) {
-                    // Web Share API verwenden (mobile Geräte)
                     try {
                         await navigator.share({
                             title: title,
@@ -2081,7 +1710,6 @@
                         console.log('Fehler beim Teilen:', err);
                     }
                 } else {
-                    // Fallback: Link in Zwischenablage kopieren
                     try {
                         await navigator.clipboard.writeText(url);
                         const originalPath = svgElement.querySelector('path').getAttribute('d');
@@ -2094,7 +1722,6 @@
                             buttonElement.style.borderColor = '';
                         }, 2000);
                     } catch (err) {
-                        // Fallback: Text-Area-Methode
                         const textArea = document.createElement('textarea');
                         textArea.value = url;
                         textArea.style.position = 'fixed';
@@ -2121,14 +1748,12 @@
             };
         }
 
-        // Share-Button im QR Modal
         const qrModalShareButton = document.getElementById('qrModalShareButton');
         const qrModalShareIcon = qrModalShareButton.querySelector('svg');
         qrModalShareButton.addEventListener('click', handleShare(qrModalShareButton, qrModalShareIcon));
 
         // Affiliate Links laden
         (function() {
-            // Convert GitHub blob URL to raw URL if needed
             function convertToRawUrl(url) {
                 if (url.includes('github.com') && url.includes('/blob/')) {
                     return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
@@ -2142,19 +1767,14 @@
             const affiliateSection = document.getElementById('affiliateSection');
             const affiliateList = document.getElementById('affiliateList');
 
-            if (!affiliateSection || !affiliateList) {
-                return;
-            }
+            if (!affiliateSection || !affiliateList) return;
 
-            // Show loading indicator
             affiliateSection.hidden = false;
             affiliateList.innerHTML = '<div class="affiliate-loading">Loading affiliate links</div>';
 
             fetch(affiliateUrl, { cache: 'no-store' })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to load affiliate data.');
-                    }
+                    if (!response.ok) throw new Error('Failed to load affiliate data.');
                     return response.text();
                 })
                 .then(text => {
@@ -2167,23 +1787,17 @@
                         return;
                     }
 
-                    // Parse affiliate links: Format: title | description | link | icon (optional)
                     const affiliates = lines.map(line => {
                         const parts = line.split('|').map(part => part.trim());
                         const [title = 'Link', description = '', link = '', icon = ''] = parts;
-                        
                         return { title, description, link, icon };
                     });
 
-                    // Clear loading indicator
                     affiliateList.innerHTML = '';
-
-                    // Create and append affiliate cards
                     const fragment = document.createDocumentFragment();
 
                     affiliates.forEach((affiliate, index) => {
                         const { title, description, link, icon } = affiliate;
-
                         const hasLink = link && /^https?:\/\//i.test(link);
                         const card = document.createElement(hasLink ? 'a' : 'div');
                         card.className = 'affiliate-card';
@@ -2195,13 +1809,11 @@
                             card.rel = 'noopener noreferrer';
                         }
 
-                        // Icon with lazy loading
                         if (icon && /^https?:\/\//i.test(icon)) {
                             const iconWrapper = document.createElement('div');
                             iconWrapper.className = 'affiliate-icon';
                             const img = document.createElement('img');
                             
-                            // Convert GitHub blob URLs to raw URLs
                             let iconUrl = icon;
                             if (iconUrl.includes('github.com') && iconUrl.includes('/blob/')) {
                                 iconUrl = iconUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
@@ -2210,10 +1822,7 @@
                             img.loading = 'lazy';
                             img.src = iconUrl;
                             img.alt = title || 'Affiliate';
-                            img.onerror = function() {
-                                // Hide icon if image fails to load
-                                iconWrapper.style.display = 'none';
-                            };
+                            img.onerror = () => iconWrapper.style.display = 'none';
                             iconWrapper.appendChild(img);
                             card.appendChild(iconWrapper);
                         }
@@ -2237,9 +1846,7 @@
                         fragment.appendChild(card);
                     });
 
-                    if (fragment.childNodes.length > 0) {
-                        affiliateList.appendChild(fragment);
-                    }
+                    if (fragment.childNodes.length > 0) affiliateList.appendChild(fragment);
                 })
                 .catch(error => {
                     console.warn('Affiliate links loading error:', error);
@@ -2248,7 +1855,7 @@
                 });
         })();
 
-        // 3D Models laden (Google Sheets) + Suche
+        // 3D Models & Reels laden (GitHub JSON im 9:16 Format) + Suche
         (function () {
             const modelsSection = document.getElementById('modelsSection');
             const modelsList = document.getElementById('modelsList');
@@ -2256,85 +1863,101 @@
 
             if (!modelsSection || !modelsList) return;
 
-            // Web-App-URL aus Google Apps Script
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwY_GABTeHCYt7REnJzRAQcxDBweX2HVlD3sAMKgpHu0yxmC5x41-jx2QbQmeMqpwHK/exec';
+            const backBtn = document.createElement('button');
+            backBtn.className = 'back-button';
+            backBtn.innerHTML = '← Zurück zur Übersicht';
+            backBtn.style.display = 'none';
+            modelsSearchInput.parentNode.insertBefore(backBtn, modelsSearchInput);
 
-            let allModels = [];
+            const JSON_URL = 'https://raw.githubusercontent.com/piodeer/LinkTree/main/models.json';
+            let allData = { folders: [], models: [] };
 
-            function renderModels(models) {
+            function renderCards(items, isFolderView = false) {
                 modelsList.innerHTML = '';
-
-                if (!models || models.length === 0) {
-                    modelsList.innerHTML = '<div class="models-error">No models found.</div>';
+                if (!items || items.length === 0) {
+                    modelsList.innerHTML = '<div class="models-error">Keine Modelle gefunden.</div>';
                     return;
                 }
 
                 const fragment = document.createDocumentFragment();
 
-                models.forEach((model, index) => {
-                    const { title, subtitle, link, image, badge } = model;
-
-                    const hasLink = link && /^https?:\/\//i.test(link);
-                    const card = document.createElement(hasLink ? 'a' : 'div');
+                items.forEach((item, index) => {
+                    const card = document.createElement(item.isFolder ? 'div' : 'a');
                     card.className = 'model-card';
+                    
+                    if (isFolderView) {
+                        card.classList.add('square-card');
+                    }
+                    
                     card.style.animationDelay = (index * 0.1) + 's';
 
-                    // Badge
-                    if (badge !== null && badge !== undefined && String(badge).trim().length > 0) {
-                        const badgeText = String(badge).trim();
+                    if (!item.isFolder && item.link) {
+                        card.href = item.link;
+                        card.target = '_blank';
+                        card.rel = 'noopener noreferrer';
+                    } else if (item.isFolder) {
+                        card.addEventListener('click', () => openFolder(item.id));
+                    }
+
+                    if (item.badge) {
+                        const badgeText = String(item.badge).trim();
                         const badgeType = badgeText.toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
-
-                        card.classList.add('has-badge');
-                        card.classList.add(badgeType);
-
+                        card.classList.add('has-badge', badgeType);
                         const badgeEl = document.createElement('div');
                         badgeEl.className = 'model-card-badge ' + badgeType;
                         badgeEl.textContent = badgeText;
                         card.appendChild(badgeEl);
                     }
 
-                    if (hasLink) {
-                        card.href = link;
-                        card.target = '_blank';
-                        card.rel = 'noopener noreferrer';
-                    }
-
-                    // Bild
-                    if (image && /^https?:\/\//i.test(image)) {
+                    if (item.image) {
                         const imageWrapper = document.createElement('div');
                         imageWrapper.className = 'model-icon';
                         const img = document.createElement('img');
-
-                        let imageUrl = image;
-                        if (imageUrl.includes('github.com') && imageUrl.includes('/blob/')) {
-                            imageUrl = imageUrl
-                                .replace('github.com', 'raw.githubusercontent.com')
-                                .replace('/blob/', '/');
-                        }
-
                         img.loading = 'lazy';
-                        img.src = imageUrl;
-                        img.alt = title || 'Model';
-                        img.onerror = function () {
-                            imageWrapper.style.display = 'none';
-                        };
-
+                        img.src = item.image;
+                        img.onerror = () => imageWrapper.style.display = 'none';
                         imageWrapper.appendChild(img);
                         card.appendChild(imageWrapper);
                     }
 
                     const contentWrapper = document.createElement('div');
                     contentWrapper.className = 'model-card-content';
+                    
+                    if (item.isFolder && item.models && item.models.length > 0) {
+                        const bubble = document.createElement('div');
+                        bubble.className = 'reel-preview-bubble';
 
+                        const maxImages = 4;
+                        const displayModels = item.models.slice(0, maxImages);
+                        
+                        displayModels.forEach(m => {
+                            if (m.image) {
+                                const thumb = document.createElement('img');
+                                thumb.className = 'reel-preview-thumb';
+                                thumb.src = m.image;
+                                bubble.appendChild(thumb);
+                            }
+                        });
+
+                        if (item.models.length > maxImages) {
+                            const more = document.createElement('div');
+                            more.className = 'reel-preview-more';
+                            more.textContent = '+' + (item.models.length - maxImages);
+                            bubble.appendChild(more);
+                        }
+                        
+                        contentWrapper.appendChild(bubble);
+                    }
+                    
                     const titleEl = document.createElement('div');
                     titleEl.className = 'model-title';
-                    titleEl.textContent = title || 'Model';
+                    titleEl.textContent = item.title || 'Item';
                     contentWrapper.appendChild(titleEl);
 
-                    if (subtitle) {
+                    if (item.subtitle) {
                         const subtitleEl = document.createElement('div');
                         subtitleEl.className = 'model-subtitle';
-                        subtitleEl.textContent = subtitle;
+                        subtitleEl.textContent = item.subtitle;
                         contentWrapper.appendChild(subtitleEl);
                     }
 
@@ -2343,76 +1966,91 @@
                 });
 
                 modelsList.appendChild(fragment);
-                modelsSection.hidden = false;
             }
 
-            function applyModelFilter() {
-                if (!allModels || allModels.length === 0) {
-                    renderModels([]);
-                    return;
-                }
+            function openFolder(folderId) {
+                const folder = allData.folders.find(f => f.id === folderId);
+                if (!folder) return renderMainView();
 
-                const query = (modelsSearchInput && modelsSearchInput.value || '').toLowerCase().trim();
+                backBtn.style.display = 'inline-flex';
+                modelsSearchInput.style.display = 'none';
+                
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('reel', folderId);
+                window.history.pushState({}, '', newUrl);
 
-                if (!query) {
-                    renderModels(allModels);
-                    return;
-                }
-
-                const filtered = allModels.filter(model => {
-                    const text =
-                        (model.title || '') + ' ' +
-                        (model.subtitle || '') + ' ' +
-                        (model.badge || '');
-                    return text.toLowerCase().includes(query);
-                });
-
-                renderModels(filtered);
+                renderCards(folder.models, true);
             }
 
-            function loadModels() {
+            function renderMainView() {
+                backBtn.style.display = 'none';
+                modelsSearchInput.style.display = 'block';
+                
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.delete('reel');
+                window.history.pushState({}, '', newUrl);
+
+                const combined = [
+                    ...allData.folders.map(f => ({
+                        isFolder: true,
+                        id: f.id,
+                        title: f.title,
+                        subtitle: f.subtitle || 'Ordner ansehen',
+                        image: f.image,
+                        badge: f.badge || 'REEL',
+                        models: f.models
+                    })),
+                    ...allData.models
+                ];
+                
+                const query = (modelsSearchInput.value || '').toLowerCase().trim();
+                if (query) {
+                    const filtered = combined.filter(item => 
+                        (item.title + ' ' + (item.subtitle || '') + ' ' + (item.badge || '')).toLowerCase().includes(query)
+                    );
+                    renderCards(filtered);
+                } else {
+                    renderCards(combined);
+                }
+            }
+
+            backBtn.addEventListener('click', renderMainView);
+            modelsSearchInput.addEventListener('input', renderMainView);
+
+            window.addEventListener('popstate', () => {
+                checkUrlAndRender();
+            });
+
+            function checkUrlAndRender() {
+                const params = new URLSearchParams(window.location.search);
+                const reelId = params.get('reel');
+                if (reelId) {
+                    openFolder(reelId);
+                } else {
+                    renderMainView();
+                }
+            }
+
+            function loadData() {
                 modelsSection.hidden = false;
                 modelsList.innerHTML = '<div class="models-loading">Loading models</div>';
 
-                const cacheBuster = 't=' + Date.now();
-                const url = WEB_APP_URL + (WEB_APP_URL.indexOf('?') === -1 ? '?' : '&') + cacheBuster;
-
-                fetch(url, { method: 'GET' })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to load model data: ' + response.status);
-                        }
-                        return response.json();
+                fetch(JSON_URL + '?t=' + Date.now())
+                    .then(res => res.json())
+                    .then(data => {
+                        allData = {
+                            folders: data.folders || [],
+                            models: data.models || []
+                        };
+                        checkUrlAndRender();
                     })
-                    .then(rows => {
-                        allModels = (rows || []).map(row => ({
-                            title: row.name || 'Model',
-                            subtitle: row.description || '',
-                            link: row.modelUrl || '',
-                            image: row.imageUrl || '',
-                            badge: row.status || ''
-                        }));
-
-                        if (modelsSearchInput) {
-                            applyModelFilter();
-                        } else {
-                            renderModels(allModels);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Models loading error:', error);
-                        modelsList.innerHTML =
-                            '<div class="models-error">Unable to load models. Please try again later.</div>';
-                        modelsSection.hidden = false;
+                    .catch(err => {
+                        console.error('Ladefehler:', err);
+                        modelsList.innerHTML = '<div class="models-error">Konnte Modelle nicht laden.</div>';
                     });
             }
 
-            if (modelsSearchInput) {
-                modelsSearchInput.addEventListener('input', applyModelFilter);
-            }
-
-            // Initiales Laden
-            loadModels();
+            loadData();
         })();
 
         // QR Code Generator
@@ -2422,11 +2060,10 @@
             const qrClose = document.getElementById('qrClose');
             const qrCanvas = document.getElementById('qrCode');
             let qrGenerated = false;
-            let qrImage = null; // Store generated QR code image
+            let qrImage = null; 
             const targetUrl = 'https://piodeer.github.io/LinkTree/';
 
             function waitForQRCodeLib(callback, maxAttempts = 20) {
-                // Check immediately first
                 if (typeof QRCode !== 'undefined') {
                     callback();
                     return;
@@ -2443,11 +2080,10 @@
                         console.warn('QRCode library failed to load, using API fallback');
                         callback(true);
                     }
-                }, 50); // Reduced from 100ms to 50ms
+                }, 50); 
             }
 
             function generateQRCode(useStored = false) {
-                // If already generated and stored, use it
                 if (useStored && qrImage && qrGenerated) {
                     const container = qrCanvas.parentElement;
                     container.innerHTML = '';
@@ -2462,7 +2098,6 @@
                     }
 
                     try {
-                        // Create hidden canvas for generation
                         const tempCanvas = document.createElement('canvas');
                         tempCanvas.width = 250;
                         tempCanvas.height = 250;
@@ -2477,29 +2112,22 @@
                             errorCorrectionLevel: 'M'
                         }, function (error) {
                             if (error) {
-                                console.error('QR Code Generation Error:', error);
                                 generateQRCodeWithAPI();
                             } else {
-                                // Store the canvas for reuse
                                 qrImage = tempCanvas;
                                 qrGenerated = true;
-                                
-                                // Display it
                                 const container = qrCanvas.parentElement;
                                 container.innerHTML = '';
                                 container.appendChild(tempCanvas.cloneNode(true));
-                                console.log('QR Code generated successfully');
                             }
                         });
                     } catch (error) {
-                        console.error('QR Code Error:', error);
                         generateQRCodeWithAPI();
                     }
                 });
             }
 
             function generateQRCodeWithAPI() {
-                // Fallback: Use QR API service
                 const container = qrCanvas.parentElement;
                 container.innerHTML = '';
                 
@@ -2515,7 +2143,6 @@
                     container.appendChild(img);
                     qrImage = img.cloneNode(true);
                     qrGenerated = true;
-                    console.log('QR Code generated via API');
                 };
                 
                 img.onerror = function() {
@@ -2525,19 +2152,14 @@
 
             function handleQRClick() {
                 qrModal.classList.add('active');
-                
-                // If already generated, show immediately, otherwise generate
                 if (qrGenerated && qrImage) {
                     generateQRCode(true);
                 } else {
-                    // Generate immediately without delay if not already done
                     generateQRCode();
                 }
             }
 
-            // Pre-generate QR code when page loads (in background)
             function preloadQRCode() {
-                // Wait for QRCode library and then generate
                 waitForQRCodeLib(function(useFallback) {
                     if (useFallback || typeof QRCode === 'undefined') {
                         generateQRCodeWithAPI();
@@ -2557,32 +2179,26 @@
                                 errorCorrectionLevel: 'M'
                             }, function (error) {
                                 if (error) {
-                                    console.error('QR Code Preload Error:', error);
                                     generateQRCodeWithAPI();
                                 } else {
                                     qrImage = tempCanvas;
                                     qrGenerated = true;
-                                    console.log('QR Code preloaded successfully');
                                 }
                             });
                         } catch (error) {
-                            console.error('QR Code Preload Error:', error);
                             generateQRCodeWithAPI();
                         }
                     }
                 });
             }
 
-            // Wait for page to be fully loaded
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
                     qrButton.addEventListener('click', handleQRClick);
-                    // Start preloading after a short delay to not block page load
                     setTimeout(preloadQRCode, 100);
                 });
             } else {
                 qrButton.addEventListener('click', handleQRClick);
-                // Start preloading immediately
                 setTimeout(preloadQRCode, 100);
             }
 
@@ -2591,12 +2207,9 @@
             });
 
             qrModal.addEventListener('click', function(e) {
-                if (e.target === qrModal) {
-                    qrModal.classList.remove('active');
-                }
+                if (e.target === qrModal) qrModal.classList.remove('active');
             });
 
-            // ESC key to close
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && qrModal.classList.contains('active')) {
                     qrModal.classList.remove('active');
@@ -2612,7 +2225,6 @@
             const contactReasonButtons = document.querySelectorAll('.contact-reason-button');
             const emailAddress = 'sales.piodeer@gmail.com';
 
-            // Email templates for different contact reasons
             const emailTemplates = {
                 kooperationen: {
                     subject: 'Collaboration Inquiry',
@@ -2632,13 +2244,8 @@
                 }
             };
 
-            function openEmailModal() {
-                emailModal.classList.add('active');
-            }
-
-            function closeEmailModal() {
-                emailModal.classList.remove('active');
-            }
+            function openEmailModal() { emailModal.classList.add('active'); }
+            function closeEmailModal() { emailModal.classList.remove('active'); }
 
             function openEmailClient(reason) {
                 const template = emailTemplates[reason] || emailTemplates.sonstiges;
@@ -2650,7 +2257,6 @@
                 closeEmailModal();
             }
 
-            // Event listeners
             emailButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 openEmailModal();
@@ -2659,19 +2265,15 @@
             emailClose.addEventListener('click', closeEmailModal);
 
             emailModal.addEventListener('click', function(e) {
-                if (e.target === emailModal) {
-                    closeEmailModal();
-                }
+                if (e.target === emailModal) closeEmailModal();
             });
 
             contactReasonButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const reason = this.getAttribute('data-reason');
-                    openEmailClient(reason);
+                    openEmailClient(this.getAttribute('data-reason'));
                 });
             });
 
-            // ESC key to close
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && emailModal.classList.contains('active')) {
                     closeEmailModal();
@@ -2685,98 +2287,63 @@
             const emailButton = document.getElementById('emailButton');
             let indicatorHidden = false;
 
-            // Hide indicator after 30 seconds or when email button is clicked
             function hideIndicator() {
                 if (!indicatorHidden) {
                     indicatorHidden = true;
                     collaborationIndicator.style.opacity = '0';
                     collaborationIndicator.style.transform = 'translateY(-10px)';
                     collaborationIndicator.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    setTimeout(() => {
-                        collaborationIndicator.style.display = 'none';
-                    }, 500);
+                    setTimeout(() => { collaborationIndicator.style.display = 'none'; }, 500);
                 }
             }
 
-            // Hide after 30 seconds (increased from 10 seconds)
             setTimeout(hideIndicator, 30000);
-
-            // Hide when email button is clicked
             emailButton.addEventListener('click', hideIndicator);
-
-            // Hide when email button is hovered (user noticed it)
-            emailButton.addEventListener('mouseenter', function() {
-                setTimeout(hideIndicator, 2000);
-            });
+            emailButton.addEventListener('mouseenter', function() { setTimeout(hideIndicator, 2000); });
         })();
 
-        // Video Reel Widget (komplett separat vom Instagram Button)
+        // Video Reel Widget
         (function() {
-            // ============================================
-            // KONFIGURATION - Hier kann das Video angepasst werden
-            // ============================================
             const VIDEO_REEL_CONFIG = {
-                // GitHub Repository Konfiguration
                 githubUser: 'piodeer',
                 githubRepo: 'LinkTree',
-                githubBranch: 'main', // Oder 'master' - wird automatisch probiert
-                
-                // Dateiname im media-Ordner (ohne Pfad, nur Dateiname)
-                // Einfach hier den Dateinamen ändern, wenn du das Video austauschen möchtest
+                githubBranch: 'main',
                 videoFileName: 'reel.mp4',
-                
-                // Soll das Widget automatisch beim Laden der Seite angezeigt werden?
                 autoShow: true,
-                // Verzögerung in Millisekunden bevor das Widget angezeigt wird
                 showDelay: 1000
             };
-            // ============================================
             
-            // State Management
-            let widgetClosed = false; // Widget wurde geschlossen (bleibt geschlossen bis Reload)
-            let scrollObserver = null; // IntersectionObserver Referenz
-            let scrollHandler = null; // Scroll Event Handler Referenz
-            let resizeHandler = null; // Resize Event Handler Referenz
+            let widgetClosed = false;
+            let scrollObserver = null;
+            let scrollHandler = null;
+            let resizeHandler = null;
             
-            // Automatische URL-Generierung basierend auf Dateiname
             function getVideoUrl() {
                 const fileName = encodeURIComponent(VIDEO_REEL_CONFIG.videoFileName);
                 const branches = [VIDEO_REEL_CONFIG.githubBranch, 'master', 'main'];
-                
-                // Versuche verschiedene Branches (für Kompatibilität)
                 for (const branch of branches) {
-                    const url = `https://raw.githubusercontent.com/${VIDEO_REEL_CONFIG.githubUser}/${VIDEO_REEL_CONFIG.githubRepo}/${branch}/media/${fileName}`;
-                    return url; // Verwende den ersten Branch (normalerweise funktioniert dieser)
+                    return `https://raw.githubusercontent.com/${VIDEO_REEL_CONFIG.githubUser}/${VIDEO_REEL_CONFIG.githubRepo}/${branch}/media/${fileName}`;
                 }
             }
             
-            // Video URL wird automatisch generiert
             const VIDEO_URL = getVideoUrl();
 
-            // Prüfe ob es ein Desktop/PC ist (nicht Mobile)
             function isDesktop() {
                 return window.innerWidth > 768 && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             }
 
-            // Position des Widgets basierend auf Instagram Button berechnen (optimiert für Performance)
             function updateWidgetPosition() {
-                // Wenn Widget geschlossen wurde, nichts tun
-                if (widgetClosed) {
-                    return;
-                }
+                if (widgetClosed) return;
                 
                 const widget = document.getElementById('videoReelWidget');
                 const instagramLink = document.querySelector('a.instagram-link');
                 
-                if (!widget || !instagramLink) {
-                    return;
-                }
+                if (!widget || !instagramLink) return;
 
                 const linkRect = instagramLink.getBoundingClientRect();
                 const viewportHeight = window.innerHeight;
                 const viewportWidth = window.innerWidth;
                 
-                // Prüfe ob der Instagram Button sichtbar ist (teilweise reicht aus)
                 const isVisible = linkRect.top < viewportHeight && 
                                  linkRect.bottom > 0 &&
                                  linkRect.left < viewportWidth &&
@@ -2785,39 +2352,28 @@
                                  linkRect.width > 0;
                 
                 if (!isVisible) {
-                    // Button ist nicht sichtbar - Widget vollständig ausblenden
                     widget.style.display = 'none';
                     widget.style.opacity = '0';
                     widget.style.visibility = 'hidden';
                     return;
                 }
                 
-                // Button ist sichtbar - Widget anzeigen und positionieren
-                // Berechne Position links vom Instagram Button
                 const widgetTop = linkRect.top + (linkRect.height / 2);
                 const containerRect = document.querySelector('.container')?.getBoundingClientRect();
-                
-                // Widget links vom Button positionieren
-                const widgetWidth = 150; // Widget Breite
-                const spacing = 40; // Abstand zwischen Widget und Button
-                
-                // Berechne Position links vom Container/Button
+                const widgetWidth = 150;
+                const spacing = 40;
                 const containerLeft = containerRect ? containerRect.left : (viewportWidth / 2 - 210);
                 const widgetLeft = containerLeft - widgetWidth - spacing;
                 
-                // Verwende transform für bessere Performance (GPU-beschleunigt)
                 widget.style.transform = `translate(${widgetLeft}px, ${widgetTop}px) translateY(-50%)`;
                 widget.style.left = '0';
                 widget.style.top = '0';
-                
-                // Widget anzeigen
                 widget.style.display = 'block';
                 widget.style.opacity = '1';
                 widget.style.visibility = 'visible';
                 widget.classList.add('active');
                 widget.classList.remove('hidden');
                 
-                // Stelle sicher, dass Video abgespielt wird
                 const videoEl = document.getElementById('videoReel');
                 if (videoEl && videoEl.paused) {
                     videoEl.play().catch(function(error) {
@@ -2826,7 +2382,6 @@
                 }
             }
 
-            // Event Handler entfernen (wenn Widget geschlossen wird)
             function removeEventHandlers() {
                 if (scrollHandler) {
                     window.removeEventListener('scroll', scrollHandler, { passive: true });
@@ -2842,70 +2397,36 @@
                 }
             }
 
-            // Widget anzeigen
             function showReelWidget() {
-                if (!isDesktop() || widgetClosed) {
-                    return; // Nicht auf Mobile anzeigen oder wenn geschlossen
-                }
+                if (!isDesktop() || widgetClosed) return;
 
                 const widget = document.getElementById('videoReelWidget');
                 const videoElement = document.getElementById('videoReel');
                 const instagramLink = document.querySelector('a.instagram-link');
                 
-                if (!widget || !videoElement) {
-                    console.error('Widget oder Video Element nicht gefunden');
-                    return;
-                }
+                if (!widget || !videoElement) return;
 
-                if (!VIDEO_URL && !VIDEO_REEL_CONFIG.videoFileName) {
-                    console.warn('Keine Video-Datei konfiguriert. Bitte trage den Dateinamen in VIDEO_REEL_CONFIG.videoFileName ein.');
-                    return;
-                }
-
-                // Video-Einstellungen VOR dem Setzen der URL
                 videoElement.autoplay = true;
                 videoElement.loop = true;
                 videoElement.muted = true;
                 videoElement.playsInline = true;
                 videoElement.preload = 'auto';
                 
-                // Error Handler für Video-Lade-Probleme
-                videoElement.addEventListener('error', function(e) {
-                    console.error('Video konnte nicht geladen werden:', e);
-                    console.error('Video Dateiname:', VIDEO_REEL_CONFIG.videoFileName);
-                    console.error('Video URL:', VIDEO_URL);
-                });
-                
-                // Video abspielen, sobald es geladen ist
                 videoElement.addEventListener('loadeddata', function() {
-                    console.log('Video erfolgreich geladen');
-                    // Versuche Video abzuspielen
-                    videoElement.play().catch(function(error) {
-                        console.warn('Autoplay wurde blockiert:', error);
-                    });
+                    videoElement.play().catch(() => {});
                 });
                 
-                // Zusätzlich: Video abspielen, sobald es genug Daten hat
                 videoElement.addEventListener('canplay', function() {
-                    videoElement.play().catch(function(error) {
-                        console.warn('Autoplay wurde blockiert:', error);
-                    });
+                    videoElement.play().catch(() => {});
                 });
                 
-                // Video-URL setzen (automatisch generiert) - NACH den Event Listenern
                 videoElement.src = VIDEO_URL;
+                videoElement.play().catch(() => {});
                 
-                // Versuche sofort abzuspielen
-                videoElement.play().catch(function(error) {
-                    console.warn('Autoplay wurde blockiert, wird beim Laden versucht:', error);
-                });
-                
-                // Initiale Position berechnen
                 updateWidgetPosition();
                 
-                // Optimierte Scroll/Resize Handler mit requestAnimationFrame
                 let lastUpdateTime = 0;
-                const throttleDelay = 16; // ~60fps
+                const throttleDelay = 16;
                 
                 scrollHandler = function() {
                     const now = performance.now();
@@ -2922,31 +2443,22 @@
                 window.addEventListener('scroll', scrollHandler, { passive: true });
                 window.addEventListener('resize', resizeHandler, { passive: true });
                 
-                // Intersection Observer für bessere Sichtbarkeitsprüfung
                 if ('IntersectionObserver' in window && instagramLink) {
                     scrollObserver = new IntersectionObserver(function(entries) {
-                        // Wenn Widget geschlossen wurde, nichts tun
-                        if (widgetClosed) {
-                            return;
-                        }
+                        if (widgetClosed) return;
                         
                         entries.forEach(entry => {
                             if (!entry.isIntersecting || entry.intersectionRatio === 0) {
-                                // Button ist nicht sichtbar - Widget vollständig ausblenden
                                 widget.style.display = 'none';
                                 widget.style.opacity = '0';
                                 widget.style.visibility = 'hidden';
                                 widget.classList.add('hidden');
                                 widget.classList.remove('active');
                             } else {
-                                // Button ist sichtbar - Widget anzeigen
                                 requestAnimationFrame(updateWidgetPosition);
-                                // Stelle sicher, dass Video abgespielt wird
                                 const videoEl = document.getElementById('videoReel');
                                 if (videoEl && videoEl.paused) {
-                                    videoEl.play().catch(function(error) {
-                                        console.warn('Video konnte nicht abgespielt werden:', error);
-                                    });
+                                    videoEl.play().catch(() => {});
                                 }
                             }
                         });
@@ -2958,16 +2470,12 @@
                     
                     scrollObserver.observe(instagramLink);
                 }
-                
-                console.log('Video Widget aktiviert');
             }
 
-            // Widget schließen (permanent bis Reload)
             function closeReelWidget() {
                 const widget = document.getElementById('videoReelWidget');
                 const videoElement = document.getElementById('videoReel');
                 
-                // Markiere als geschlossen
                 widgetClosed = true;
                 
                 if (widget) {
@@ -2983,59 +2491,32 @@
                     videoElement.src = '';
                 }
                 
-                // Alle Event Handler entfernen
                 removeEventHandlers();
-                
-                console.log('Video Widget geschlossen (bleibt geschlossen bis Reload)');
             }
 
-            // Event Listeners
             document.addEventListener('DOMContentLoaded', function() {
                 const widget = document.getElementById('videoReelWidget');
                 const closeButton = document.getElementById('videoReelClose');
-                const videoElement = document.getElementById('videoReel');
-
-                if (!widget) {
-                    console.error('Video Reel Widget nicht im DOM gefunden');
-                    return;
-                }
                 
-                if (!closeButton) {
-                    console.error('Close Button nicht gefunden');
-                    return;
-                }
+                if (!widget || !closeButton) return;
 
-                if (!videoElement) {
-                    console.error('Video Element nicht gefunden');
-                    return;
-                }
-
-                // Close Button Event
                 closeButton.addEventListener('click', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
                     closeReelWidget();
                 });
 
-                // ESC Taste schließt das Widget
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape' && widget.classList.contains('active')) {
                         closeReelWidget();
                     }
                 });
 
-                // Automatisch anzeigen wenn konfiguriert
                 if (VIDEO_REEL_CONFIG.autoShow && isDesktop()) {
-                    setTimeout(function() {
-                        showReelWidget();
-                    }, VIDEO_REEL_CONFIG.showDelay);
+                    setTimeout(showReelWidget, VIDEO_REEL_CONFIG.showDelay);
                 }
             });
         })();
-
     </script>
-
 </body>
 </html>
-
-

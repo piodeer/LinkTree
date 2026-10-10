@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "id": "sommer-reel",
+      "title": "🎥 Sommer Kollektion Reel",
+      "subtitle": "Alle Modelle aus dem Video",
+      "image": "LINK_ZUM_ORDNER_VORSCHAUBILD",
+      "badge": "REEL",
+      "models": [
+        {
+          "title": "Blumentopf",
+          "subtitle": "Makerworld",
+          "link": "https://...",
+          "image": "LINK_ZUM_BILD",
+          "badge": "NEW"
+        },
+        {
+          "title": "Gießkanne",
+          "subtitle": "Makeronline",
+          "link": "https://...",
+          "image": "LINK_ZUM_BILD",
+          "badge": "POPULAR"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "title": "Standard Modell (Ohne Ordner)",
+      "subtitle": "Creality",
+      "link": "https://...",
+      "image": "LINK_ZUM_BILD",
+      "badge": "HOT"
+    }
+  ]
+}

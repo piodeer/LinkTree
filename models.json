@@ -1,36 +1,52 @@
 {
   "folders": [
     {
-      "id": "sommer-reel",
-      "title": "🎥 Sommer Kollektion Reel",
-      "subtitle": "Alle Modelle aus dem Video",
-      "image": "LINK_ZUM_ORDNER_VORSCHAUBILD",
+      "id": "halloween-reel-1",
+      "title": "Wiggle Halloween Zombie",
+      "subtitle": "Modell from the Reel",
+      "image": "https://github.com/piodeer/LinkTree/blob/f65a6d4b1a0a06539de8d5b8b8c4c9b8bbd726d0/media/models/zombie.jpg",
       "badge": "REEL",
       "models": [
         {
-          "title": "Blumentopf",
-          "subtitle": "Makerworld",
-          "link": "https://...",
-          "image": "LINK_ZUM_BILD",
+          "title": "Zombie",
+          "subtitle": "Makeronline",
+          "link": "https://www.makeronline.com/en/model/zombie%20wiggler/333936.html?",
+          "image": "https://github.com/piodeer/LinkTree/blob/2799bff1b36be411ab2c1061d0e04f90440cab6d/media/models/zombie2.jpg",
           "badge": "NEW"
         },
+      ]
+    },
+    {
+      "id": "werkstatt-tools",
+      "title": "🔧 3D Print Tools",
+      "subtitle": "Nützliche Helfer",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/beispiel-cover2.jpg",
+      "badge": "REEL",
+      "models": [
         {
-          "title": "Gießkanne",
-          "subtitle": "Makeronline",
-          "link": "https://...",
-          "image": "LINK_ZUM_BILD",
-          "badge": "POPULAR"
+          "title": "Schrauben Sortierer",
+          "subtitle": "Makerworld",
+          "link": "https://makerworld.com/en/@piodeer/...",
+          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/sortierer.jpg",
+          "badge": "HOT"
         }
       ]
     }
   ],
   "models": [
     {
-      "title": "Standard Modell (Ohne Ordner)",
-      "subtitle": "Creality",
-      "link": "https://...",
-      "image": "LINK_ZUM_BILD",
-      "badge": "HOT"
+      "title": "Headset Ständer",
+      "subtitle": "Creality Cloud",
+      "link": "https://www.crealitycloud.com/...",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/headset.jpg",
+      "badge": "FEATURED"
+    },
+    {
+      "title": "Controller Halterung",
+      "subtitle": "Makerworld",
+      "link": "https://makerworld.com/en/@piodeer/...",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/controller.jpg",
+      "badge": ""
     }
   ]
 }

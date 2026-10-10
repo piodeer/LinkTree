@@ -4,14 +4,14 @@
       "id": "halloween-reel-1",
       "title": "Wiggle Halloween Zombie",
       "subtitle": "Modell from the Reel",
-      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/f65a6d4b1a0a06539de8d5b8b8c4c9b8bbd726d0/media/models/zombie.jpg",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/zombie.jpg",
       "badge": "REEL",
       "models": [
         {
           "title": "Zombie",
           "subtitle": "Makeronline",
           "link": "https://www.makeronline.com/en/model/zombie%20wiggler/333936.html?",
-          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/2799bff1b36be411ab2c1061d0e04f90440cab6d/media/models/zombie2.jpg",
+          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/zombie2.jpg",
           "badge": "FREE"
         }
       ]
@@ -20,14 +20,14 @@
       "id": "easterbunny",
       "title": "Thermoformed Easterbunny",
       "subtitle": "Create a special easter gift",
-      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/a1109242843a7ec699cabe0515cc5eaba2a604fc/media/models/easterbunny.jpg",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/easterbunny.jpg",
       "badge": "REEL",
       "models": [
         {
           "title": "Thermoformed Easterbunny",
           "subtitle": "Makerworld",
           "link": "https://makerworld.com/en/models/2514650-easterbunny#profileId-2765852",
-          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/a1109242843a7ec699cabe0515cc5eaba2a604fc/media/models/easterbunny1.jpg",
+          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/easterbunny1.jpg",
           "badge": "FREE"
         }
       ]

@@ -552,7 +552,7 @@
             align-items: flex-start;
         }
 
-        /* Preview Bubble für Reels (Bis zu 4 Bilder) */
+        /* Preview Bubble für Reels */
         .reel-preview-bubble {
             display: flex;
             gap: 3px;
@@ -566,6 +566,18 @@
             flex-wrap: wrap;
         }
 
+        .reel-preview-bubble.compact {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .reel-preview-thumb-wrap {
+            position: relative;
+            flex: 0 0 55px;
+            width: 55px;
+            height: 55px;
+        }
+
         .reel-preview-thumb {
             width: 55px;
             height: 55px;
@@ -574,17 +586,21 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        .reel-preview-more {
-            width: 55px;
-            height: 55px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.15);
+        .reel-preview-count {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.75);
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
         }
 
         .model-title {
@@ -1951,24 +1967,28 @@
                         const bubble = document.createElement('div');
                         bubble.className = 'reel-preview-bubble';
 
-                        const maxImages = 4;
-                        const displayModels = item.models.slice(0, maxImages);
-                        
-                        displayModels.forEach(m => {
-                            if (m.image) {
-                                const thumb = document.createElement('img');
-                                thumb.className = 'reel-preview-thumb';
-                                thumb.src = m.image;
-                                bubble.appendChild(thumb);
-                            }
-                        });
-
-                        if (item.models.length > maxImages) {
-                            const more = document.createElement('div');
-                            more.className = 'reel-preview-more';
-                            more.textContent = '+' + (item.models.length - maxImages);
-                            bubble.appendChild(more);
+                        const hasMoreThanThreeModels = item.models.length > 3;
+                        if (hasMoreThanThreeModels) {
+                            bubble.classList.add('compact');
                         }
+                        const maxImages = hasMoreThanThreeModels ? 3 : 4;
+                        const displayModels = item.models.slice(0, maxImages).filter(m => m.image);
+                        
+                        displayModels.forEach((m, index) => {
+                            const thumbWrap = document.createElement('div');
+                            thumbWrap.className = 'reel-preview-thumb-wrap';
+                            const thumb = document.createElement('img');
+                            thumb.className = 'reel-preview-thumb';
+                            thumb.src = m.image;
+                            thumbWrap.appendChild(thumb);
+                            if (hasMoreThanThreeModels && index === displayModels.length - 1) {
+                                const count = document.createElement('div');
+                                count.className = 'reel-preview-count';
+                                count.textContent = '+1';
+                                thumbWrap.appendChild(count);
+                            }
+                            bubble.appendChild(thumbWrap);
+                        });
                         
                         contentWrapper.appendChild(bubble);
                     }

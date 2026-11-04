@@ -1,6 +1,22 @@
 {
   "folders": [
     {
+      "id": "buddha",
+      "title": "Buddha",
+      "subtitle": "Modell from the Reel",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/Buddha.jpg",
+      "badge": "REEL",
+      "models": [
+        {
+          "title": "Calm Buddha",
+          "subtitle": "Nexprint",
+          "link": "https://www.nexprint.com/en/models/G1216137?printConfigId=G9689086",
+          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/Buddha1.jpg",
+          "badge": "FREE"
+        }
+      ]
+    },
+    {
       "id": "k2-tools-reel",
       "title": "Creality K2 Tools",
       "subtitle": "Modells from the Reel",
@@ -36,7 +52,7 @@
           "badge": "FREE"
         }
       ]
-    },
+    },   
     {
       "id": "halloween-reel-1",
       "title": "Wiggle Halloween Zombie",
@@ -49,22 +65,6 @@
           "subtitle": "Makeronline",
           "link": "https://www.makeronline.com/en/model/zombie%20wiggler/333936.html?",
           "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/zombie2.jpg",
-          "badge": "FREE"
-        }
-      ]
-    },
-    {
-      "id": "buddha",
-      "title": "Buddha",
-      "subtitle": "Modell from the Reel",
-      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/Buddha.jpg",
-      "badge": "REEL",
-      "models": [
-        {
-          "title": "Calm Buddha",
-          "subtitle": "Nexprint",
-          "link": "https://www.nexprint.com/en/models/G1216137?printConfigId=G9689086",
-          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/Buddha1.jpg",
           "badge": "FREE"
         }
       ]

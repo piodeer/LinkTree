@@ -1,6 +1,22 @@
 {
   "folders": [
   {
+      "id": "Angry Olaf",
+      "title": "Angry Olaf",
+      "subtitle": "Modell from the Reel",
+      "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/olaf.jpg",
+      "badge": "REEL",
+      "models": [
+        {
+          "title": "Angry Olaf",
+          "subtitle": "MakerWorld",
+          "link": "https://makerworld.com/en/models/3651887",
+          "image": "https://raw.githubusercontent.com/piodeer/LinkTree/main/media/models/olaf1.jpg",
+          "badge": "FREE"
+        }
+      ]
+    },
+    {
       "id": "Naughty Grinch",
       "title": "Naughty Grinch",
       "subtitle": "Modell from the Reel",
